@@ -1,0 +1,15 @@
+p,
+label,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Vazir";
+}
+
+.relative.w-full.min-w-\[200px\].h-10 {
+    margin-top: 1em;
+}

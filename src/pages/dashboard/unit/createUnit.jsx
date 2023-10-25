@@ -1,0 +1,216 @@
+import axios from "axios";
+
+import React, { useState, useEffect, useContext } from "react";
+
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Button,
+  Typography,
+} from "@material-tailwind/react";
+import { Link, useNavigate } from "react-router-dom";
+import CourseDropdown from "@/components/course/CourseDropdown";
+import GradeDropdown from "@/components/grade/GradeDropdown";
+import { createUnit } from "@/api/services/units";
+import { toast } from "react-hot-toast";
+import { ThreeDots } from "react-loader-spinner";
+import FieldDropdown from "@/components/fields/FieldDropdown";
+import { AuthContext } from "@/gard/context/AuthContext";
+
+export function CreateUnit() {
+  const navigate = useNavigate();
+  const { userToken } = useContext(AuthContext);
+
+  const [unit, setUnit] = useState();
+  const [course_id, setCourse] = useState([]);
+  const [grade_id, setGrade] = useState([]);
+  const [field_id, setField_id] = useState([]);
+  const [title, setTitle] = useState();
+  const [image, setImage] = useState();
+  const [imagePreview, setImagePreview] = useState();
+  const [loading, setLoading] = useState(true);
+  const [gradeElement, setGradeElement] = useState(null);
+
+  const inputStyle = {
+    border: "1px solid gray",
+    borderRadius: "5px",
+    padding: "0.45rem",
+    textAlign: "center",
+    width: "100%",
+    marginTop: "1rem",
+  };
+  const linkStyle = {
+    backgroundColor: "purple",
+    color: "white",
+    marginLeft: "1rem",
+    padding: "0.5rem",
+    borderRadius: "8px",
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    // setIcon(file)
+    const file_url = URL.createObjectURL(file);
+    console.log("file", file);
+    console.log("file_url", file_url);
+    console.log("image target", event.target.files[0]);
+    setImage(event.target.files[0]);
+    setImagePreview(file_url);
+  };
+  const storeUnit = async (e) => {
+    e.preventDefault();
+
+    const createResult = await createUnit(
+      title,
+      course_id,
+      grade_id,
+      field_id,
+      image ,
+      userToken
+    )
+      .then(function (response) {
+        if (response.status) {
+                toast.success("سطح با موفقیت افزوده شد !");
+ 
+          } else {
+            if (response?.success == false) {
+                toast(
+                  `${response?.data?.title!=undefined ? response?.data?.title : '' } \n
+                  ${response?.data?.course_id!=undefined ? response?.data?.course_id : '' } \n
+                  ${response?.data?.image!=undefined ? response?.data?.image : '' } \n`,
+                  {
+                    duration: 2000,
+                  }
+                );
+              }
+              toast.error("خطایی رخ داده است");
+          }
+      })
+      .catch(function (error) {
+        toast.error("خطا !! مجددا تلاش نمایید");
+        console.log(data);
+      });
+    return createResult;
+  };
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  return (
+    <>
+      {loading ? (
+        <div className="flex items-center justify-center py-60">
+          <ThreeDots
+            height="80"
+            width="80"
+            radius="9"
+            color="#4fa94d"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClassName=""
+            visible={true}
+          />
+        </div>
+      ) : (
+        <>
+          <Card>
+            <div className="py-5">
+              <Link to={`/dashboard/units`} className="mr-3" style={linkStyle}>
+                بازگشت
+              </Link>
+            </div>
+            <CardHeader
+              variant="gradient"
+              color="blue"
+              className="mb-8 mt-3 p-6"
+            >
+              <Typography variant="h6" color="white">
+                ساخت فصل جدید
+              </Typography>
+            </CardHeader>
+            <CardBody className="min-h-screen  px-0 pt-0 pb-2">
+              <form
+                method="post"
+                onSubmit={storeUnit}
+                className="m-6 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2"
+                encType="multipart/form-data"
+              >
+                <div className="">
+                  <label className="ml-3 block">نام سطح:</label>
+                  <input
+                    onChange={(e) => setTitle(e.target.value)}
+                    type="text"
+                    className="ml-3"
+                    name="title"
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div className="">
+                  <label className="ml-3"> رشته:</label>
+                  <FieldDropdown
+                    field_id={field_id}
+                    setField_id={setField_id}
+                  />
+                </div>
+
+                <div className="">
+                  <label className="ml-3 block">نام مقطع:</label>
+
+                  {field_id ? (
+                    <GradeDropdown
+                      grade={grade_id}
+                      setGrade={setGrade}
+                      fieldId={field_id}
+                    />
+                  ) : (
+                    <div>loading</div>
+                  )}
+                </div>
+
+                <div className="">
+                  <label className="ml-3 block">نام درس:</label>
+                  {grade_id ? (
+                    <CourseDropdown
+                      course={course_id}
+                      setCourse={setCourse}
+                      gradeId={grade_id}
+                    />
+                  ) : (
+                    <div>loading...</div>
+                  )}
+                </div>
+
+                <div className="">
+                  <label className="ml-3 block">عکس:</label>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="file"
+                      name="icon"
+                      accept="image/png,image/jpeg,image/webp,"
+                      style={inputStyle}
+                      onChange={handleFileChange}
+                    />
+                    <div className=" h-20 w-36 rounded-md border-2">
+                      <img
+                        className="h-full w-full rounded-md object-cover"
+                        src={imagePreview}
+                        alt="Uploaded File"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-span-2">
+                  <Button type="submit">ذخیره</Button>
+                </div>
+              </form>
+            </CardBody>
+          </Card>
+        </>
+      )}
+    </>
+  );
+}
+
+export default CreateUnit;

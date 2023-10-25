@@ -1,0 +1,8 @@
+body {
+  direction: rtl;
+}
+tr td.py-3.px-5,
+tr td.py-3.px-5 div {
+  text-align: center;
+  justify-content: center;
+}

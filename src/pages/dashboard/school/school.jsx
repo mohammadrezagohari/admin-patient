@@ -195,12 +195,12 @@ export function School() {
             className="mr-3"
             style={linkStyle}
           >
-            ثبت مدرسه جدید
+              ثبت آموزش جدید
           </Link>
         </div>
-        <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
+        <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6" style={{background:'#183087'}}>
           <Typography variant="h6" color="white">
-            لیست مدارس
+            لیست آموزش ها  
           </Typography>
           <div className="mt-2 flex gap-6">
             <input

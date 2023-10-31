@@ -134,7 +134,7 @@ export function ShowField() {
               className="mb-4 mt-3 p-6"
             >
               <Typography variant="h6" color="white">
-                بروزرسانی رشته
+                 بروزرسانی آموزش
               </Typography>
             </CardHeader>
             <CardBody className=" px-0 pt-0 pb-2">
@@ -177,7 +177,7 @@ export function ShowField() {
                     className="m-6 mb-4 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2"
                   >
                     <div className="">
-                      <label className="ml-3">نام رشته</label>
+                      <label className="ml-3">نام آموزش</label>
                       <Input
                         onChange={handleChange}
                         type="text"
@@ -185,7 +185,7 @@ export function ShowField() {
                         name="name"
                         value={values?.name}
                         style={inputStyle}
-                        label="رشته"
+                        label="آموزش"
                       />
                     </div>
 

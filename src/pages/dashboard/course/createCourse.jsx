@@ -66,7 +66,7 @@ export function CreateCourse() {
     )
       .then(function (response) {
         if (response.status) {
-          toast.success("درس با موفقیت افزوده شد !");
+          toast.success("عنوان هدف با موفقیت افزوده شد !");
         } else {
           if (response?.success == false) {
             toast(
@@ -146,7 +146,7 @@ export function CreateCourse() {
               className="mb-8 mt-3 p-6"
             >
               <Typography variant="h6" color="white">
-                ساخت درس جدید
+                ساخت عنوان هدف جدید
               </Typography>
             </CardHeader>
             <CardBody className=" mx-auto  w-full px-0 pt-0 pb-2">
@@ -157,7 +157,7 @@ export function CreateCourse() {
                 encType="multipart/form-data"
               >
                 <div className="">
-                  <label className="ml-3 block">نام درس:</label>
+                  <label className="ml-3 block">عنوان هدف :</label>
                   <input
                     onChange={(e) => setTitle(e.target.value)}
                     type="text"
@@ -176,49 +176,7 @@ export function CreateCourse() {
                     name="description"
                     style={inputStyle}
                   />
-                </div>
-
-                <div className="">
-                  <label className="ml-3"> رشته:</label>
-                  <FieldDropdown
-                    field_id={field_id}
-                    setField_id={setField_id}
-                    onChange={(event) =>
-                      console.log("result event", event.target.value)
-                    }
-                  />
-                </div>
-
-                <div className="">
-                  <label className="ml-3"> مقطع:</label>
-                  {gradeBox ? gradeBox : null}
-                </div>
-
-                <div className="">
-                  <label className="ml-3 block">file:</label>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="file"
-                      name="icon"
-                      style={inputStyle}
-                      onChange={handleFileChange}
-                    />
-                  </div>
-                </div>
-
-                <div className="">
-                  <label className="ml-3 block">بکگراند:</label>
-                  <div className="flex items-center gap-3">
-                    <input
-                        onChange={(e) => setBackground(e.target.value)}
-                        type="text"
-                        className="ml-3"
-                        name="background"
-                        style={inputStyle}
-                    />
-                  </div>
-
-                
+                  {/* <textarea className="w-full border-solid border-2 border-gray-500 rounded  min-h-min"></textarea> */}
                 </div>
 
                 <div className="">

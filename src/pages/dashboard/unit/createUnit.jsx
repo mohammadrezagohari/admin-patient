@@ -71,7 +71,7 @@ export function CreateUnit() {
     )
       .then(function (response) {
         if (response.status) {
-                toast.success("سطح با موفقیت افزوده شد !");
+                toast.success("خبر با موفقیت افزوده شد !");
  
           } else {
             if (response?.success == false) {
@@ -126,7 +126,7 @@ export function CreateUnit() {
               className="mb-8 mt-3 p-6"
             >
               <Typography variant="h6" color="white">
-                ساخت فصل جدید
+                درج خبر جدید
               </Typography>
             </CardHeader>
             <CardBody className="min-h-screen  px-0 pt-0 pb-2">
@@ -137,7 +137,7 @@ export function CreateUnit() {
                 encType="multipart/form-data"
               >
                 <div className="">
-                  <label className="ml-3 block">نام سطح:</label>
+                  <label className="ml-3 block"> عنوان خبر:</label>
                   <input
                     onChange={(e) => setTitle(e.target.value)}
                     type="text"
@@ -147,41 +147,34 @@ export function CreateUnit() {
                   />
                 </div>
 
-                <div className="">
+                {/* <div className="">
                   <label className="ml-3"> رشته:</label>
                   <FieldDropdown
                     field_id={field_id}
                     setField_id={setField_id}
                   />
-                </div>
+                </div> */}
 
-                <div className="">
-                  <label className="ml-3 block">نام مقطع:</label>
+                <div className=" ">
+                  <label className="ml-3 block">توضیحات :</label>
 
-                  {field_id ? (
-                    <GradeDropdown
-                      grade={grade_id}
-                      setGrade={setGrade}
-                      fieldId={field_id}
-                    />
+                  {/* {field_id ? (
+                    // <GradeDropdown
+                    //   grade={grade_id}
+                    //   setGrade={setGrade}
+                    //   fieldId={field_id}
+                    // />
                   ) : (
                     <div>loading</div>
-                  )}
-                </div>
-
-                <div className="">
-                  <label className="ml-3 block">نام درس:</label>
-                  {grade_id ? (
-                    <CourseDropdown
-                      course={course_id}
-                      setCourse={setCourse}
-                      gradeId={grade_id}
-                    />
-                  ) : (
-                    <div>loading...</div>
-                  )}
-                </div>
-
+                  )} */}
+                  <input
+                    onChange={(e) => setTitle(e.target.value)}
+                    type="text"
+                    className="ml-3"
+                    name="title"
+                    style={inputStyle}
+                  />
+                   </div>
                 <div className="">
                   <label className="ml-3 block">عکس:</label>
                   <div className="flex items-center gap-3">

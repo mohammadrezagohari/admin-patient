@@ -232,29 +232,16 @@ export function Grade() {
             className="mr-3"
             style={linkStyle}
           >
-            ثبت مقطع جدید
+            ثبت پوستر جدید
           </Link>
         </div>
         <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
           <Typography variant="h6" color="white">
-            لیست مقطع ها
+            لیست پوستر ها
           </Typography>
           <div className="mt-2 flex gap-6">
-            {/* <input
-                    type="text"
-                    placeholder="دنبال چی میگردی؟"
-                    value={wordEntered}
-                    onChange={handleFilter}
-                    className=" text-black"
-                  /> */}
-            {/* <div className="searchIcon">
-                    {grades.length === 0 ? (
-                      // <SearchIcon />
-                      <></>
-                    ) : (
-                      <div onClick={clearInput} >(+)</div>
-                    )}
-                  </div> */}
+         
+           
             <input
               className="rounded-md p-1 pr-2 text-gray-900 focus:outline-none"
               type="text"
@@ -291,7 +278,7 @@ export function Grade() {
               <table className="w-full min-w-[640px] table-auto text-right">
                 <thead>
                   <tr>
-                    {["#", "نام", "شماره اولویت", "رشته", "تنظیمات"].map(
+                    {["#", "نام", "شماره اولویت", "تنظیمات"].map(
                       (el) => (
                         <th
                           key={el}

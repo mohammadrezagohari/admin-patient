@@ -13,7 +13,7 @@ import Forget from "./pages/auth/forget";
 import School from "./pages/dashboard/school/school";
 import Address from "./pages/dashboard/address/address";
 import Field from "./pages/dashboard/field/field";
-// import ShowField from "./pages/dashboard/field/showField";
+// import ShowField from "./pages /dashboard/field/showField";
 import Grade from "./pages/dashboard/grade/grade";
 import Course from "./pages/dashboard/course/course";
 import Unit from "./pages/dashboard/unit/unit";
@@ -57,7 +57,7 @@ export const routes = [
         path: "/profile/profile",
         element: <Profile />,
       },
-      {
+      { 
         icon: <TableCellsIcon {...icon} />,
         name: "مدیریت کاربران",
         path: "/users",
@@ -71,53 +71,53 @@ export const routes = [
       },
       {
         icon: <BellIcon {...icon} />,
-        name: " ثبت مدارس",
+        name: "دسته بندی آموزش ها",
         path: "/schools",
         element: <School />,
       },
       {
         icon: <BellIcon {...icon} />,
-        name: "ثبت رشته",
+        name: "جدیدترین آموزش ها",
         path: "/fields",
         element: <Field />,
       },
       
       {
         icon: <BellIcon {...icon} />,
-        name: " مقطع",
+        name: " پوسترهای آموزشی",
         path: "/grades",
         element: <Grade />,
       },
       {
         icon: <BellIcon {...icon} />,
-        name: " درس ها",
+        name: "  اهداف سامانه آموزش به بیمار",
         path: "/courses",
         element: <Course />,
       },
       {
         icon: <BellIcon {...icon} />,
-        name: "فصل ها",
+        name: "آخرین اخبار",
         path: "/units",
         element: <Unit />,
       }, 
       {
         icon: <BellIcon {...icon} />,
-        name: "تمرینات فصل ها",
+        name: "فواید سیستم الکترونیکی ",
         path: "/unitExcercises",
         element: <UnitExcercise />,
       },
       {
         icon: <BellIcon {...icon} />,
-        name: "بخش ها",
+        name: "سوالات متداول",
         path: "/sections",
         element: <Section />,
       },
-      {
-        icon: <BellIcon {...icon} />,
-        name: "سطح ها",
-        path: "/levels",
-        element: <Level />,
-      },
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: "سطح ها",
+      //   path: "/levels",
+      //   element: <Level />,
+      // },
       // {
       //   icon: <BellIcon {...icon} />,
       //   name: " اطلاعات پایه ",
@@ -169,56 +169,56 @@ export const routes = [
       //     },
       //   ]
       // },
-      {
-        icon: <BellIcon {...icon} />,
-        name: " امتحانات",
-        path: "/exams",
-        element: <Exam />,
-      },
-      {
-        icon: <BellIcon {...icon} />,
-        name: " منوها",
-        path: "/menus",
-        element: <Menu />,
-      },
-      {
-        icon: <BellIcon {...icon} />,
-        name: " مدیریت استان وشهرستان",
-        path: "/provinces",
-        element: <Province />,
-      },
-      {
-        icon: <BellIcon {...icon} />,
-        name: "نمایش اسلایدها",
-        path: "/sliders",
-        element: <Slider />,
-      },
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: " امتحانات",
+      //   path: "/exams",
+      //   element: <Exam />,
+      // },
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: " منوها",
+      //   path: "/menus",
+      //   element: <Menu />,
+      // },
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: " مدیریت استان وشهرستان",
+      //   path: "/provinces",
+      //   element: <Province />,
+      // },
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: "نمایش اسلایدها",
+      //   path: "/sliders",
+      //   element: <Slider />,
+      // },
 
-      {
-        icon: <BellIcon {...icon} />,
-        name: "کیف پول",
-        path: "/wallets",
-        element: <Wallet />,
-      },
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: "کیف پول",
+      //   path: "/wallets",
+      //   element: <Wallet />,
+      // },
 
 
-      {
-        icon: <BellIcon {...icon} />,
-        name: "استوری ها",
-        path: "/stories",
-        element: <Story />,
-      },
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: "استوری ها",
+      //   path: "/stories",
+      //   element: <Story />,
+      // },
 
-      {
-        icon: <BellIcon {...icon} />,
-        name: "بخش سوالات",
-        path: "/questions",
-        element: <Question />,
-        // children:[
-        //   {path:"create", element:<CreateQuestion />},
-        //   {path:"show/:id", element:<ShowQuestion />}      
-        // ]
-      },
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: "بخش سوالات",
+      //   path: "/questions",
+      //   element: <Question />,
+      //   // children:[
+      //   //   {path:"create", element:<CreateQuestion />},
+      //   //   {path:"show/:id", element:<ShowQuestion />}      
+      //   // ]
+      // },
       // {
       //   path: "/questions/create",
       //   element: <CreateQuestion />,
@@ -228,12 +228,12 @@ export const routes = [
       //   element: <ShowQuestion />,
       // },
 
-      {
-        icon: <BellIcon {...icon} />,
-        name: " سکه ",
-        path: "/packagecoins",
-        element: <PackageCoin />,
-      },
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: " سکه ",
+      //   path: "/packagecoins",
+      //   element: <PackageCoin />,
+      // },
 
       {
         icon: <BellIcon {...icon} />,
@@ -242,12 +242,12 @@ export const routes = [
         element: <Suggestion />,
       },
 
-      {
-        icon: <BellIcon {...icon} />,
-        name: " خلاصه فرمول ",
-        path: "/summaryFormulas",
-        element: <SummaryFormula />,
-      },
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: " خلاصه فرمول ",
+      //   path: "/summaryFormulas",
+      //   element: <SummaryFormula />,
+      // },
 
       {
         icon: <BellIcon {...icon} />,

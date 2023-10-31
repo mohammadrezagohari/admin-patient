@@ -6,3 +6,9 @@ tr td.py-3.px-5 div {
   text-align: center;
   justify-content: center;
 }
+.br0{
+border-radius:0 !important;
+}
+.psss{
+hight:100px;
+}

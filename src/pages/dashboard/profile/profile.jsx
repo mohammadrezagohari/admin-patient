@@ -78,19 +78,16 @@ export function Profile() {
 
   return (
     <>
-      <div className="relative mt-8 h-72 w-full overflow-hidden rounded-xl  bg-cover	bg-center">
-        <div className="absolute inset-0 h-full w-full bg-blue-500/50" />
-      </div>
-      <Card className="mx-3 -mt-56 mb-6 lg:mx-4">
+      <Card className="mx-3 -mt-4 !h-screen rounded-none  relative  ">
         <CardHeader
           color="blue"
           floated={false}
           shadow={false}
-          className="m-0 grid place-items-center rounded-b-none py-8 px-4 text-center"
+          className="m-0 grid place-items-center rounded-none py-8 px-4  h-48 text-center"
         >
-          <div className="mb-4  border border-white/10 bg-white/10 p-6 text-white">
+          <div className="mb-4 w-32  border border-white/10 rounded-full bg-white/10 p-6 text-white">
             <img
-              className="w-20"
+              className="w-full "
               src={
                 userInfo?.avatar == 0
                   ? "../../images/avatar/men.png"
@@ -99,7 +96,8 @@ export function Profile() {
             />
           </div>
           <Typography variant="h4" color="white">
-            <i className="fa fa-user"></i> {userInfo?.full_name}
+            {/* <i className="fa fa-user"></i>  */}
+            {userInfo?.full_name}
           </Typography>
         </CardHeader>
         <CardBody>
@@ -142,7 +140,7 @@ export function Profile() {
               {({ handleSubmit, handleChange, values, errors }) => (
                 <form
                   onSubmit={handleSubmit}
-                  className="w-100 max-w-screen-lg sm:w-96"
+                  className="!w-full grid lg:grid-cols-2 sm:w-96"
                 >
                   <Input
                     size="md"
@@ -153,7 +151,7 @@ export function Profile() {
                     label="نام ونام خانوادگی"
                   />
                   <Input
-                    className="mt-1em"
+                    className="mt-1em mr-2"
                     onChange={handleChange}
                     name="grade"
                     size="md"
@@ -161,7 +159,7 @@ export function Profile() {
                     label="مقطع"
                   />
                   <Input
-                    className="mt-1em"
+                    className="mt-1em "
                     onChange={handleChange}
                     name="mobile"
                     size="md"
@@ -169,7 +167,7 @@ export function Profile() {
                     label="موبایل"
                   />
                   <Input
-                    className="mt-1em"
+                    className="mt-1em mr-2"
                     onChange={handleChange}
                     name="province"
                     size="md"
@@ -180,12 +178,12 @@ export function Profile() {
                     size="md"
                     onChange={handleChange}
                     name="city"
-                    className="mt-1em"
+                    className="mt-1em "
                     value={values.city}
                     label="شهر"
                   />
                   <Input
-                    className="mt-1em"
+                    className="mt-1em mr-2"
                     onChange={handleChange}
                     name="school"
                     size="md"
@@ -193,14 +191,15 @@ export function Profile() {
                     label="مدرسه"
                   />
                   <Input
-                    className="mt-1em"
+                    className="mt-1em "
                     onChange={handleChange}
                     name="sex"
                     size="md"
                     value={(values.sex = "men" ? "مرد" : "زن")}
                     label="جنسیت"
                   />
-                  <Button className="mt-4" type="submit" size="md">
+                  <br/>
+                  <Button className="mt-4 " type="submit" size="md">
                     ذخیره
                   </Button>
                   {errors.name && (

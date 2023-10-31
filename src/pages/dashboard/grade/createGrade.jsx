@@ -52,7 +52,7 @@ export function CreateGrade() {
     const createResult = await createGrade(name, priority, field_id,userToken)
       .then(function (response) {
         if (response.status) {
-            toast.success("مقطع با موفقیت افزوده شد !");
+            toast.success("پوستر با موفقیت درج شده است.");
             navigate("/dashboard/grades");
         } else {
             if (response?.success == false) {
@@ -65,7 +65,7 @@ export function CreateGrade() {
                 }
               );
             } else {
-              toast.error("خطایی رخ داده است");
+              toast.error("خطایی رخ داده است!");
             }
           }
 
@@ -141,7 +141,7 @@ export function CreateGrade() {
               className="mb-8 mt-3 p-6"
             >
               <Typography variant="h6" color="white">
-                ساخت مقطع جدید
+                ساخت پوستر جدید
               </Typography>
             </CardHeader>
             <CardBody className="  px-0 pt-0 pb-2">
@@ -151,7 +151,7 @@ export function CreateGrade() {
                 className="m-6 mb-4 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2"
               >
                 <div className="">
-                  <label className="ml-3 block">نام مقطع:</label>
+                  <label className="ml-3 block"> عنوان پوستر:</label>
                   <input
                     onChange={(e) => handleName(e)}
                     type="text"
@@ -161,20 +161,20 @@ export function CreateGrade() {
                   />
                 </div>
 
-                <div className="">
+                {/* <div className="">
                   <label className="ml-3"> رشته:</label>
 
                   <FieldDropdown
                     field_id={field_id}
                     setField_id={setField_id}
                   />
-                </div>
+                </div> */}
 
                 <div className="">
-                  <label className="ml-3 block">الویت:</label>
+                  <label className="ml-3 block">فایل پوستر جدید :</label>
                   <input
                     onChange={(e) => handlePriority(e)}
-                    type="text"
+                    type="file"
                     className="ml-3"
                     name="field"
                     style={inputStyle}

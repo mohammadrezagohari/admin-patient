@@ -45,7 +45,7 @@ export function CreateField() {
       .then(function (response) {
 
         if (response.status) {
-            toast.success("رشته با موفقیت افزوده شد !");
+            toast.success("پوستر با موفقیت افزوده شد !");
             setField(response?.data);
         } else {
             if (response?.success == false) {
@@ -102,7 +102,7 @@ export function CreateField() {
               className="mb-8 mt-3 p-6"
             >
               <Typography variant="h6" color="white">
-                ساخت رشته جدید
+                اضافه کردن آموزش جدید
               </Typography>
             </CardHeader>
             <CardBody className="px-0 pt-0 pb-2">
@@ -112,10 +112,20 @@ export function CreateField() {
                 className="m-6 mb-4 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2"
               >
                 <div className="">
-                  <label className="ml-3">نام رشته</label>
+                  <label className="ml-3">عنوان آموزش </label>
                   <input
                     onChange={(e) => handleField(e)}
                     type="text"
+                    className="ml-3"
+                    name="field"
+                    style={inputStyle}
+                  />
+                </div>
+                <div className="">
+                  <label className="ml-3"> فایل تصویر </label>
+                  <input
+                    onChange={(e) => handleField(e)}
+                    type="file"
                     className="ml-3"
                     name="field"
                     style={inputStyle}

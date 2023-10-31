@@ -144,12 +144,12 @@ export function UnitExcercise() {
             className="mr-3"
             style={linkStyle}
           >
-            ثبت تمرین فصل جدید
+             ثبت عنوان جدید فواید 
           </Link>
         </div>
         <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
           <Typography variant="h6" color="white">
-            لیست تمرین فصل ها
+            لیست  فواید 
           </Typography>
           <div className="mt-2 flex gap-6">
             <input
@@ -164,7 +164,7 @@ export function UnitExcercise() {
               className="hover:cursor-pointer"
               onClick={() => handleSort("unit")}
             >
-              نام
+              عنوان
               {sortColumn === "unit" && (sortDirection === "asc" ? " ▲" : " ▼")}
             </div>
           </div>
@@ -190,11 +190,8 @@ export function UnitExcercise() {
                   <tr>
                     {[
                       "#",
-                      "کاربر",
-                      "نام فصل",
-                      "آدرس فایل",
-                      "نام درس",
-                      "مقطع",
+                      "عنوان",
+                      "توضیحات",
                       "تنظیمات",
                     ].map((el) => (
                       <th

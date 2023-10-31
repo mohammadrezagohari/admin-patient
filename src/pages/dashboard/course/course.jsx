@@ -136,12 +136,12 @@ export function Course() {
             className="mr-3"
             style={linkStyle}
           >
-            ثبت درس جدید
+            ثبت عنوان اهداف جدید
           </Link>
         </div>
         <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
           <Typography variant="h6" color="white">
-            لیست درس ها
+            لیست  اهداف
           </Typography>
           <div className="mt-2 flex gap-6">
             <input
@@ -183,13 +183,8 @@ export function Course() {
                   <tr>
                     {[
                       "#",
-                      " نام درس",
-                      "رشته",
-                      "مقطع",
-                      "آیکن",
-                      " بگکراند",
+                      "  عنوان هدف",
                       "توضیحات",
-                      "تنظیمات",
                     ].map((el) => (
                       <th
                         key={el}

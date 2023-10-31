@@ -62,7 +62,7 @@ export function CreateUnitExcercise() {
       .then(function (response) {
         console.log('result ',response);
         // navigate(-1);
-        toast.success("تمرین با موفقیت افزوده شد !");
+        toast.success("عنوان با موفقیت افزوده شد !");
       })
       .catch(function (error) {
         toast.error("خطا !! مجددا تلاش نمایید");
@@ -121,7 +121,7 @@ export function CreateUnitExcercise() {
               className="mb-8 mt-3 p-6"
             >
               <Typography variant="h6" color="white">
-                ساخت تمرین فصل جدید
+                ساخت عنوان فواید جدید
               </Typography>
             </CardHeader>
             <CardBody className=" min-h-screen  px-0 pt-0 pb-2">
@@ -133,18 +133,25 @@ export function CreateUnitExcercise() {
               >
 
                 <div className="">
-                  <label className="ml-3"> رشته:</label>
+                  <label className="ml-3"> عنوان :</label>
 
-                  <FieldDropdown
+                  {/* <FieldDropdown
                     field_id={field_id}
                     setField_id={setField_id}
+                  /> */}
+                   <input
+                    onChange={(e) => setTitle(e.target.value)}
+                    type="text"
+                    className="ml-3"
+                    name="title"
+                    style={inputStyle}
                   />
                 </div>
 
                 <div className="">
-                  <label className="ml-3 block">نام مقطع:</label>
+                  <label className="ml-3 block">توضیحات :</label>
 
-                  {field_id ? (
+                  {/* {field_id ? (
                     <GradeDropdown
                       grade={grade_id}
                       setGrade={setGrade}
@@ -152,10 +159,17 @@ export function CreateUnitExcercise() {
                     />
                   ) : (
                     <div>loading</div>
-                  )}
+                  )} */}
+                   <input
+                    onChange={(e) => setTitle(e.target.value)}
+                    type="text"
+                    className="ml-3"
+                    name="title"
+                    style={inputStyle}
+                  />
                 </div>
 
-                <div className="">
+                {/* <div className="">
                   <label className="ml-3 block">نام درس:</label>
                   {grade_id ? (
                     <CourseDropdown
@@ -166,16 +180,16 @@ export function CreateUnitExcercise() {
                   ) : (
                     <div>loading...</div>
                   )}
-                </div>
+                </div> */}
 
-                <div className="">
+                {/* <div className="">
                   <label className="ml-3 mb-4 block">نام فصل:</label>
                   <UnitDropdown units={unit_id} setUnits={setUnits} courseId={course_id}
  />
-                </div>
+                </div> */}
 
                 {/* <br></br> */}
-
+{/* 
                 <div className="">
                   <label className="ml-3 block">عکس:</label>
                   <div className="flex items-center gap-3">
@@ -185,7 +199,7 @@ export function CreateUnitExcercise() {
                       accept="image/png,image/jpeg,image/webp,"
                       style={inputStyle}
                       onChange={handleFileChange}
-                    />
+                    /> */}
                     {/* <div className=" h-20 w-36 rounded-md border-2">
                   <img
                     className="h-full w-full rounded-md object-cover"
@@ -195,9 +209,9 @@ export function CreateUnitExcercise() {
                   />
                 </div>
                 <p>{image}</p> */}
-                  </div>
-                </div>
-                <div className=""></div>
+                  {/* </div>
+                </div> */}
+                {/* <div className=""></div> */}
                 <div className="">
                   <Button type="submit">ذخیره</Button>
                 </div>

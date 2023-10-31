@@ -10,7 +10,7 @@ import SendOtp from "./pages/auth/send-otp";
 import { AuthContext, AuthProvider } from "./gard/context/AuthContext";
 import { SignIn } from "./pages/auth";
 import EditUser from "./pages/dashboard/users/editUser";
-import StoreSchool from "./pages/dashboard/school/storeSchool";
+import StoreSchool from "./pages/dashboard/school/storeSchool.jsx";
 import UpdateSchool from "./pages/dashboard/school/updateSchool";
 import CreateField from "./pages/dashboard/field/createField";
 import CreateGrade from "./pages/dashboard/grade/createGrade";
@@ -96,17 +96,17 @@ function App() {
   } else {
     return (
       <>
-        <div className="top-0 min-h-screen bg-blue-gray-50/50">
+        <div className="top-0 min-h-screen bg-blue-gray-50/50" >
           <Sidenav
             routes={routes}
             brandImg={
               sidenavType === "dark"
-                ? "/img/logo-ct.png"
-                : "/img/logo-ct-dark.png"
+                ? "/img/pelogo.png"
+                : "/img/pelogo.png"
             }
           />
-          <div className={`p-4  xl:mr-80 `}>
-            <Configurator />
+          <div className={`p-4  xl:mr-80 `} >
+            <Configurator  />
             <IconButton
               size="lg"
               color="white"

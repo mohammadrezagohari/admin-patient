@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { getFields } from "@/api/services/fields";
 import { AuthContext } from "@/gard/context/AuthContext";
 
-const FieldDropdown = ({ field_id, setField_id, selected_id = null }) => {
+const  FieldDropdown = ({ field_id, setField_id, selected_id = null }) => {
   const [selected, setSelected] = useState(null);
   const { userToken } = useContext(AuthContext);
   const { data, isLoading, isError } = useQuery(["field_id", userToken], () =>
@@ -22,8 +22,8 @@ const FieldDropdown = ({ field_id, setField_id, selected_id = null }) => {
         } else {
           const slItem = data?.data[0];
           setSelected({
-            value: slItem.id,
-            label: slItem.name,
+            // value: slItem.id,
+            // label: slItem.name,
           });
         }
       }

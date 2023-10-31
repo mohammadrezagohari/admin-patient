@@ -140,12 +140,12 @@ export function Unit() {
             className="mr-3"
             style={linkStyle}
           >
-            ثبت فصل جدید
+            ثبت خبر جدید
           </Link>
         </div>
         <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
           <Typography variant="h6" color="white">
-            لیست فصل ها
+            لیست اخبار 
           </Typography>
           <div className="mt-2 flex gap-6">
             <input
@@ -160,7 +160,7 @@ export function Unit() {
               className="hover:cursor-pointer"
               onClick={() => handleSort("title")}
             >
-              نام
+              عنوان خبر
               {sortColumn === "title" &&
                 (sortDirection === "asc" ? " ▲" : " ▼")}
             </div>
@@ -186,7 +186,7 @@ export function Unit() {
               <table className="w-full min-w-[640px]	   table-auto text-right">
                 <thead>
                   <tr>
-                    {["#", "نام فصل", "نام درس", "مقطع", "تنظیمات"].map(
+                    {["#", "عنوان خبر", " خلاصه خبر", "پوستر خبر", "تنظیمات"].map(
                       (el) => (
                         <th
                           key={el}

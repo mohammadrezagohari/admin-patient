@@ -137,12 +137,12 @@ export function Field() {
             className="mr-3"
             style={linkStyle}
           >
-            ثبت رشته جدید
+            ثبت آموزش جدید
           </Link>
         </div>
         <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
           <Typography variant="h6" color="white">
-            لیست رشته ها
+            لیست  آموزش ها
           </Typography>
           <div className="mt-2 flex gap-6">
             <input
@@ -157,7 +157,7 @@ export function Field() {
               className="hover:cursor-pointer"
               onClick={() => handleSort("name")}
             >
-              نام
+               نام  آموزش جدید
               {sortColumn === "name" && (sortDirection === "asc" ? " ▲" : " ▼")}
             </div>
           </div>

@@ -25,12 +25,13 @@ export function Sidenav({ brandImg, brandName, routes }) {
   };
   const styleAside = {
     overflowY: "scroll",
+    background:'#183087',
   };
   return (
     <aside
       className={`${sidenavTypes[sidenavType]} ${
         openSidenav ? "translate-x-0" : "translate-x-80"
-      } fixed inset-0 z-50 ml-4  h-full w-72 rounded-l-xl transition-transform duration-300 lg:my-4 lg:h-[calc(100vh-32px)] lg:rounded-xl xl:translate-x-0`}
+      } fixed inset-0 z-50 ml-4  h-full w-80  transition-transform duration-300    xl:translate-x-0 bg-themeclr1 bottom-0 top-0 right-0` }
       style={styleAside}
     >
       <div
@@ -38,9 +39,9 @@ export function Sidenav({ brandImg, brandName, routes }) {
           sidenavType === "dark" ? "border-white/20" : "border-blue-gray-50"
         }`}
       >
-        <Link to="/" className="flex items-center gap-4 py-6 px-8">
-          <Avatar src={brandImg} size="sm" />
-          <Typography
+        <Link to="/" className="flex items-center flex-col gap-4 py-6 px-8">
+          <Avatar src={brandImg} size="sm"  className="w-3/4 h-full" />
+          <Typography 
             variant="h6"
             color={sidenavType === "dark" ? "white" : "blue-gray"}
           >
@@ -48,11 +49,11 @@ export function Sidenav({ brandImg, brandName, routes }) {
           </Typography>
         </Link>
       </div>
-      <div className="m-4">
+      <div className="m-4"> 
         {routes.map(({ layout, title, pages }, key) => (
           <ul key={key} className="mb-4 flex flex-col gap-1">
             {title && (
-              <li className="mx-3.5 mt-4 mb-2">
+              <li className="gyyy mx-3.5 mt-4 mb-2 ">
                 <Typography
                   variant="small"
                   color={sidenavType === "dark" ? "white" : "blue-gray"}
@@ -64,7 +65,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
             )}
 
             {pages.map(({ icon, name, path }) => (
-              <li key={name}>
+              <li className="ghhh !rounded-0" key={name}>
                 <NavLink to={`/${layout}${path}`}>
                   {({ isActive }) => (
                     <Button
@@ -76,7 +77,8 @@ export function Sidenav({ brandImg, brandName, routes }) {
                           ? "white"
                           : "blue-gray"
                       }
-                      className="flex items-center gap-4 px-4 capitalize"
+                      sx={{  border: 1,borderColor: 'grey.500' }}
+                      className="br0  flex items-center gap-4 px-4 capitalize"
                       fullWidth
                     >
                       {icon}

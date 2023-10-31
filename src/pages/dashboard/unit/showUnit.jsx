@@ -125,7 +125,7 @@ export function ShowUnit() {
               className="mb-4 mt-3 p-6"
             >
               <Typography variant="h6" color="white">
-                بروزرسانی فصل
+                 بروزرسانی خبر
               </Typography>
             </CardHeader>
             <CardBody className="min-h-screen overflow-x-scroll px-0 pt-0 pb-2">
@@ -143,7 +143,7 @@ export function ShowUnit() {
                     className="m-6 mb-4 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2"
                   >
                     <div className="">
-                      <label className="ml-3"> رشته:</label>
+                      <label className="ml-3"> خبر:</label>
                       <FieldDropdown
                         field_id={field_id}
                         setField_id={setField_id}
@@ -152,7 +152,7 @@ export function ShowUnit() {
                     </div>
 
                     <div className="">
-                      <label className="ml-3">نام مقطع:</label>
+                      <label className="ml-3"> عنوان خبر:</label>
                       {/* 
                       <Field
                         onChange={handleChange}

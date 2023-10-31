@@ -138,7 +138,7 @@ export function Section() {
             className="mr-3"
             style={linkStyle}
           >
-            ساخت بخش جدید
+             سوال جدید
           </Link>
         </div>
         <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
@@ -165,7 +165,7 @@ export function Section() {
               <table className="w-full min-w-[640px]	   table-auto text-right">
                 <thead>
                   <tr>
-                    {["#", "نام بخش", "نام فصل", "تنظیمات"].map((el) => (
+                    {["#", " عنوان سوال", "سوالات ", "تنظیمات"].map((el) => (
                       <th
                         key={el}
                         className="place-items-center border-b border-blue-gray-50	 py-3 px-5 text-center "

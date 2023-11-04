@@ -64,10 +64,11 @@ export function Field() {
   }, [fields]);
 
   const linkStyle = {
-    backgroundColor: "purple",
-    color: "white",
+    backgroundColor: "#F2F2F2",
+    height:"2.75rem",
+    color: "#183087",
     marginLeft: "1rem",
-    padding: "0.5rem",
+    padding: ".625rem",
     borderRadius: "8px",
   };
   const deleteField = async (id) => {
@@ -130,8 +131,27 @@ export function Field() {
 
   return (
     <>
-      <Card>
-        <div className="py-5">
+      <Card className="-mt-4 rounded-none p-0">
+        <CardHeader variant="gradient" color="blue" className=" mt-0  flex justify-end  h-28 w-full mr-0 items-center  p-6  rounded-none">
+          <div className="mt-0 h-11 flex ">
+            <input
+              className="h-full rounded-md p-1  pr-2 text-gray-900 focus:outline-none ml-"
+              type="text"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{backgroundColor: "#F2F2F2"}}
+            />
+{/* 
+            <div
+              className="hover:cursor-pointer"
+              onClick={() => handleSort("name")}
+            >
+               نام  آموزش جدید
+              {sortColumn === "name" && (sortDirection === "asc" ? " ▲" : " ▼")}
+            </div> */}
+          </div>
+          <div className="py-5 ">
           <Link
             to={`/dashboard/fields/create`}
             className="mr-3"
@@ -140,27 +160,6 @@ export function Field() {
             ثبت آموزش جدید
           </Link>
         </div>
-        <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
-          <Typography variant="h6" color="white">
-            لیست  آموزش ها
-          </Typography>
-          <div className="mt-2 flex gap-6">
-            <input
-              className="rounded-md p-1 pr-2 text-gray-900 focus:outline-none"
-              type="text"
-              placeholder="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-
-            <div
-              className="hover:cursor-pointer"
-              onClick={() => handleSort("name")}
-            >
-               نام  آموزش جدید
-              {sortColumn === "name" && (sortDirection === "asc" ? " ▲" : " ▼")}
-            </div>
-          </div>
         </CardHeader>
         {loading ? (
           <div className="flex w-full  items-center justify-center  py-60">
@@ -177,7 +176,7 @@ export function Field() {
           </div>
         ) : (
           <>
-            <CardBody className="min-h-screen overflow-x-scroll px-0 pt-0 pb-2">
+            <CardBody className="min-h-screen overflow-x-scroll mt-1  pt-0 pb-2 pr-6 px-6">
               <table className="w-full min-w-[640px] table-auto text-right">
                 <thead>
                   <tr>

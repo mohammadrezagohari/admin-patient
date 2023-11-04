@@ -66,10 +66,11 @@ export function Course() {
     }
   }, [courses]);
   const linkStyle = {
-    backgroundColor: "purple",
-    color: "white",
+    backgroundColor: "#F2F2F2",
+    height:"2.75rem",
+    color: "#183087",
     marginLeft: "1rem",
-    padding: "0.5rem",
+    padding: ".625rem",
     borderRadius: "8px",
   };
   const deleteCourses = async (id) => {
@@ -129,37 +130,35 @@ export function Course() {
   //----------------------------------------------------------------
   return (
     <>
-      <Card>
-        <div className="py-5">
-          <Link
-            to={`/dashboard/course/create`}
-            className="mr-3"
-            style={linkStyle}
-          >
-            ثبت عنوان اهداف جدید
-          </Link>
-        </div>
-        <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
-          <Typography variant="h6" color="white">
-            لیست  اهداف
-          </Typography>
-          <div className="mt-2 flex gap-6">
+      <Card className="mt-4 rounded-none p-0">
+       
+        <CardHeader variant="gradient" color="blue" className=" mt-0  flex justify-end  h-24 w-full mr-0 items-center  pl-12 rounded-none">
+          <div className="mt-2 h-11 flex">
             <input
-              className="rounded-md p-1 pr-2 text-gray-900 focus:outline-none"
+              className="h-full rounded-md p-1 m-0  pr-2 pl-6 text-gray-900 focus:outline-none"
               type="text"
               placeholder="Search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              style={{backgroundColor: "#F2F2F2"}}
             />
-
-            <div
+          <div className="py-2">
+            <Link
+              to={`/dashboard/course/create`}
+              className="mr-3"
+              style={linkStyle}
+            >
+              ثبت هدف جدید
+            </Link>
+          </div>
+            {/* <div
               className="hover:cursor-pointer"
               onClick={() => handleSort("title")}
             >
               نام
               {sortColumn === "title" &&
                 (sortDirection === "asc" ? " ▲" : " ▼")}
-            </div>
+            </div> */}
           </div>
         </CardHeader>
         {loading ? (

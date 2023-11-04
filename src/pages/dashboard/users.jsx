@@ -25,13 +25,7 @@ export function Users() {
 
   const listRef = useRef(null);
   const [users, setUsers] = useState([]);
-
-  // const [searchTerm, setSearchTerm] = useState("");
-  // const [filteredData, setFilteredData] = useState([]);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [itemsPerPage] = useState(10);
-  // const [sortColumn, setSortColumn] = useState("");
-  // const [sortDirection, setSortDirection] = useState("asc");
+ 
 
   const [isOpentDropDown, setIsOpentDropDown] = useState(null);
   const [loading, setLoading] = useState(true);

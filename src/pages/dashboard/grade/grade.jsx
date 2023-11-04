@@ -163,10 +163,11 @@ export function Grade() {
   // }, []);
 
   const linkStyle = {
-    backgroundColor: "purple",
-    color: "white",
+    backgroundColor: "#F2F2F2",
+    height:"2.75rem",
+    color: "#183087",
     marginLeft: "1rem",
-    padding: "0.5rem",
+    padding: ".625rem",
     borderRadius: "8px",
   };
   const deleteGrades = async (id) => {
@@ -225,8 +226,27 @@ export function Grade() {
 
   return (
     <>
-      <Card>
-        <div className="py-5">
+      <Card className="-mt-4 rounded-none p-0">
+      
+        <CardHeader variant="gradient" color="blue" className="mt-0  flex justify-end  h-28 w-full mr-0 items-center  p-6  rounded-none">
+          <div className="mt-0 h-11 flex ">
+            <input
+              className="h-full rounded-md p-1 m-0  pr-2 pl-6 text-gray-900 focus:outline-none"
+              type="text"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{backgroundColor: "#F2F2F2"}}
+            />
+
+            {/* <div
+              className="hover:cursor-pointer"
+              onClick={() => handleSort("name")}
+            >
+              نام
+              {sortColumn === "name" && (sortDirection === "asc" ? " ▲" : " ▼")}
+            </div> */}
+            <div className="py-2">
           <Link
             to={`/dashboard/grades/create`}
             className="mr-3"
@@ -235,28 +255,6 @@ export function Grade() {
             ثبت پوستر جدید
           </Link>
         </div>
-        <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
-          <Typography variant="h6" color="white">
-            لیست پوستر ها
-          </Typography>
-          <div className="mt-2 flex gap-6">
-         
-           
-            <input
-              className="rounded-md p-1 pr-2 text-gray-900 focus:outline-none"
-              type="text"
-              placeholder="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-
-            <div
-              className="hover:cursor-pointer"
-              onClick={() => handleSort("name")}
-            >
-              نام
-              {sortColumn === "name" && (sortDirection === "asc" ? " ▲" : " ▼")}
-            </div>
           </div>
         </CardHeader>
         {loading ? (

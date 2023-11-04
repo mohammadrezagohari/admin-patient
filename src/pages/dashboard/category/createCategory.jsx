@@ -21,7 +21,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { createField } from "@/api/services/fields";
 import { toast } from "react-hot-toast";
-import { createCategory } from "@/api/services/category";
+import { createCategory } from "@/api/services/Category";
 import { ThreeDots } from "react-loader-spinner";
 
 export function CreateCategory() {

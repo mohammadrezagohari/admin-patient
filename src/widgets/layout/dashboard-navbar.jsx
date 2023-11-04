@@ -50,15 +50,10 @@ export function DashboardNavbar() {
         console.log("openSidenav==true")
       }    
     };
-
     document.addEventListener("mousedown", handler);
-    
-
-    
     return() =>{
       document.removeEventListener("mousedown", handler);
     }
-
   });
   return (
     <Navbar

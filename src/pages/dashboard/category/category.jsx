@@ -16,7 +16,7 @@ import {
 
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { deleteCategorys, getCategorys } from "@/api/services/category";
+import { deleteCategory, getCategory } from "@/api/services/Category";
 import { ThreeDots } from "react-loader-spinner";
 
 function Category() {

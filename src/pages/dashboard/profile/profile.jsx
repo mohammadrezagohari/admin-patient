@@ -40,13 +40,12 @@ export function Profile() {
   const [province, setProvince] = useState();
 
   const intitialValues = {
-    full_name: userInfo?.full_name,
-    sex: userInfo?.sex,
+    first_name: userInfo?.first_name,
+    last_name: userInfo?.last_name,
+    password: userInfo?.password,
+    sex: userInfo?.gender,
     city: userInfo?.city?.name,
-    grade: userInfo?.grade?.name,
     mobile: userInfo?.mobile,
-    province: userInfo?.province?.name,
-    school: userInfo?.school?.name,
   };
 
   const getAllProvince = async () => {
@@ -77,15 +76,16 @@ export function Profile() {
   }, []);
 
   return (
-    <>
-      <Card className="mx-3 -mt-4 !h-screen rounded-none  relative  ">
-        <CardHeader
-          color="blue"
-          floated={false}
-          shadow={false}
-          className="m-0 grid place-items-center rounded-none py-8 px-4  h-48 text-center"
-        >
-          <div className="mb-4 w-32  border border-white/10 rounded-full bg-white/10 p-6 text-white">
+
+      <>
+        <Card className=" h-full rounded-none  w-full  lg:bg-white md:bg-blue-900  ">
+          <CardHeader
+            color="blue"
+            floated={false}
+            shadow={false}
+            className="m-0 grid relative overflow-visible place-items-center rounded-none py-8 px-4  h-40 text-center"
+          >
+          <div className="mb-4 w-32  border border-white rounded-full bg-white  text-white absolute right-16 top-20 z-50">
             <img
               className="w-full "
               src={
@@ -95,29 +95,21 @@ export function Profile() {
               }
             />
           </div>
-          <Typography variant="h4" color="white">
-            {/* <i className="fa fa-user"></i>  */}
-            {userInfo?.full_name}
+          <Typography variant="h4" color="white" className="absolute text-xl top-28 right-56 font-extrabold">
+            {userInfo?.full_name} 
           </Typography>
         </CardHeader>
         <CardBody>
-          <div className="i flex flex-col">
+          <div className="mt-8 i flex flex-col">
             <Formik
               initialValues={intitialValues}
               enableReinitialize={true}
               onSubmit={(values) => {
                 const { data } = axios
                   .post(
-                    "https://testato.ir/api/profile/store",
+                    "https://localhost/api/profile/store",
                     {
                       intitialValues,
-                      // full_name:values?.full_name,
-                      // sex:values?.sex,
-                      // city:values?.city?.name,
-                      // grade:values?.grade?.name,
-                      // mobile:values?.mobile,
-                      // province:values?.province?.name,
-                      // school:values?.school?.name,
                     },
                     {
                       headers: {
@@ -140,23 +132,31 @@ export function Profile() {
               {({ handleSubmit, handleChange, values, errors }) => (
                 <form
                   onSubmit={handleSubmit}
-                  className="!w-full grid lg:grid-cols-2 sm:w-96"
+                  className="!w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 sm:w-96 pr-10 pl-12 gap-4"
                 >
                   <Input
                     size="md"
                     onChange={handleChange}
                     className="mt-1em"
-                    value={values.full_name}
+                    value={values.first_name}
                     name="full_name"
-                    label="نام ونام خانوادگی"
+                    label=" نام "
                   />
                   <Input
-                    className="mt-1em mr-2"
+                    className="mt-1em  ml-8 "
                     onChange={handleChange}
-                    name="grade"
+                    name="last_name"
                     size="md"
-                    value={values.grade}
-                    label="مقطع"
+                    value={values.last_name}
+                    label="نام خانوادگی"
+                  />
+                  <Input
+                    className="mt-1em "
+                    onChange={handleChange}
+                    name="city_id"
+                    size="md"
+                    value={values.city_id}
+                    label="شهر"
                   />
                   <Input
                     className="mt-1em "
@@ -167,43 +167,30 @@ export function Profile() {
                     label="موبایل"
                   />
                   <Input
-                    className="mt-1em mr-2"
-                    onChange={handleChange}
-                    name="province"
+                    type="password"
                     size="md"
-                    value={values.province}
-                    label="استان"
+                    onChange={handleChange}
+                    name="password"
+                    className="mt-1em  "
+                    value={values.password}
+                    label="رمزعبور"
                   />
+      
                   <Input
-                    size="md"
+                    className="mt-1em  "
                     onChange={handleChange}
-                    name="city"
-                    className="mt-1em "
-                    value={values.city}
-                    label="شهر"
-                  />
-                  <Input
-                    className="mt-1em mr-2"
-                    onChange={handleChange}
-                    name="school"
+                    name="gender"
                     size="md"
-                    value={values.school}
-                    label="مدرسه"
-                  />
-                  <Input
-                    className="mt-1em "
-                    onChange={handleChange}
-                    name="sex"
-                    size="md"
-                    value={(values.sex = "men" ? "مرد" : "زن")}
                     label="جنسیت"
+                    value={(values.gender = "men" ? "مرد" : "زن")}
                   />
                   <br/>
-                  <Button className="mt-4 " type="submit" size="md">
-                    ذخیره
-                  </Button>
+                  {/* <div className="col-span-1 md:col-span-2 lg:col-span-2"></div> */}
+                    <Button className="" type="submit" size="md" >
+                      ذخیره
+                    </Button>
                   {errors.name && (
-                    <div style={{ color: "red" }}>{errors.name}</div>
+                    <div style={{ color: "red"}}>{errors.name}</div>
                   )}
                 </form>
               )}
@@ -212,6 +199,7 @@ export function Profile() {
         </CardBody>
       </Card>
     </>
+    
   );
 }
 

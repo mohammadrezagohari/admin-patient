@@ -5,51 +5,39 @@ import {
   Sidenav,
   DashboardNavbar,
   Configurator,
-  Footer,
+  Footer, 
 } from "@/widgets/layout";
 import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
 
-export function Dashboard() {
+export function Dashboard({children}) {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavType , openSidenav} = controller;
 
   return (
-    <div className="min-h-screen  top-0  bg-blue-gray-50/50">
-      <Sidenav
-        routes={routes}
-        brandImg={
-          sidenavType === "dark" ? "/img/logo-ct.png" : "/img/logo-ct-dark.png"
-        }
-      />
-      <div className={`p-4  `}>
-        <DashboardNavbar />
-        <Configurator />
-        <IconButton
-          size="lg"
-          color="white"
-          className="fixed bottom-8 right-8 z-40 rounded-full shadow-blue-gray-900/10"
-          ripple={false}
-          onClick={() => setOpenConfigurator(dispatch, true)}
-        >
-          <Cog6ToothIcon className="h-5 w-5" />
-        
-        </IconButton>
-        <Routes>
-          {routes.map(
-            ({ layout, pages }) =>
-              layout === "dashboard" &&
-              pages.map(({ path, element }) => (
-                <Route exact path={path} element={element} />
-              ))
-          )}
-        </Routes>
-        
-        <div className="text-blue-gray-600">
-          <Footer />
+
+      <>
+        <div className="flex bg-blue-gray-900 ">
+          <div className="w-10 h-10 bg-blue-gray-800 lg:hidden md:hidden">
+            <img src="./img/" alt="menu icon"/>
+          </div>
+          <Sidenav
+            routes={routes}
+            brandImg={
+              sidenavType === "dark"
+                ? "/img/لوگو دانشگاه 1.png"
+                : "/img/pelogo.png"
+            }
+          />
+          <div className={`w-full p-4 bg-red-200 `}>
+            {children}
+          <div className="text-blue-gray-600">
+            <Footer />
+          </div>
         </div>
       </div>
-    </div>
+    </>
+    
   );
 }
 

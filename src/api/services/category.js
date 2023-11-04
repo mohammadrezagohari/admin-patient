@@ -1,15 +1,15 @@
 import { useQuery } from "react-query";
 import apiClient from "../apiClient";
 
-const auth_header = {
+const header = {
   "Content-Type": "application/json",
   Accept: "application/json",
-  Authorization: `Bearer ${localStorage.getItem("_token_testato")}`,
+  // Authorization: `Bearer ${localStorage.getItem("_token_testato")}`,
 };
 
-export const getCategorys = async () => {
+export const getCategory = async () => {
   const response = await apiClient.get("/category?count=100", {
-    headers: auth_header,
+    headers: header,
   });
   console.log("status", response);
   if (response.status !== 200) {
@@ -21,12 +21,12 @@ export const getCategorys = async () => {
 
 export const createCategory = async (name) => {
   const response = await apiClient.post(
-    `/category/store`,
+    `/category/create`,
     {
       name: name,
     },
     {
-      headers: auth_header,
+      headers: header,
     }
   );
   console.log("status", response);
@@ -38,7 +38,7 @@ export const createCategory = async (name) => {
 
 export const showCategory = async (id) => {
   const response = await apiClient.get(`/category/show/${id}`, {
-    headers: auth_header,
+    headers: header,
   });
   console.log("status", response);
   if (response.status !== 200) {
@@ -47,14 +47,14 @@ export const showCategory = async (id) => {
   return response?.data;
 };
 
-export const updateCategorys = async (id,values) => {
+export const updateCategory = async (id,values) => {
   const response = await apiClient.patch(
     `/category/update/${id}`,
     {
       name: values.name,
     },
     {
-      headers: auth_header,
+      headers: header,
     }
   );
   console.log("status", response);
@@ -64,9 +64,9 @@ export const updateCategorys = async (id,values) => {
   return response?.data;
 };
 
-export const deleteCategorys = async (id) => {
+export const deleteCategory = async (id) => {
   const response = await apiClient.delete(`/category/delete/${id}`, {
-    headers: auth_header,
+    headers:header,
   });
   console.log("status", response);
   if (response.status !== 200) {
@@ -78,9 +78,9 @@ export const deleteCategorys = async (id) => {
 
 // -------------------------------------------------------------------
 
-export const getCategorysListUser = async () => {
+export const getCategorysList = async () => {
     const response = await apiClient.get("/category/list-user?count=100", {
-      headers: auth_header,
+      headers: header,
     });
     console.log("status", response);
     if (response.status !== 200) {

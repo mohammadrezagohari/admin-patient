@@ -67,43 +67,17 @@ export function School() {
       });
     }
   }, [schools]);
-  // useEffect(() => {
-  //   const { data } = axios
-  //     .get("https://testato.ir/api/school?count=100", {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Accept: "application/json",
-  //         Authorization: `Bearer ${localStorage.getItem("_token_testato")}`,
-  //       },
-  //     })
-  //     .then(function (response) {
-  //       setSchools(response?.data?.data);
-  //       console.log(response);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error.message);
-  //     });
-  // }, []);
+
 
   const linkStyle = {
-    backgroundColor: "purple",
-    color: "white",
+    backgroundColor: "#F2F2F2",
+    height:"2.75rem",
+    color: "#183087",
     marginLeft: "1rem",
-    padding: "0.5rem",
+    padding: ".625rem",
     borderRadius: "8px",
   };
-  // const deleteGrades= async (id) => {
-  //   const deleteResult = await deleteGrade(id)
-  //       .then(function (response) {
-  //       console.log(response?.data);
-  //       setGrades(grades.filter((grade) => grade.id !== id));
-  //     })
-  //     .catch(function (err) {
-  //       console.log("error", err);
-  //     });
-  //   return deleteResult;
 
-  // }
   const deleteSchools = async (id) => {
     const deleteResult = await deleteSchool(id)
       .then(function (response) {
@@ -116,29 +90,7 @@ export function School() {
         console.log("error", err);
       });
     return deleteResult;
-
-    //   const token = localStorage.getItem("_token_testato");
-    //   const { data } = axios
-    //     .delete(`https://testato.ir/api/school/delete/${schoolId}`, {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Accept: "application/json",
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     })
-    //     .then(function (response) {
-    //       console.log(response.data.data);
-    //       // navigate("/dashboard/schools");
-    //       setSchools(schools.filter((school) => school.id != schoolId));
-    //       return (
-    //         <div className="flex w-full flex-col gap-2">
-    //           <Alert color="green">A success alert for showing message.</Alert>
-    //         </div>
-    //       );
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error.message);
-    //     });
+ 
   };
 
   //----------------------------------------------------------------
@@ -188,35 +140,36 @@ export function School() {
 
   return (
     <>
-      <Card>
-        <div className="py-5">
-          <Link
-            to={`/dashboard/schools/create`}
-            className="mr-3"
-            style={linkStyle}
-          >
-              ثبت آموزش جدید
-          </Link>
-        </div>
-        <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6" style={{background:'#183087'}}>
-          <Typography variant="h6" color="white">
+      <Card className="-mt-4 rounded-none p-0">
+        <CardHeader variant="gradient" color="blue" className="flex justify-end  h-28 w-full mr-0 items-center mt-0 p-6  rounded-none" >
+          {/* <Typography variant="h6" color="white">
             لیست آموزش ها  
-          </Typography>
-          <div className="mt-2 flex gap-6">
+          </Typography> */}
+          <div className="h-11 flex">
             <input
-              className="rounded-md p-1 pr-2 text-gray-900 focus:outline-none"
+              className="h-full rounded-md p-1 m-0  pr-2 pl-6 text-gray-900 focus:outline-none"
               type="text"
               placeholder="Search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              style={{backgroundColor: "#F2F2F2"}}
             />
 
-            <div
+            {/* <div
               className="hover:cursor-pointer"
               onClick={() => handleSort("name")}
             >
               نام
               {sortColumn === "name" && (sortDirection === "asc" ? " ▲" : " ▼")}
+            </div> */}
+            <div className="py-2  mt-0">
+              <Link
+                to={`/dashboard/schools/create`}
+                className=""
+                style={linkStyle}
+              >
+                  ثبت آموزش جدید
+              </Link>
             </div>
           </div>
         </CardHeader>

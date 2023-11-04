@@ -80,6 +80,9 @@ import UnitExcercise from "./pages/dashboard/unitExcercises/unitExcercise";
 import Section from "./pages/dashboard/section/section";
 import Level from "./pages/dashboard/level/level";
 import Question from "./pages/dashboard/question/question";
+import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
+import CreateTutorials from "./pages/dashboard/Tutorials/CreateTutorials";
+import DashboardBody from "./pages/dashboard/DashboardBody.jsx/DashboardBody";
 
 function App() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -96,34 +99,14 @@ function App() {
   } else {
     return (
       <>
-        <div className="top-0 min-h-screen bg-blue-gray-50/50" >
-          <Sidenav
-            routes={routes}
-            brandImg={
-              sidenavType === "dark"
-                ? "/img/pelogo.png"
-                : "/img/pelogo.png"
-            }
-          />
-          <div className={`p-4  xl:mr-80 `} >
-            <Configurator  />
-            <IconButton
-              size="lg"
-              color="white"
-              className="fixed bottom-8 right-8 z-40 rounded-full shadow-blue-gray-900/10"
-              ripple={false}
-              onClick={() => setOpenConfigurator(dispatch, true)}
-            >
-              <Cog6ToothIcon className="h-5 w-5" />
-            </IconButton>
-            <Routes>
-              {/* <Route path="/auth/sign-in" element={<SignIn />} /> */}
-              {/* <Route path="/auth/*" element={<Auth />} /> */}
+        
+          <Dashboard>
+        <Routes>
               <Route path="/dashboard/users" element={<Users />} />
               <Route path="/sendOtpCode/*" element={<SendOtp />} />
-              <Route path="/dashboard/home" element={<Dashboard />} />
               <Route path="/dashboard/users/edit/:id" element={<EditUser />} />
               <Route path="/dashboard/profile/profile" element={<Profile />} />
+              <Route path="/dashboard/tutorials" element={<Tutorials />} />
 
               <Route
                 path="/dashboard/users/panel/:id"
@@ -313,17 +296,18 @@ function App() {
                 path="/dashboard/province/:province_id/city/show/:city_id"
                 element={<ShowCity />}
               />
+                 <Route
+                path="/dashboard/Tutorials/create"
+                element={<CreateTutorials />}
+              />
+                 <Route
+                path="/dashboard"
+                element={<DashboardBody />}
+              />
+          
+        </Routes>
+        </Dashboard>
 
-              {/* <Route
-                        path="*"
-                        element={<Navigate to="/dashboard/home" replace />}
-                      /> */}
-            </Routes>
-            <div className="text-blue-gray-600">
-              <Footer />
-            </div>
-          </div>
-        </div>
       </>
     );
   }

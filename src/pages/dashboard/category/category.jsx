@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -15,16 +15,19 @@ import {
 
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { deleteCategory, getCategory } from "@/api/services/category";
+import { deleteCategory, getCategory, getCategorysList } from "@/api/services/category";
 import { ThreeDots } from "react-loader-spinner";
+import { AuthContext } from "@/gard/context/AuthContext";
 
 function Category() {
+    const { userToken } = useContext(AuthContext);
+
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const getDatas = async () => {
-    const result = await getCategorys()
+    const result = await getCategorysList()
       .then(function (response) {
         console.log("response", response);
         setCategories(response?.data);

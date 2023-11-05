@@ -4,6 +4,8 @@ import apiClient from "../apiClient";
 const auth_header = {
   "Content-Type": "application/json",
   Accept: "application/json",
+  "Access-Control-Request-Method": "POST",
+  "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 
 export const getCities = async (userToken) => {

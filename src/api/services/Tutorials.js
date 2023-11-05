@@ -4,11 +4,15 @@ import apiClient from "../apiClient";
 const header = {
   "Content-Type": "application/json",
   Accept: "application/json",
+  "Access-Control-Request-Method": "POST",
+  "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 
 const auth_header_files = {
   "Content-Type": "multipart/form-data",
   Accept: "application/json",
+  "Access-Control-Request-Method": "POST",
+  "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 
 export const getTutorials = async (name, userToken) => {

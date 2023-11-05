@@ -33,6 +33,7 @@ import { useContext } from "react";
 import Tutorials from "./pages/dashboard/tutorials/tutorials";
 import CreateTutorials from "./pages/dashboard/tutorials/createTutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
+import Category from "./pages/dashboard/category/category";
 
 function App() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -55,7 +56,6 @@ function App() {
             <Route path="/dashboard/users/edit/:id" element={<EditUser />} />
             <Route path="/dashboard/profile/profile" element={<Profile />} />
             <Route path="/dashboard/tutorials" element={<Tutorials />} />
-
             <Route path="/dashboard/users/panel/:id" element={<UserPanel />} />
             {/* 
             <Route path="/dashboard/grades/" element={<Grade />} />
@@ -69,6 +69,7 @@ function App() {
 
             <Route path="/dashboard/about/create" element={<CreateAboutUs />} /> */}
 
+            <Route path="/dashboard/categories" element={<Category />} />
             <Route
               path="/dashboard/category/create"
               element={<CreateCategory />}

@@ -19,7 +19,7 @@ const Header= ({title,buttonValue,icon,color})=>{
       };
 
     return (
-        <CardHeader variant="" className="shadow-none h-26 w-full mr-0 items-center mt-0 p-6  rounded-4" >
+        <CardHeader color={color} variant="" className="shadow-none h-26 w-full mr-0 items-center mt-0 p-6  rounded-4" >
             <div className="h-11 w-full flex justify-end  items-center relative">
                 <Typography className="text-themeclr1 absolute right-0 text-xl">{title}</Typography>
                 <input

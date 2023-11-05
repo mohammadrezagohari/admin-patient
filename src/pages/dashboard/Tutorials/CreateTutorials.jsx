@@ -11,8 +11,8 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useTus } from 'use-tus'
 import { useCallback ,useNavigate} from "react";
 import { toast } from "react-hot-toast";
-import { getTutorials } from "@/api/services/Tutorials";
-import { createTutorials } from "@/api/services/Tutorials";
+import { getTutorials } from "@/api/services/tutorial";
+import { createTutorials } from "@/api/services/tutorial";
 
 // import { Card, CardHeader } from "@material-tailwind/react";
 import {

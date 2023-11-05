@@ -29,7 +29,7 @@ export function Dashboard({children}) {
                 : "/img/pelogo.png"
             }
           />
-          <div className={`w-full p-4 bg-red-200 `}>
+          <div className={`w-full p-4 bg-white `}>
             {children}
           <div className="text-blue-gray-600">
             <Footer />

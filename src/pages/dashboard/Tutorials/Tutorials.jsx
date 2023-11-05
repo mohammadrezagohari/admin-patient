@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Select from "react-select";
 import { useQuery } from "react-query";
-import { getTutorials } from "@/api/services/Tutorials";
+import { getTutorials } from "@/api/services/tutorials";
 import { AuthContext } from "@/gard/context/AuthContext";
 import Header from "@/components/Header/Hedaer";
 import CategotyBox from "@/components/CategoryBox/CategoryBox";
@@ -24,10 +24,13 @@ import {
     Input,
   } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import './Tutorials.css';
+import './tutorials.css';
 
 
 const Tutorials = ()=>{
+
+    const { userToken } = useContext(AuthContext);
+
     const [category_id,setCategory_id] = useState();
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredData, setFilteredData] = useState([]);

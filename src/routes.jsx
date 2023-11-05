@@ -10,24 +10,11 @@ import { Home, Profile, Notifications, Users } from "@/pages/dashboard";
 import { SignIn } from "@/pages/auth";
 import Register from "./pages/auth/register";
 import Forget from "./pages/auth/forget";
-import School from "./pages/dashboard/school/school";
-import Address from "./pages/dashboard/address/address";
-import Field from "./pages/dashboard/field/field";
-import Grade from "./pages/dashboard/grade/grade";
-import Course from "./pages/dashboard/course/course";
-import Unit from "./pages/dashboard/unit/unit";
-import Section from "./pages/dashboard/section/section";
-
-import UnitExcercise from "./pages/dashboard/unitExcercises/unitExcercise";
-import Advertisement from "./pages/dashboard/advertisement/advertisement";
-import Answer from "./pages/dashboard/answer/answer";
+// import Address from "./pages/dashboard/address/address";
 import Category from "./pages/dashboard/category/category";
-import Suggestion from './pages/dashboard/suggestion/suggestion';
-import SummaryFormula from "./pages/dashboard/summaryFormula/summaryFormula";
-import Contact from "./pages/dashboard/contact/contact";
-import PackageCoin from "./pages/dashboard/packageCoin/packageCoin";
+// import Contact from "./pages/dashboard/contact/contact";
 import About from "./pages/dashboard/about/about";
-import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
+import Tutorials from "./pages/dashboard/tutorials/tutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
 
 const icon = {
@@ -57,12 +44,12 @@ export const routes = [
         path: "/users",
         element: <Users />,
       },
-      {
-        icon: <TableCellsIcon {...icon} />,
-        name: "نشانی ها",
-        path: "/address",
-        element: <Address />,
-      },
+    //   {
+    //     icon: <TableCellsIcon {...icon} />,
+    //     name: "نشانی ها",
+    //     path: "/address",
+    //     element: <Address />,
+    //   },
 
       {
         icon: <UserCircleIcon {...icon} />,
@@ -75,31 +62,31 @@ export const routes = [
         icon: <BellIcon {...icon} />,
         name: " پوسترهای آموزشی",
         path: "/grades",
-        element: <Grade />,
+        element: <Profile />,
       },
       {
         icon: <BellIcon {...icon} />,
         name: "  اهداف سامانه آموزش به بیمار",
         path: "/courses",
-        element: <Course />,
+        element: <Profile />,
       },
       {
         icon: <BellIcon {...icon} />,
         name: "آخرین اخبار",
         path: "/units",
-        element: <Unit />,
+        element: <Profile />,
       }, 
       {
         icon: <BellIcon {...icon} />,
         name: "فواید سیستم الکترونیکی ",
         path: "/unitExcercises",
-        element: <UnitExcercise />,
+        element: <Profile />,
       },
       {
         icon: <BellIcon {...icon} />,
         name: "سوالات متداول",
         path: "/sections",
-        element: <Section />,
+        element: <Profile />,
       },
 
 
@@ -107,7 +94,7 @@ export const routes = [
         icon: <BellIcon {...icon} />,
         name: "پیشنهادات",
         path: "/suggestions",
-        element: <Suggestion />,
+        element: <Profile />,
       },
    
       {
@@ -121,21 +108,21 @@ export const routes = [
         icon: <BellIcon {...icon} />,
         name: "تبلیغات ",
         path: "/advertisements",
-        element: <Advertisement />,
+        element: <Profile />,
       },
 
       {
         icon: <BellIcon {...icon} />,
         name: "پاسخ ",
         path: "/answers",
-        element: <Answer />,
+        element: <Profile />,
       },
-      {
-        icon: <BellIcon {...icon} />,
-        name: "تماس باما ",
-        path: "/contacts",
-        element: <Contact />,
-      },
+    //   {
+    //     icon: <BellIcon {...icon} />,
+    //     name: "تماس باما ",
+    //     path: "/contacts",
+    //     element: <Contact />,
+    //   },
       {
         icon: <BellIcon {...icon} />,
         name: " درباره ما ",

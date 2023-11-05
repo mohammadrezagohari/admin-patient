@@ -1,4 +1,4 @@
 // const baseUrl = 'https://testato.ir';
-const baseUrl = 'http://127.0.0.1:8000';
+const baseUrl = 'https://product.gandom.link';
 
 export default baseUrl;

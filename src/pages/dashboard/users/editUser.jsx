@@ -18,15 +18,11 @@ import { useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import ProvinceDropdown from "@/components/provinces/ProvinceDropdown";
+// import ProvinceDropdown from "@/components/provinces/ProvinceDropdown";
 import { showProfile, updateProfiles } from "@/api/services/auth-api";
-import FieldDropdown from "@/components/fields/FieldDropdown";
-import GradeDropdown from "@/components/grade/GradeDropdown";
-import SchoolDropdown from "@/components/school/SchoolDropdown";
 import CityDropdown from "@/components/cities/CityDropdown";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
-import FamiliarDropdown from "@/components/familiar/FamiliarDropdown";
 export function EditUser() {
   const { userToken } = useContext(AuthContext);
   const { id } = useParams();
@@ -215,14 +211,7 @@ export function EditUser() {
                           />
                         </div>
                         <br />
-                        <div className="">
-                          <label htmlFor="familiar_id">نحوه آشنایی</label>
-                          <FamiliarDropdown
-                            familiar_id={familiar_id}
-                            setFamiliar_id={setFamiliar_id}
-                          />
-                        </div>
-
+                      
                         <div className="">
                           <Input
                             component="input"
@@ -236,12 +225,12 @@ export function EditUser() {
                           />
                         </div>
 
-                        <div className="">
+                        {/* <div className="">
                           <ProvinceDropdown
                             province_id={province_id}
                             setProvince_id={setProvince_id}
                           />
-                        </div>
+                        </div> */}
 
                         <div className="">
                           <CityDropdown
@@ -250,28 +239,9 @@ export function EditUser() {
                             province_id={province_id}
                           />
                         </div>
-
-                        <div className="">
-                          <FieldDropdown
-                            field_id={field_id}
-                            setField_id={setField_id}
-                          />
-                        </div>
-
-                        <div className="">
-                          <GradeDropdown
-                            grade={grade_id}
-                            setGrade={setGrade}
-                            fieldId={field_id}
-                          />
-                        </div>
-
-                        <div className="">
-                          <SchoolDropdown
-                            school_id={school_id}
-                            setSchool_id={setSchool_id}
-                          />
-                        </div>
+                     
+                     
+                      
 
                         <div className="col-span-2">
                           <Button className="mt-4" type="submit" size="md">

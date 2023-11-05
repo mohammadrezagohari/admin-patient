@@ -57,10 +57,16 @@ export function SignIn() {
     e.preventDefault();
     const loginUser = await signIn(mobile, password)
       .then(function (response) {
-        loginContext(response?.token);
-        // localStorage.setItem("_token_testato", response?.token);
-        toast.success("با موفقیت ثبت شد !");
-        navigate("/home");
+        const res = JSON.parse(response);
+
+        if (res.status==true) {
+          loginContext(res?.token);
+          // localStorage.setItem("_token_testato", response?.token);
+          toast.success("با موفقیت ثبت شد !");
+          navigate("/home");
+        } else {
+          toast.error("لطفا اطلاعات ضروری را وارد نمایید !!");
+        }
       })
       .catch(function (err) {
         console.log("error", err);

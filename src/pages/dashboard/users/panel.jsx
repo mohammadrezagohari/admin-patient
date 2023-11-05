@@ -17,12 +17,7 @@ import { useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ProvinceDropdown from "@/components/provinces/ProvinceDropdown";
 import { showProfile, updateProfiles } from "@/api/services/auth-api";
-import FieldDropdown from "@/components/fields/FieldDropdown";
-import GradeDropdown from "@/components/grade/GradeDropdown";
-import SchoolDropdown from "@/components/school/SchoolDropdown";
-import CityDropdown from "@/components/cities/CityDropdown";
 import { ThreeDots } from "react-loader-spinner";
 
 export function UserPanel() {
@@ -31,13 +26,7 @@ export function UserPanel() {
   // -------------------------------- prev
   // const [userInfo, setUserInfo] = useState(initialValues);
 
-  const [field_id, setField_id] = useState([]);
-  const [school_id, setSchool_id] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
-  const [grade_id, setGrade] = useState([]);
-  const [city_id, setCity_id] = useState([]);
-  const [province_id, setProvince_id] = useState([]);
-  const [sex, setSex] = useState("");
   const [loading, setLoading] = useState(true);
 
   const initialValues = {

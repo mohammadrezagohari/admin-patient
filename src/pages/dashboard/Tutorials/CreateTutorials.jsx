@@ -1,7 +1,7 @@
 import {  useContext,useEffect, useState } from "react";
 import axios from "axios";
 import { getProfileMe } from "@/api/services/auth-api";
-import { getProvince } from "./../../../api/services/province";
+import { getProvince } from "../../../api/services/province";
 import { AuthContext } from "@/gard/context/AuthContext";
 import Header from "@/components/Header/Hedaer";
 import CategotyBox from "@/components/CategoryBox/CategoryBox";

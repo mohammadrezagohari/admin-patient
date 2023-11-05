@@ -1,14 +1,3 @@
-// import React from 'react'
-
-// function CreateCategory() {
-//   return (
-//     <div>CreateCategory</div>
-//   )
-// }
-
-// export default CreateCategory
-
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import {
@@ -19,9 +8,8 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
-import { createField } from "@/api/services/fields";
 import { toast } from "react-hot-toast";
-import { createCategory } from "@/api/services/Category";
+import { createCategory } from "@/api/services/category";
 import { ThreeDots } from "react-loader-spinner";
 
 export function CreateCategory() {

@@ -14,18 +14,43 @@ const auth_header = {
 //   return data;
 // };
 
-export const signIn = async (mobile, password, token) => {
-  const { data } = await apiClient.post(
-    "auth/login",
-    {
-      mobile: mobile,
-      password: password,
-    },
-    {
-      headers: auth_header,
-    }
-  );
-  return data;
+export const signIn = async (mobile, password) => {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Accept", "application/json");
+
+  var raw = JSON.stringify({
+    "mobile": mobile,
+    "password": password,
+  });
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  const result = await fetch(
+    "https://product.gandom.link/api/auth/login",
+    requestOptions
+  )
+    .then((response) => response.text())
+    .then((result) => result)
+    .catch((error) => console.log("error", error));
+
+  return result;
+  //   const { data } = await apiClient.post(
+  //     "auth/login",
+  //     {
+  //       mobile: mobile,
+  //       password: password,
+  //     },
+  //     {
+  //       headers: auth_header,
+  //     }
+  //   );
+  //   return data;
 };
 
 export const userRegister = async (name, mobile, password) => {
@@ -92,7 +117,7 @@ export const createProfile = async (field, userToken) => {
   return response?.data;
 };
 
-export const updateProfiles = async (id, values,userToken) => {
+export const updateProfiles = async (id, values, userToken) => {
   auth_header.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.patch(
     `/profile/update/${id}`,
@@ -119,7 +144,7 @@ export const updateProfiles = async (id, values,userToken) => {
   return response?.data;
 };
 
-export const deleteProfiles = async (id,userToken) => {
+export const deleteProfiles = async (id, userToken) => {
   auth_header.Authorization = `Bearer ${userToken}`;
 
   const response = await apiClient.delete(`/profile/delete/${id}`, {

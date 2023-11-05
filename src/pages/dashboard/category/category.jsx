@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getFields, deleteFields } from "@/api/services/fields";
 import React, { useEffect, useState } from "react";
 import {
   Card,
@@ -16,7 +15,7 @@ import {
 
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { deleteCategory, getCategory } from "@/api/services/Category";
+import { deleteCategory, getCategory } from "@/api/services/category";
 import { ThreeDots } from "react-loader-spinner";
 
 function Category() {

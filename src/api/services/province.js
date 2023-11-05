@@ -4,6 +4,8 @@ import apiClient from "../apiClient";
 const auth_header = {
   "Content-Type": "application/json",
   Accept: "application/json",
+  "Access-Control-Request-Method": "POST",
+  "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 
 export const getProvince = async (userToken) => {
@@ -11,11 +13,11 @@ export const getProvince = async (userToken) => {
   const response = await apiClient.get("/province?count=1000", {
     headers: auth_header,
   });
-  console.log('data response',response?.data)
+  console.log("data response", response?.data);
   if (response.status !== 200) {
     return null;
   }
-  console.log('getdata province',response.data);
+  console.log("getdata province", response.data);
   return response?.data;
 };
 

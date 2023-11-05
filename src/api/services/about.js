@@ -4,9 +4,10 @@ import apiClient from "../apiClient";
 const auth_header = {
   "Content-Type": "application/json",
   Accept: "application/json",
-  Authorization: `Bearer ${localStorage.getItem("_token_testato")}`,
+  "Access-Control-Request-Method": "POST",
+  "Access-Control-Request-Headers": "Content-Type, Accept",
 };
-  
+
 export const getAbout = async () => {
   const response = await apiClient.get("/about?count=100", {
     headers: auth_header,
@@ -17,13 +18,12 @@ export const getAbout = async () => {
   return response?.data;
 };
 
-
-export const createAbout = async (content,title) => {
+export const createAbout = async (content, title) => {
   const response = await apiClient.post(
-    `/about/store`, 
+    `/about/store`,
     {
       content: content,
-      title: title
+      title: title,
     },
     {
       headers: auth_header,
@@ -35,17 +35,17 @@ export const createAbout = async (content,title) => {
   return response?.data;
 };
 
-export const updateAbout = async (id,values) => {
+export const updateAbout = async (id, values) => {
   const response = await apiClient.patch(
     `/about/update/${id}`,
     {
-        content: values.content,
-        title:values.title,
+      content: values.content,
+      title: values.title,
     },
     {
       headers: auth_header,
     }
-  ); 
+  );
   if (response.status !== 200) {
     return null;
   }
@@ -61,6 +61,3 @@ export const deleteAbout = async (id) => {
   }
   return response?.data;
 };
-
-
-

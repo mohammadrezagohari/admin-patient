@@ -3,8 +3,11 @@ import apiClient from "@/api/apiClient";
 import { useQueryClient, useQuery } from "react-query";
 
 const auth_header = {
+  //   "Content-Type": "application/json",
   "Content-Type": "application/json",
   Accept: "application/json",
+  "Access-Control-Request-Method": "POST",
+  "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 
 // export const forgetPassword = async ({mobile}) => {
@@ -20,8 +23,8 @@ export const signIn = async (mobile, password) => {
   myHeaders.append("Accept", "application/json");
 
   var raw = JSON.stringify({
-    "mobile": mobile,
-    "password": password,
+    mobile: mobile,
+    password: password,
   });
 
   var requestOptions = {

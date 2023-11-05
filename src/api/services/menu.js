@@ -4,13 +4,14 @@ import apiClient from "../apiClient";
 const auth_header = {
   "Content-Type": "application/json",
   Accept: "application/json",
-  Authorization: `Bearer ${localStorage.getItem("_token_testato")}`,
+  "Access-Control-Request-Method": "POST",
+  "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 const auth_header_files = {
   Accept: "application/json",
   "Content-Type": "multipart/form-data",
   Authorization: `Bearer ${localStorage.getItem("_token_testato")}`,
-}; 
+};
 export const getMenu = async () => {
   const response = await apiClient.get("/menu?count=1000", {
     headers: auth_header,
@@ -87,13 +88,12 @@ export const deleteMenu = async (id) => {
 //----------------------------------------------------
 
 export const getMenuList = async () => {
-    const response = await apiClient.get("/menu/list", {
-      headers: auth_header,
-    });
-    console.log("status", response);
-    if (response.status !== 200) {
-      return null;
-    }
-    return response?.data;
-  };
-  
+  const response = await apiClient.get("/menu/list", {
+    headers: auth_header,
+  });
+  console.log("status", response);
+  if (response.status !== 200) {
+    return null;
+  }
+  return response?.data;
+};

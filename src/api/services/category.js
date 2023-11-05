@@ -1,10 +1,16 @@
 import { useQuery } from "react-query";
 import apiClient from "../apiClient";
 
+// const header = {
+//   "Content-Type": "application/json",
+//   Accept: "application/json",
+//   // Authorization: `Bearer ${localStorage.getItem("_token_testato")}`,
+// };
 const header = {
   "Content-Type": "application/json",
   Accept: "application/json",
-  // Authorization: `Bearer ${localStorage.getItem("_token_testato")}`,
+  "Access-Control-Request-Method": "POST",
+  "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 
 export const getCategory = async () => {
@@ -17,7 +23,6 @@ export const getCategory = async () => {
   }
   return response?.data;
 };
-
 
 export const createCategory = async (name) => {
   const response = await apiClient.post(
@@ -47,7 +52,7 @@ export const showCategory = async (id) => {
   return response?.data;
 };
 
-export const updateCategory = async (id,values) => {
+export const updateCategory = async (id, values) => {
   const response = await apiClient.patch(
     `/category/update/${id}`,
     {
@@ -66,7 +71,7 @@ export const updateCategory = async (id,values) => {
 
 export const deleteCategory = async (id) => {
   const response = await apiClient.delete(`/category/delete/${id}`, {
-    headers:header,
+    headers: header,
   });
   console.log("status", response);
   if (response.status !== 200) {
@@ -75,18 +80,15 @@ export const deleteCategory = async (id) => {
   return response?.data;
 };
 
-
 // -------------------------------------------------------------------
 
 export const getCategorysList = async () => {
-    const response = await apiClient.get("/category/list-user?count=100", {
-      headers: header,
-    });
-    console.log("status", response);
-    if (response.status !== 200) {
-      return null;
-    }
-    return response?.data;
-  };
-  
-
+  const response = await apiClient.get("/api/category?count=100", {
+    headers: header,
+  });
+  console.log("status", response);
+  if (response.status !== 200) {
+    return null;
+  }
+  return response?.data;
+};

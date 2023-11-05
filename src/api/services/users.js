@@ -3,9 +3,10 @@ import apiClient from "../apiClient";
 import { idID } from "@mui/material/locale";
 import { userRegister } from "./auth-api";
 const auth_header = {
-  "Content-Type": "application/json",
+  "Content-Type": "multipart/form-data",
   Accept: "application/json",
-  Authorization: `Bearer ${localStorage.getItem("_token_testato")}`,
+  "Access-Control-Request-Method": "POST",
+  "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 
 const queryClient = useQueryClient();

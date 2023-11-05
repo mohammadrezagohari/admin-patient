@@ -13,7 +13,7 @@ import {
   Button,
   Alert,
 } from "@material-tailwind/react";
-
+import Select from "react-select";
 import { Link, useNavigate } from "react-router-dom";
 import { deleteSchool, getSchool } from "@/api/services/school";
 import { toast } from "react-hot-toast";

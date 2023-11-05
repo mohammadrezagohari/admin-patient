@@ -82,7 +82,7 @@ import Level from "./pages/dashboard/level/level";
 import Question from "./pages/dashboard/question/question";
 import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
 import CreateTutorials from "./pages/dashboard/Tutorials/CreateTutorials";
-import DashboardBody from "./pages/dashboard/DashboardBody.jsx/DashboardBody";
+import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
 
 function App() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -301,7 +301,7 @@ function App() {
                 element={<CreateTutorials />}
               />
                  <Route
-                path="/dashboard"
+                path="/dashboard/dashboard"
                 element={<DashboardBody />}
               />
           

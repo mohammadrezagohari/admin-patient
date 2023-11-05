@@ -28,7 +28,7 @@ import Contact from "./pages/dashboard/contact/contact";
 import PackageCoin from "./pages/dashboard/packageCoin/packageCoin";
 import About from "./pages/dashboard/about/about";
 import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
-import DashboardBody from "./pages/dashboard/DashboardBody.jsx/DashboardBody";
+import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -40,10 +40,11 @@ export const routes = [
     pages: [
       {
         icon: <HomeIcon {...icon} />,
-        name: "داشبورد",
+        name: "dddd",
         path: "/dashboard",
         element: <DashboardBody />,
       },
+      
       {
         icon: <UserCircleIcon {...icon} />,
         name: "پروفایل",

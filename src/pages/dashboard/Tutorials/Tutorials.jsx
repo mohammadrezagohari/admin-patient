@@ -24,6 +24,7 @@ import {
     Input,
   } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import './Tutorials.css';
 
 
 const Tutorials = ()=>{

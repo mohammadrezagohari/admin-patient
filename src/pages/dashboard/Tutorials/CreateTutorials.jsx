@@ -149,7 +149,8 @@ const CreateTutorials = ()=>{
         console.log("file", file);
         console.log("file_url", file_url);
         console.log("image target", event.target.files[0]);
-        setImage(event.target.files[0]);
+        setImage(file);
+        // setImage(file);
       };
     
 
@@ -172,7 +173,8 @@ const CreateTutorials = ()=>{
                         className="w-full h-10  border-2 border-color20%"
                         placeholder="عنوان اصلی"
                         label="عنوان اصلی"
-                        // value={(e)=> setMain_title(e.target.value)}
+                        value={main_title}
+                        onChange={(e)=> setMain_title(e.target.value)}
                          />
                         <div className="w-full h-max flex flex-col gap-4">
                             <Input 
@@ -180,6 +182,8 @@ const CreateTutorials = ()=>{
                             className="w-full h-10   
                             border-2 border-color20%" 
                             placeholder="عنوان ثانویه(حین بستری)" 
+                            value={first_title}
+                            onChange={(e)=>  setFirst_title(e.target.value)}
                             label=" عنوان ثانویه" 
                             // value={(e)=> setFirst_title(e.target.value)}
                             />
@@ -187,7 +191,8 @@ const CreateTutorials = ()=>{
                                 apiKey=""
                                 onInit={(evt, editor) => (editorRef.current = editor)}
                                 initialValue=""
-                                // value={(e)=> setFirst_context(e.target.value)}
+                                value={first_context}
+                                onChange={(e)=> setFirst_context(e.target.value)}
                                 init={{
                                 height: 250,
                                 menubar: false,
@@ -227,13 +232,20 @@ const CreateTutorials = ()=>{
                             className="w-full h-10 border-2 border-color20%" 
                             placeholder="عنوان ثانویه(حین ترخیص)" 
                             label=" عنوان ثانویه"
-                            // value={(e)=>  setSecond_title(e.target.value)}
+                            value={second_title}
+                            onChange={(e)=>  setSecond_title(e.target.value)}
                             />
                             <Editor
                                 // apiKey="your-api-key"
                                 onInit={(evt, editor) => (editorRef.current = editor)}
                                 initialValue=""
-                                // value={(e)=>  setSecond_context(e.target.value)}
+                                value={second_context}
+                                onChange={(e)=> 
+                                  {
+                                    setSecond_context(e.target.value);
+                                    console.log(second_context);
+                                  }
+                                  }
                                 init={{
                                 height: 250,
                                 menubar: false,
@@ -275,7 +287,8 @@ const CreateTutorials = ()=>{
                                      <span>آپلود فایل</span>
                                 </label>
                                 <span>
-                                    فایل مورد نظر را آپلود کنید
+                                  {/* {URL.createObjectURL(image)} */}
+                                       {image}  
                                 </span>
 
                             </div>

@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userToken, setUserToken] = useLocalStorage("_token_testato", null);
+  const [userToken, setUserToken] = useLocalStorage("_token_admin", null);
 
   const loginContext = (token) => {
     setUserToken(token);
@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("_token_testato");
+    localStorage.removeItem("_token_admin");
     // Perform logout logic
     setIsLoggedIn(false);
   };

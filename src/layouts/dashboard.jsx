@@ -19,7 +19,7 @@ export function Dashboard({children}) {
       <>
         <div className="flex bg-blue-gray-900 ">
           <div className="w-10 h-10 bg-blue-gray-800 lg:hidden md:hidden">
-            <img src="./img/" alt="menu icon"/>
+            <img src="/img/لوگو دانشگاه 1.png" width="50" alt="menu icon"/>
           </div>
           <Sidenav
             routes={routes}

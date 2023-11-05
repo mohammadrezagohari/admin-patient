@@ -18,6 +18,8 @@ export function CreateCategory() {
 
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState();
+  const [icon, setIcon] = useState();
+  const [imagePreview, setImagePreview] = useState();
 
   const inputStyle = {
     border: "1px solid gray",
@@ -38,11 +40,42 @@ export function CreateCategory() {
     setName(e.target.value);
   };
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    // setIcon(file)
+    const file_url = URL.createObjectURL(file);
+    console.log("file", file);
+    console.log("file_url", file_url);
+    console.log("image target", event.target.files[0]);
+    setIcon(event.target.files[0]);
+    setImagePreview(file_url);
+  };
+
   const storeCategory = async (e) => {
     e.preventDefault();
-    const createResult = await createCategory(name)
+    const createResult = await createCategory(name, icon, userToken)
       .then(function (response) {
-        toast.success(" دسته بندی با موفقیت افزوده شد !");
+        console.log('dataresult', response)
+        if (response.status) {
+          toast.success(" دسته بندی با موفقیت افزوده شد !");
+        } else {
+          if (response?.success == false) {
+            toast(
+              `${
+                response?.data?.name != undefined ? response?.data?.name : ""
+              } \n
+                  ${
+                    response?.data?.icon != undefined
+                      ? response?.data?.icon
+                      : ""
+                  } \n`,
+              {
+                duration: 2000,
+              }
+            );
+          }
+          toast.error("خطایی رخ داده است");
+        }
         console.log(response);
         // navigate(-1);
       })
@@ -94,9 +127,9 @@ export function CreateCategory() {
             <form
               method="post"
               onSubmit={storeCategory}
-              className="m-6 mb-4 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2"
+              className="m-6 mb-4 flex flex-wrap"
             >
-              <div className="">
+              <div className="w-7/12">
                 <label className="ml-3">نام دسته بندی</label>
                 <input
                   onChange={(e) => handleField(e)}
@@ -106,8 +139,26 @@ export function CreateCategory() {
                   style={inputStyle}
                 />
               </div>
-
-              <div className="col-span-2">
+              <div className="w-7/12 mt-4">
+                <label className="ml-3 block">آیکون:</label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="file"
+                    name="icon"
+                    accept="image/png,image/jpeg,image/webp,"
+                    style={inputStyle}
+                    onChange={handleFileChange}
+                  />
+                  <div className=" h-20 w-36 rounded-md border-2">
+                    <img
+                      className="h-full w-full rounded-md object-cover"
+                      src={imagePreview ?? "../../images/no-image.svg"}
+                      alt="آپلود عکس"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-span-2 mt-4 w-6/12">
                 <Button type="submit">ذخیره</Button>
               </div>
             </form>

@@ -12,69 +12,74 @@ const header = {
   "Access-Control-Request-Method": "POST",
   "Access-Control-Request-Headers": "Content-Type, Accept",
 };
+const auth_header_files = {
+  "Content-Type": "multipart/form-data",
+  Accept: "application/json",
+  "Access-Control-Request-Method": "POST",
+  "Access-Control-Request-Headers": "Content-Type, Accept",
+};
 
 export const getCategory = async () => {
   const response = await apiClient.get("/category?count=100", {
     headers: header,
   });
-  console.log("status", response);
-  if (response.status !== 200) {
+  if (!response.status) {
     return null;
   }
   return response?.data;
 };
 
-export const createCategory = async (name) => {
+export const createCategory = async (name,icon, userToken) => {
+  auth_header_files.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.post(
-    `/category/create`,
+    `category/store`,
     {
       name: name,
+      icon: icon,
     },
     {
-      headers: header,
+      headers: auth_header_files,
     }
   );
-  console.log("status", response);
-  if (response.status !== 200) {
+  if (!response.status) {
     return null;
   }
   return response?.data;
 };
 
 export const showCategory = async (id) => {
-  const response = await apiClient.get(`/category/show/${id}`, {
+  const response = await apiClient.get(`category/show/${id}`, {
     headers: header,
   });
-  console.log("status", response);
-  if (response.status !== 200) {
+  if (!response.status) {
     return null;
   }
   return response?.data;
 };
 
-export const updateCategory = async (id, values) => {
+export const updateCategory = async (id, values, userToken) => {
+  auth_header_files.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.patch(
-    `/category/update/${id}`,
+    `category/update/${id}`,
     {
       name: values.name,
     },
     {
-      headers: header,
+      headers: auth_header_files,
     }
   );
-  console.log("status", response);
-  if (response.status !== 200) {
+  if (!response.status) {
     return null;
   }
   return response?.data;
 };
 
-export const deleteCategory = async (id) => {
-  const response = await apiClient.delete(`/category/delete/${id}`, {
+export const deleteCategory = async (id,userToken) => {
+  header.Authorization = `Bearer ${userToken}`;
+  const response = await apiClient.delete(`category/delete/${id}`, {
     headers: header,
   });
-  console.log("status", response);
-  if (response.status !== 200) {
+  if (!response.status) {
     return null;
   }
   return response?.data;
@@ -83,11 +88,10 @@ export const deleteCategory = async (id) => {
 // -------------------------------------------------------------------
 
 export const getCategorysList = async () => {
-  const response = await apiClient.get("/api/category?count=100", {
+  const response = await apiClient.get("category?count=999", {
     headers: header,
   });
-  console.log("status", response);
-  if (response.status !== 200) {
+  if (!response.status) {
     return null;
   }
   return response?.data;

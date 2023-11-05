@@ -1,6 +1,5 @@
 import { QueryClient, useQuery, useQueryClient } from "react-query";
 import apiClient from "../apiClient";
-import { idID } from "@mui/material/locale";
 import { userRegister } from "./auth-api";
 const auth_header = {
   "Content-Type": "multipart/form-data",
@@ -9,17 +8,13 @@ const auth_header = {
   "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 
-const queryClient = useQueryClient();
-
 export const fetchUsers = async (userToken) => {
   auth_header.Authorization = `Bearer ${userToken}`;
   // handleClearCache();
-  const response = await apiClient.get("/profile/me", { headers: auth_header }); // Replace with your API endpoint
-
-  if (response.status !== 200) {
+  const response = await apiClient.get("/user", { headers: auth_header }); // Replace with your API endpoint
+  if (!response.status) {
     throw new Error("Failed to fetch data");
   }
-
   return response.data;
 };
 

@@ -15,17 +15,14 @@ import {
 } from "@material-tailwind/react";
 import { useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import { showProfile, updateProfiles } from "@/api/services/auth-api";
 import { ThreeDots } from "react-loader-spinner";
+import { AuthContext } from "@/gard/context/AuthContext";
 
 export function UserPanel() {
+  const { userToken } = useContext(AuthContext);
   const { id } = useParams();
-
-  // -------------------------------- prev
-  // const [userInfo, setUserInfo] = useState(initialValues);
-
   const [userInfo, setUserInfo] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -44,7 +41,7 @@ export function UserPanel() {
   };
 
   const showUserProfileInfo = async (id) => {
-    const showResult = await showProfile(id)
+    const showResult = await showProfile(id, userToken)
       .then(function (response) {
         setUserInfo(response?.data);
         console.log(userInfo);
@@ -169,7 +166,7 @@ export function UserPanel() {
                   </div>
                   <div className="col-span-2">
                     <strong className=""> آزمون ها </strong>
-                    <table className="w-full min-w-[640px] mt-2 table-auto text-right">
+                    <table className="mt-2 w-full min-w-[640px] table-auto text-right">
                       <thead>
                         <tr>
                           {[
@@ -204,7 +201,7 @@ export function UserPanel() {
                         ? ""
                         : "border-b text-center	 border-blue-gray-50"
                     }`; */}
-                        
+
                         <tr>
                           <td className={""}>
                             <div className="flex items-center gap-4">
@@ -247,7 +244,7 @@ export function UserPanel() {
                             </Typography>
                           </td>
                         </tr>
-                   
+
                         {/* })} */}
                       </tbody>
                     </table>

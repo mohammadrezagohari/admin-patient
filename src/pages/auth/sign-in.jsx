@@ -57,13 +57,11 @@ export function SignIn() {
     e.preventDefault();
     const loginUser = await signIn(mobile, password)
       .then(function (response) {
-        const res = JSON.parse(response);
-
-        if (res.status==true) {
-          loginContext(res?.token);
-          // localStorage.setItem("_token_testato", response?.token);
+        if (response.status == true) {
+          loginContext(response?.token);
+          // localStorage.setItem("_token_admin", response?.token);
           toast.success("با موفقیت ثبت شد !");
-          navigate("/home");
+          navigate("/");
         } else {
           toast.error("لطفا اطلاعات ضروری را وارد نمایید !!");
         }

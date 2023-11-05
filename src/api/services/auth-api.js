@@ -1,59 +1,50 @@
-import axios from "axios";
 import apiClient from "@/api/apiClient";
 import { useQueryClient, useQuery } from "react-query";
 
 const auth_header = {
-  //   "Content-Type": "application/json",
   "Content-Type": "application/json",
   Accept: "application/json",
   "Access-Control-Request-Method": "POST",
   "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 
-// export const forgetPassword = async ({mobile}) => {
-//   const { data } = await axios.post(baseUrl + "/auth/otp",{
-//     mobile
-//   });
-//   return data;
-// };
-
 export const signIn = async (mobile, password) => {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("Accept", "application/json");
+  //   var myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/json");
+  //   myHeaders.append("Accept", "application/json");
 
-  var raw = JSON.stringify({
-    mobile: mobile,
-    password: password,
-  });
+  //   var raw = JSON.stringify({
+  //     mobile: mobile,
+  //     password: password,
+  //   });
 
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
-  };
+  //   var requestOptions = {
+  //     method: "POST",
+  //     headers: myHeaders,
+  //     body: raw,
+  //     redirect: "follow",
+  //   };
 
-  const result = await fetch(
-    "https://product.gandom.link/api/auth/login",
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => result)
-    .catch((error) => console.log("error", error));
+  //   const result = await fetch(
+  //     "https://product.gandom.link/api/auth/login",
+  //     requestOptions
+  //   )
+  //     .then((response) => response.text())
+  //     .then((result) => result)
+  //     .catch((error) => console.log("error", error));
 
-  return result;
-  //   const { data } = await apiClient.post(
-  //     "auth/login",
-  //     {
-  //       mobile: mobile,
-  //       password: password,
-  //     },
-  //     {
-  //       headers: auth_header,
-  //     }
-  //   );
-  //   return data;
+  //   return result;
+  const { data } = await apiClient.post(
+    "auth/login",
+    {
+      mobile: mobile,
+      password: password,
+    },
+    {
+      headers: auth_header,
+    }
+  );
+  return data;
 };
 
 export const userRegister = async (name, mobile, password) => {
@@ -72,14 +63,15 @@ export const userRegister = async (name, mobile, password) => {
 };
 
 export const profile = async (userToken) => {
-  auth_header.Authorization = `Bearer ${userToken}`;
+  //   auth_header.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.get("/profile", {
     headers: auth_header,
   });
-  if (response.status !== 200) {
+  console.log("response data me", response);
+  if (!response.status) {
     throw new Error("Failed to fetch data");
   }
-  return response.data;
+  return response?.data;
 };
 
 export const showProfile = async (id, userToken) => {
@@ -162,7 +154,7 @@ export const deleteProfiles = async (id, userToken) => {
 export const profileProvince = async (userToken) => {
   auth_header.Authorization = `Bearer ${userToken}`;
 
-  const { data } = await axios.get(baseUrl + "/profile", {
+  const { data } = await apiClient.get("/profile", {
     headers: auth_header,
   });
   return data;

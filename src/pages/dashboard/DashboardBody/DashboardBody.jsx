@@ -1,70 +1,144 @@
 import {
-    Card,
-    CardBody,
-    CardHeader,
-    CardFooter,
-    Avatar,
-    Typography,
-    Tabs,
-    TabsHeader,
-    Tab,
-    Switch,
-    Tooltip,
-    Button,
-    Input,
-  } from "@material-tailwind/react";
-  import { Formik } from "formik";
-  import {
-    BanknotesIcon,
-    CreditCardIcon,
-    LockClosedIcon,
-  } from "@heroicons/react/24/solid";
-  import {
-    HomeIcon,
-    ChatBubbleLeftEllipsisIcon,
-    Cog6ToothIcon,
-    PencilIcon,
-  } from "@heroicons/react/24/solid";
-  import { Link } from "react-router-dom";
-  import { ProfileInfoCard, MessageCard } from "@/widgets/cards";
-  import { platformSettingsData, conversationsData, projectsData } from "@/data";
-  import { useContext, useEffect, useState } from "react";
-  import axios from "axios";
-  import { getProfileMe } from "@/api/services/auth-api";
-  import { getProvince } from "../../../api/services/province";
-  import CategotyBox from "@/components/CategoryBox/CategoryBox";
-import { useRef } from "react";
+  Card,
+  CardBody,
+  CardHeader,
+  CardFooter,
+  Avatar,
+  Typography,
+  Tabs,
+  TabsHeader,
+  Tab,
+  Switch,
+  Tooltip,
+  Button,
+  Input,
+} from "@material-tailwind/react";
+import { Formik } from "formik";
+import {
+  BanknotesIcon,
+  CreditCardIcon,
+  LockClosedIcon,
+} from "@heroicons/react/24/solid";
+import {
+  HomeIcon,
+  ChatBubbleLeftEllipsisIcon,
+  Cog6ToothIcon,
+  PencilIcon,
+} from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
+import { ProfileInfoCard, MessageCard } from "@/widgets/cards";
+import { platformSettingsData, conversationsData, projectsData } from "@/data";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import CategotyBox from "@/components/CategoryBox/CategoryBox";
+import {
+  getArticleCount,
+  getCategoryCount,
+  getTutorialCount,
+  getUserCount,
+} from "@/api/services/dashboard";
+import { AuthContext } from "@/gard/context/AuthContext";
 
-  const DashboardBody = ()=>{
- 
-  
-    const category=[
-      {id:1,name:'ارتوپدی',src:'../img/svgs/Data Set.svg'},
-      {id:2,name:'اورولوژی',src:'../img/svgs/Profile.svg'},
-      {id:3,name:'جراحی اعصاب',src:'../img/svgs/Cards.svg'},
-      {id:4,name:'جراحی زنان',src:'../img/svgs/icons8-news 1.svg'},
-    ]
-    return(
-     
-            <Card className="w-full rounded-4 bg-white h-full">
-              <CardBody>
-                    <label id='parentCkeck' className="border-2 border-gray-100 flex justify-around items-center  pb-8 p-5 w-full h-26 overflow-hidden rounded-xl " >
-                        {category.map(
-                            (el) => (
-                            <CategotyBox key={el.id} name={el.name} src={el.src}>
-                              <div>s<div className=""></div></div>
-                            </CategotyBox>
-                            )
-                        )}
-                    </label>
-              </CardBody>
-            </Card>
+const DashboardBody = () => {
+//   const category = [
+//     { id: 1, name: "ارتوپدی", src: "" },
+//     { id: 2, name: "اورولوژی", src: "" },
+//     { id: 3, name: "جراحی اعصاب", src: "" },
+//     { id: 4, name: "جراحی زنان", src: "" },
+//   ];
+  const { userToken } = useContext(AuthContext);
+  const [loading, setLoading] = useState(null);
+  const [articleQuantity, setArticleQuantity] = useState(null);
+  const [userQuantity, setUserQuantity] = useState(null);
+  const [tutorialQuantity, setTutorialQuantity] = useState(null);
+  const [categoryQuantity, setCategoryQuantity] = useState(null);
+  const articleCount = async () => {
+    const result = await getArticleCount(userToken)
+      .then(function (response) {
+        console.log("setArticleQuantity", response);
+        setArticleQuantity(response?.data);
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+    setLoading(false);
+    return result;
+  };
+  const userCount = async () => {
+    const result = await getUserCount(userToken)
+      .then(function (response) {
+        console.log("setUserQuantity", response);
+        setUserQuantity(response?.data);
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+    setLoading(false);
+    return result;
+  };
+  const tutorialCount = async () => {
+    const result = await getTutorialCount(userToken)
+      .then(function (response) {
+        console.log("setTutorialQuantity", response);
+        setTutorialQuantity(response?.data);
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+    setLoading(false);
+    return result;
+  };
 
-    );
-    
-  }
+  const categoryCount = async () => {
+    const result = await getCategoryCount(userToken)
+      .then(function (response) {
+        console.log("setCategoryQuantity", response);
+        setCategoryQuantity(response?.data);
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+    setLoading(false);
+    return result;
+  };
 
+  useEffect(() => {
+    articleCount();
+    userCount();
+    tutorialCount();
+    categoryCount();
+  }, []);
+  return (
+    <Card className="rounded-4 h-full w-full bg-white">
+      <CardBody>
+        <label
+          id="parentCkeck"
+          className="h-26 flex w-full items-center justify-around  overflow-hidden rounded-xl border-2 border-gray-100 p-5 pb-8 "
+        >
+            <CategotyBox name={"دسته ها"} src="../img/svgs/Data Set.svg">
+              <div>
+                <div className="p-1">{categoryQuantity}</div>
+              </div>
+            </CategotyBox>
+            <CategotyBox name={"کاربران"} src="../img/svgs/Profile.svg">
+              <div>
+                <div className="p-1">{userQuantity}</div>
+              </div>
+            </CategotyBox>
+            <CategotyBox name={"آموزش ها"} src="../img/svgs/Cards.svg">
+              <div>
+                <div className="p-1">{tutorialQuantity}</div>
+              </div>
+            </CategotyBox>
+            <CategotyBox name={"مقالات"} src="../img/svgs/icons8-news 1.svg">
+              <div>
+                <div className="p-1">{articleQuantity}</div>
+              </div>
+            </CategotyBox>
+        </label>
+      </CardBody>
+    </Card>
+  );
+};
 
-  export default DashboardBody;
-
-
+export default DashboardBody;

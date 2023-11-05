@@ -12,9 +12,9 @@ import {
 // import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 // import { authorsTableData, projectsTableData } from "@/data";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 import { deleteProfiles, profile } from "@/api/services/auth-api";
+import { fetchUsers } from "@/api/services/users";
 import { toast } from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import Sortable from "sortablejs";
@@ -25,7 +25,6 @@ export function Users() {
 
   const listRef = useRef(null);
   const [users, setUsers] = useState([]);
- 
 
   const [isOpentDropDown, setIsOpentDropDown] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -38,7 +37,7 @@ export function Users() {
     console.log("isOpentDropDown : ", isOpentDropDown);
   };
   const getDatas = async () => {
-    const result = await profile(userToken)
+    const result = await fetchUsers(userToken)
       .then(function (response) {
         console.log("response", response);
         setUsers(response?.data);
@@ -207,9 +206,7 @@ export function Users() {
                       "نام",
                       "جنسیت",
                       "موبایل",
-                      "مدرسه",
-                      "سطح",
-                      "استان",
+                      "وضعیت",
                       "شهر",
                       "تنظیمات",
                     ].map((el) => (
@@ -258,7 +255,7 @@ export function Users() {
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {user?.name}
+                            {user?.first_name + " " + user.last_name}
                           </Typography>
                         </td>
                         <td className={className}>
@@ -273,22 +270,16 @@ export function Users() {
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {user.school?.name}
+                            {user?.is_enable ? (
+                              <i className="fa fa-check bg-green-500 text-white p-2"></i>
+                            ) : (
+                              <i className="fa fa-close bg-red-500 text-white p-2"></i>
+                            )}
                           </Typography>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {user?.grade?.name}
-                          </Typography>
-                        </td>
-                        <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {user?.province?.name}
-                          </Typography>
-                        </td>
-                        <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {user?.city?.name}
+                            {user?.city?.name ?? "تعین نشده"}
                           </Typography>
                         </td>
 

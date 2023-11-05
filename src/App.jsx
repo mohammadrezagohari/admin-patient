@@ -101,7 +101,7 @@ function App() {
               element={<CreateTutorials />}
             />
             <Route path="/dashboard/dashboard" element={<DashboardBody />} />
-            <Route path="/" element={<SignIn />} />
+            <Route path="/" element={<DashboardBody />} />
           </Routes>
         </Dashboard>
       </>

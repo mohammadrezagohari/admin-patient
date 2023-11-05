@@ -10,9 +10,7 @@ import { Home, Profile, Notifications, Users } from "@/pages/dashboard";
 import { SignIn } from "@/pages/auth";
 import Register from "./pages/auth/register";
 import Forget from "./pages/auth/forget";
-// import Address from "./pages/dashboard/address/address";
 import Category from "./pages/dashboard/category/category";
-// import Contact from "./pages/dashboard/contact/contact";
 import About from "./pages/dashboard/about/about";
 import Tutorials from "./pages/dashboard/tutorials/tutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
@@ -27,9 +25,9 @@ export const routes = [
     pages: [
       {
         icon: <HomeIcon {...icon} />,
-        name: "dddd",
+        name: "دشبورد",
         path: "/dashboard",
-        element: <DashboardBody />,
+        element: <Home />,
       },
       
       {

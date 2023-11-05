@@ -18,7 +18,7 @@ export function Dashboard({children}) {
 
       <>
         <div className="flex bg-blue-gray-900 ">
-          <div className="w-10 h-10 bg-blue-gray-800 lg:hidden md:hidden">
+          <div className="w-10 h-10 bg-blue-gray-800 lg:hidden md:hidden overflow-hidden">
             <img src="./img/" alt="menu icon"/>
           </div>
           <Sidenav
@@ -29,7 +29,7 @@ export function Dashboard({children}) {
                 : "/img/pelogo.png"
             }
           />
-          <div className={`w-full p-4 bg-red-200 `}>
+          <div className={`w-full p-4 bg-white `}>
             {children}
           <div className="text-blue-gray-600">
             <Footer />

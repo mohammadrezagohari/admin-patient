@@ -26,7 +26,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
   const styleAside = {
     overflowY: "scroll",
     background:'#183087',
-    width:'332px',
+    width:'400px',
     height:'100vh',
   };
   return (

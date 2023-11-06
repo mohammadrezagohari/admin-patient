@@ -149,36 +149,7 @@ export function Users() {
             کاربران
           </Typography>
           <div className="mt-2 flex gap-6">
-            {/* <input
-                    type="text"
-                    placeholder="دنبال چی میگردی؟"
-                    value={wordEntered}
-                    onChange={handleFilter}
-                    className=" text-black"
-                  /> */}
-            {/* <div className="searchIcon">
-                    {grades.length === 0 ? (
-                      // <SearchIcon />
-                      <></>
-                    ) : (
-                      <div onClick={clearInput} >(+)</div>
-                    )}
-                  </div> */}
-            {/* <input
-              className="rounded-md p-1 pr-2 text-gray-900 focus:outline-none"
-              type="text"
-              placeholder="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-
-            <div
-              className="hover:cursor-pointer"
-              onClick={() => handleSort("name")}
-            >
-              نام
-              {sortColumn === "name" && (sortDirection === "asc" ? " ▲" : " ▼")}
-            </div> */}
+    
           </div>
         </CardHeader>
         {loading ? (
@@ -321,15 +292,15 @@ export function Users() {
                                   className="py-2 text-sm text-gray-700 dark:text-gray-200"
                                   aria-labelledby="dropdownDelayButton"
                                 >
-                                  <li>
+                                  {/* <li>
                                     <Link
                                       to={`/dashboard/users/panel/${user.id}`}
                                       className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                     >
                                       پنل کاربری
                                     </Link>
-                                  </li>
-                                  <li>
+                                  </li> */}
+                                  <li className="w-full flex justify-center">
                                     <Link
                                       to={`/dashboard/users/edit/${user.id}`}
                                       className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
@@ -337,10 +308,10 @@ export function Users() {
                                       اصلاح
                                     </Link>
                                   </li>
-                                  <li>
+                                  <li className="w-full">
                                     <Button
                                       onClick={() => deleteUser(user.id)}
-                                      className="w-full rounded-none bg-white px-0 pr-4 text-right text-gray-600 shadow-none hover:bg-gray-100 hover:shadow-none focus:outline-none"
+                                      className=" flex justify-center w-full rounded-none bg-white px-0 pr-4 text-right text-gray-600 shadow-none hover:bg-gray-100 hover:shadow-none focus:outline-none"
                                     >
                                       حذف
                                     </Button>

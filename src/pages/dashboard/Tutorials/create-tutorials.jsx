@@ -206,7 +206,7 @@ export function CreateCategory() {
                 />
               </div>
 
-              <div className="w-7/12">
+              {/* <div className="w-7/12">
                 <label className="ml-3"></label>
                 <Textarea
                   size="lg"
@@ -214,15 +214,15 @@ export function CreateCategory() {
                   name="first_context"
                   label="توضیحات"
                 />
-              </div>
-              {/* <div className="my-3 w-7/12">
+              </div> */}
+              <div className="my-3 w-7/12">
                 <label className="ml-3">توضیحات</label>
                 <Editor
                   apiKey="gl63rdyllvfa1swq1l7dd9hvyw785dci9mmmyf2eqchka051"
                   onInit={(evt, editor) => (editorRef.current = editor)}
                   initialValue=""
                   name="first_context"
-                  onChange={(e) => setFirstContext(e.target.value)}
+                  onEditorChange={(content, editor) => setFirstContext(editor.getContent())}
                   init={{
                     height: 250,
                     menubar: false,
@@ -255,7 +255,7 @@ export function CreateCategory() {
                       "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                   }}
                 />
-              </div> */}
+              </div>
 
               <div className="w-7/12">
                 <label className="ml-3"></label>
@@ -269,7 +269,7 @@ export function CreateCategory() {
                 />
               </div>
 
-              <div className="w-7/12">
+              {/* <div className="w-7/12">
                 <label className="ml-3"></label>
                 <Textarea
                   size="lg"
@@ -277,15 +277,15 @@ export function CreateCategory() {
                   name="second_context"
                   label="توضیحات"
                 />
-              </div>
-              {/* <div className="my-3 w-7/12">
+              </div> */}
+              <div className="my-3 w-7/12">
                 <label className="ml-3">توضیحات</label>
                 <Editor
                   apiKey="gl63rdyllvfa1swq1l7dd9hvyw785dci9mmmyf2eqchka051"
                   onInit={(evt, editor) => (editorRef.current = editor)}
                   initialValue=""
                   name="second_context"
-                  onChange={(e) => setSecondContext(e.target.value)}
+                  onEditorChange={(content, editor) => setSecondContext(editor.getContent())}
                   init={{
                     height: 250,
                     menubar: false,
@@ -318,7 +318,7 @@ export function CreateCategory() {
                       "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                   }}
                 />
-              </div> */}
+              </div>
 
               <div className="mt-4 w-7/12">
                 <label className="ml-3 block">تصویر شاخص:</label>

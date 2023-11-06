@@ -16,7 +16,7 @@ const auth_header_files = {
 };
 
 export const getTutorials = async (name, userToken) => {
-  auth_header.Authorization = `Bearer ${userToken}`;
+  header.Authorization = `Bearer ${userToken}`;
 
   const response = await apiClient.get("/tutorial?count=100", {
     headers: header,
@@ -44,20 +44,18 @@ export const showTutorials = async (id, userToken) => {
 export const createTutorials = async (values, userToken) => {
   auth_header_files.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.post(
-    `/tutorial/create`,
+    `/tutorial/store`,
     {
-      context: values.context,
-      title: values.title,
-      category_id: values.category_id,
       main_title: values.main_title,
       first_title: values.first_title,
       first_context: values.first_context,
       second_title: values.second_title,
       second_context: values.second_context,
-      image: values.image,
+      main_image: values.main_image,
+      category_id: values.category_id,
     },
     {
-      headers: header,
+      headers: auth_header_files,
     }
   );
   if (response.status !== 200) {

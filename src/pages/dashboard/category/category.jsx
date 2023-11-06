@@ -59,7 +59,6 @@ function Category() {
   const deleteCategoryItem = async (id) => {
     const deleteResult = await deleteCategory(id, userToken)
       .then(function (response) {
-        console.log('delete res',response);
         if (response.status) {
           toast.success("حذف با موفقیت انجام شد !");
           setCategories(categories.filter((catgry) => catgry.id !== id));

@@ -54,75 +54,75 @@ const CreateTutorials = ()=>{
     const { userToken } = useContext(AuthContext);
     const uploadRef=useRef();
 
-    const createTutorials = async (e) => {
-        e.preventDefault();
+    // const createTutorials = async (e) => {
+    //     e.preventDefault();
     
-        const createResult = await createTutorials(context,category_id,main_title,first_title,first_context,second_title,second_context,image,userToken)
-          .then(function (response) {
-            if (response.status) {
-              if (response?.success == false) {
-                toast(
+        // const createResult = await createTutorials(context,category_id,main_title,first_title,first_context,second_title,second_context,image,userToken)
+        //   .then(function (response) {
+        //     if (response.status) {
+        //       if (response?.success == false) {
+        //         toast(
                 //   `${
                 //     response?.data?.title != undefined ? response?.data?.title : ""
                 //   } \n
-                        `${
-                          response?.data?.category_id != undefined
-                            ? response?.data?.category_id
-                            : ""
-                        }\n,
-                  ${
-                    response?.data?.main_title != undefined
-                      ? response?.data?.main_title
-                      : ""
-                  }\n,
-                  ${
-                    response?.data?.second_title != undefined
-                      ? response?.data?.first_title
-                      : ""
-                  }\n,
-                  ${
-                    response?.data?.first_context != undefined
-                      ? response?.data?.first_context
-                      : ""
-                  }\n,
-                  ${
-                    response?.data?.second_title != undefined
-                      ? response?.data?.second_title
-                      : ""
-                  }\n,
-                  ${
-                    response?.data?.second_context != undefined
-                      ? response?.data?.second_context
-                      : ""
-                  }\n,
-                  ${
-                    response?.data?.image != undefined
-                      ? response?.data?.image
-                      : ""
-                  }`,
-                  {
-                    duration: 2000, 
-                  }
-                );
-              } else {
-                toast.success("آموزش با موفقیت افزوده شد !");
-              }
-            } else {
-              toast.error("خطایی رخ داده است");
-            }
-          })
-          .catch(function (error) {
-            toast.error("خطا !! مجددا تلاش نمایید");
-            console.log(error.massage);
-          });
-        return createResult;
-      };
+      //                   `${
+      //                     response?.data?.category_id != undefined
+      //                       ? response?.data?.category_id
+      //                       : ""
+      //                   }\n,
+      //             ${
+      //               response?.data?.main_title != undefined
+      //                 ? response?.data?.main_title
+      //                 : ""
+      //             }\n,
+      //             ${
+      //               response?.data?.second_title != undefined
+      //                 ? response?.data?.first_title
+      //                 : ""
+      //             }\n,
+      //             ${
+      //               response?.data?.first_context != undefined
+      //                 ? response?.data?.first_context
+      //                 : ""
+      //             }\n,
+      //             ${
+      //               response?.data?.second_title != undefined
+      //                 ? response?.data?.second_title
+      //                 : ""
+      //             }\n,
+      //             ${
+      //               response?.data?.second_context != undefined
+      //                 ? response?.data?.second_context
+      //                 : ""
+      //             }\n,
+      //             ${
+      //               response?.data?.image != undefined
+      //                 ? response?.data?.image
+      //                 : ""
+      //             }`,
+      //             {
+      //               duration: 2000, 
+      //             }
+      //           );
+      //         } else {
+      //           toast.success("آموزش با موفقیت افزوده شد !");
+      //         }
+      //       } else {
+      //         toast.error("خطایی رخ داده است");
+      //       }
+      //     })
+      //     .catch(function (error) {
+      //       toast.error("خطا !! مجددا تلاش نمایید");
+      //       console.log(error.massage);
+      //     });
+      //   return createResult;
+      // };
     
-      useEffect(() => {
-        setTimeout(() => {
-          setLoading(false);
-        }, 3000);
-      }, []);
+      // useEffect(() => {
+      //   setTimeout(() => {
+      //     setLoading(false);
+      //   }, 3000);
+      // }, []);
     
     const label= {
         border:'2px solid #1E88E5',
@@ -138,7 +138,14 @@ const CreateTutorials = ()=>{
         fontSize:'.8em',
         marginLeft:'8px',
       } 
-      
+       const linkStyle = {
+        backgroundColor: "#F2F2F2",
+        height:"2.75rem",
+        color: "#183087",
+        marginLeft: "1rem",
+        padding: ".625rem",
+        borderRadius: "8px",
+       };
 
 
 
@@ -152,21 +159,31 @@ const CreateTutorials = ()=>{
         setImage(file);
         // setImage(file);
       };
-    
+    const modalRef = useRef();
+    const firstPageRef = useRef();
+    const showModal= ()=>{
+      modalRef.current.style.display="flex";
+      firstPageRef.current.style.display="none";
+    }
+    const hideModal= ()=>{
+      modalRef.current.style.display="none";
+      firstPageRef.current.style.display="flex";
+    }
 
 
         return(
             <>
                 
-            <Card style={{height:'570px'}}>
+            <Card style={{height:'570px'}} className=" hidden " ref={modalRef} >
                 {/* <Header title={"دسته بندی مورد نظر را انتخاب کنید"} style={{background:'red'}} buttonValue={"دسته بندی"} icon="../img/svgs/add.svg"/> */}
                <header style={{background:'#1E88E5',height:'96px'}} className="flex items-center text-white text-xl pr-10 rounded-xl">
                     <span className="flex gap-2">
                         <img src="../../img/svgs/add2.svg" alt="add" />
                         <h2>آموزش جدید</h2>
                     </span>
+                    <Button onClick={hideModal} style={{linkStyle}}>بازگشت</Button>
                </header>
-               <CardBody className="w-full h-full rounded-xl overflow-y-scroll px-10 pb-10">
+               <CardBody className="w-full h-full rounded-xl overflow-y-scroll px-10 pb-10" >
                     <form onSubmit={createTutorials} className="w-full h-max overflow-y-scroll flex flex-col gap-6">
                         <Input 
                         type="text"
@@ -293,7 +310,7 @@ const CreateTutorials = ()=>{
 
                             </div>
                         </div>
-                        <div className="w-full flex justify-end">
+                        <div className="w-full flex justify-end" >
                             <Button type="submit">ثبت آموزش جدید</Button>
                         </div>
                      </div>
@@ -301,7 +318,37 @@ const CreateTutorials = ()=>{
                     </form>
                     
                </CardBody>
+               
             </Card>
+            <Card style={{height:'570px'}}className="flex-col">
+                  <header style={{background:'#1E88E5',height:'96px'}} className="flex items-center text-white text-xl pr-10 rounded-xl" >
+                      <div className="h-11 flex">
+                          <Typography>دسته بندی خود را انتخاب کنید</Typography>
+                          <Input
+                          className="h-full rounded-md p-1 m-0  pr-2 pl-6 text-gray-900 focus:outline-none"
+                          type="text"
+                          placeholder="Search"
+                          // value={searchTerm}
+                          // onChange={(e) => setSearchTerm(e.target.value)}
+                          style={{backgroundColor: "#F2F2F2"}}
+                          />
+
+                          <div className="py-2  mt-0">
+                          <button
+                          onClick={showModal}
+                          
+                              className=""
+                              style={linkStyle}
+                          >
+                               آموزش جدید
+                          </button>
+                          </div>
+                        </div>
+                    </header>
+                    <CardBody className='' style={{height:'570px'}} ref={firstPageRef}>
+                      HELLO WORLD
+                    </CardBody>
+           </Card>
             </>
         );
 }

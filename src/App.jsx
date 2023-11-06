@@ -30,7 +30,7 @@ import UserPanel from "./pages/dashboard/users/panel";
 // import CreateAboutUs from "./pages/dashboard/about/createAbout";
 import { Profile, Users } from "./pages/dashboard";
 import { useContext } from "react";
-import Tutorials from "./pages/dashboard/tutorials/tutorials";
+import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
 import CreateTutorials from "./pages/dashboard/tutorials/createTutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
 import Category from "./pages/dashboard/category/category";

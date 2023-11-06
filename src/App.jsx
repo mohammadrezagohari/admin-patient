@@ -28,7 +28,7 @@ import { Button, IconButton } from "@material-tailwind/react";
 import UserPanel from "./pages/dashboard/users/panel";
 // import CreateContact from "./pages/dashboard/contact/createContact";
 // import CreateAboutUs from "./pages/dashboard/about/createAbout";
-import { Profile, Users } from "./pages/dashboard";
+import { Home, Profile, Users } from "./pages/dashboard";
 import { useContext } from "react";
 import CreateTutorials from "./pages/dashboard/tutorials/create-tutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
@@ -100,8 +100,8 @@ function App() {
               path="/dashboard/tutorials/create"
               element={<CreateTutorials />}
             />
-            <Route path="/dashboard/dashboard" element={<DashboardBody />} />
-            <Route path="/" element={<DashboardBody />} />
+            <Route path="/dashboard/dashboard" element={<Home />} />
+            {/* <Route path="/" element={<DashboardBody />} /> */}
           </Routes>
         </Dashboard>
       </>

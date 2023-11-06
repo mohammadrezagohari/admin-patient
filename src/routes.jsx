@@ -5,7 +5,10 @@ import {
   BellIcon,
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
+  
 } from "@heroicons/react/24/solid";
+import { HiNewspaper } from 'react-icons/hi2';
+
 import { Home, Profile, Notifications, Users } from "@/pages/dashboard";
 import { SignIn } from "@/pages/auth";
 import Register from "./pages/auth/register";
@@ -14,6 +17,8 @@ import Category from "./pages/dashboard/category/category";
 import About from "./pages/dashboard/about/about";
 import Tutorials from "./pages/dashboard/tutorials/tutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
+import EducationCovers from "./pages/dashboard/educationCovers/educationCovers";
+import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -42,12 +47,7 @@ export const routes = [
         path: "/users",
         element: <Users />,
       },
-    //   {
-    //     icon: <TableCellsIcon {...icon} />,
-    //     name: "نشانی ها",
-    //     path: "/address",
-    //     element: <Address />,
-    //   },
+ 
 
       {
         icon: <UserCircleIcon {...icon} />,
@@ -55,11 +55,29 @@ export const routes = [
         path: "/tutorials",
         element: <Tutorials />,
       },
-      
+      {
+        icon: <BellIcon {...icon} />,
+        name: "دسته بندی ها",
+        path: "/categories",
+        element: <Category />,
+      },
       {
         icon: <BellIcon {...icon} />,
         name: " پوسترهای آموزشی",
-        path: "/grades",
+        path: "/educationCovers",
+        element: <EducationCovers />,
+      },
+     
+      {
+        icon: <BellIcon {...icon} />,
+        name: "فواید سیستم الکترونیکی ",
+        path: "/systembenefit",
+        element: <SystemBenefit />,
+      },
+      {
+        icon: <BellIcon {...icon} />,
+        name: "سوالات متداول",
+        path: "/sections",
         element: <Profile />,
       },
       {
@@ -69,52 +87,18 @@ export const routes = [
         element: <Profile />,
       },
       {
-        icon: <BellIcon {...icon} />,
+        icon:<HiNewspaper/>,
         name: "آخرین اخبار",
         path: "/units",
         element: <Profile />,
       }, 
       {
         icon: <BellIcon {...icon} />,
-        name: "فواید سیستم الکترونیکی ",
-        path: "/unitExcercises",
-        element: <Profile />,
-      },
-      {
-        icon: <BellIcon {...icon} />,
-        name: "سوالات متداول",
-        path: "/sections",
-        element: <Profile />,
-      },
-
-
-      {
-        icon: <BellIcon {...icon} />,
         name: "پیشنهادات",
         path: "/suggestions",
         element: <Profile />,
       },
-   
-      {
-        icon: <BellIcon {...icon} />,
-        name: "دسته بندی ها",
-        path: "/categories",
-        element: <Category />,
-      },
-
-      {
-        icon: <BellIcon {...icon} />,
-        name: "تبلیغات ",
-        path: "/advertisements",
-        element: <Profile />,
-      },
-
-      {
-        icon: <BellIcon {...icon} />,
-        name: "پاسخ ",
-        path: "/answers",
-        element: <Profile />,
-      },
+  
     //   {
     //     icon: <BellIcon {...icon} />,
     //     name: "تماس باما ",

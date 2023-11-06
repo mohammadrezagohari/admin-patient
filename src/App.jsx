@@ -34,6 +34,10 @@ import CreateTutorials from "./pages/dashboard/tutorials/create-tutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
 import Category from "./pages/dashboard/category/category";
 import Tutorials from "./pages/dashboard/tutorials/tutorials";
+import EducationCovers from "./pages/dashboard/educationCovers/educationCovers";
+import CreateEducationCover from "./pages/dashboard/educationCovers/createEducationCover";
+import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
+import CreateSystemBenefit from "./pages/dashboard/systemBenefit/createSystemBenefit";
 
 function App() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -101,7 +105,11 @@ function App() {
               element={<CreateTutorials />}
             />
             <Route path="/dashboard/dashboard" element={<Home />} />
-            {/* <Route path="/" element={<DashboardBody />} /> */}
+            <Route path="/dashboard/educationCovers" element={<EducationCovers />} />
+            <Route path="/dashboard/educationCovers/create" element={<CreateEducationCover />} />
+            <Route path="/dashboard/systemBenefit" element={<SystemBenefit />} />
+            <Route path="/dashboard/systemBenefit/create" element={<CreateSystemBenefit />} />
+
           </Routes>
         </Dashboard>
       </>

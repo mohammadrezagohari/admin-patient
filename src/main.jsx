@@ -31,7 +31,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <ThemeProvider>
             <MaterialTailwindControllerProvider>
               <SortableProvider>
-    
                 <App />
               </SortableProvider>
               <Toaster position="top-center" />

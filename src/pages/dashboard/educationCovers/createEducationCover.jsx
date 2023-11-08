@@ -51,47 +51,47 @@ export function CreateEducationCover() {
     setImagePreview(file_url);
   };
 
-  const storeCover = async (e) => {
-    e.preventDefault();
-    const createResult = await createCategory(name, icon, userToken)
-      .then(function (response) {
-        console.log('dataresult', response)
-        if (response.status) {
-          toast.success("پوستر با موفقیت افزئده شد!");
-        } else {
-          if (response?.success == false) {
-            toast(
-              `${
-                response?.data?.name != undefined ? response?.data?.name : ""
-              } \n
-                  ${
-                    response?.data?.icon != undefined
-                      ? response?.data?.icon
-                      : ""
-                  } \n`,
-              {
-                duration: 2000,
-              }
-            );
-          }
-          toast.error("خطایی رخ داده است");
-        }
-        console.log(response);
-        // navigate(-1);
-      })
-      .catch(function (error) {
-        toast.error("خطا !! مجددا تلاش نمایید");
-        console.log("error :", error);
-        console.log(data);
-      });
+  // const storeCover = async (e) => {
+  //   e.preventDefault();
+  //   const createResult = await createCategory(name, icon, userToken)
+  //     .then(function (response) {
+  //       console.log('dataresult', response)
+  //       if (response.status) {
+  //         toast.success("پوستر با موفقیت افزئده شد!");
+  //       } else {
+  //         if (response?.success == false) {
+  //           toast(
+  //             `${
+  //               response?.data?.name != undefined ? response?.data?.name : ""
+  //             } \n
+  //                 ${
+  //                   response?.data?.icon != undefined
+  //                     ? response?.data?.icon
+  //                     : ""
+  //                 } \n`,
+  //             {
+  //               duration: 2000,
+  //             }
+  //           );
+  //         }
+  //         toast.error("خطایی رخ داده است");
+  //       }
+  //       console.log(response);
+  //       // navigate(-1);
+  //     })
+  //     .catch(function (error) {
+  //       toast.error("خطا !! مجددا تلاش نمایید");
+  //       console.log("error :", error);
+  //       console.log(data);
+  //     });
 
-    return createResult;
-  };
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
+  //   return createResult;
+  // };
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 3000);
+  // }, []);
   return (
     <>
       {loading ? (
@@ -126,7 +126,7 @@ export function CreateEducationCover() {
           <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
             <form
               method="post"
-              onSubmit={storeCover}
+              // onSubmit={storeCover}
               className="m-6 mb-4 flex flex-wrap"
             >
               <div className="w-7/12">

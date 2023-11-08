@@ -12,7 +12,7 @@ import {
   ChevronDownIcon,
 } from "@heroicons/react/24/solid";
 
-export function Sidenav({ brandImg, brandName, routes }) {
+export function Sidenav({ brandImg, brandName, routes,isShow }) {
   const [subnav, setSubnav] = useState(false);
   const showSubnav = () => setSubnav(!subnav);
 
@@ -32,11 +32,11 @@ export function Sidenav({ brandImg, brandName, routes }) {
   return (
 
         <aside
-          className={`${sidenavTypes[sidenavType]}  hidden lg:flex lg:flex-col  transition-transform duration-300 h-full xl:translate-x-0 bg-themeclr1 `  }
+          className={`${sidenavTypes[sidenavType]} lg:flex ${isShow? 'translate-x-0':'translate-x-[400px]'} right-0 bottom-0 top-0 lg:translate-x-0 absolute z-40 lg:flex-col  transition-transform duration-300 h-full  bg-themeclr1 flex-col `  }
           style={styleAside}
         >
         <div
-        className={`flex justify-center items-center relative pb-4  pt-4 border-b ${
+        className={`flex  justify-center items-center relative pb-4  pt-4 border-b ${
           sidenavType === "dark" ? "border-white/20" : "border-blue-gray-50"
         }`}
         >

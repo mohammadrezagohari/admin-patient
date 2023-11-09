@@ -13,7 +13,7 @@ import { createCategory } from "@/api/services/category";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 
-export function CreateEducationCover() {
+export function CreatePatientContent() {
   const { userToken } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
@@ -36,20 +36,6 @@ export function CreateEducationCover() {
     padding: "0.5rem",
     borderRadius: "8px",
   };
-  const handleField = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    // setIcon(file)
-    const file_url = URL.createObjectURL(file);
-    console.log("file", file);
-    console.log("file_url", file_url);
-    console.log("image target", event.target.files[0]);
-    setIcon(event.target.files[0]);
-    setImagePreview(file_url);
-  };
 
   const storeCover = async (e) => {
     e.preventDefault();
@@ -57,7 +43,7 @@ export function CreateEducationCover() {
       .then(function (response) {
         console.log('dataresult', response)
         if (response.status) {
-          toast.success("پوستر با موفقیت افزئده شد!");
+          toast.success(" محتوا با موفقیت ارسال شده است!");
         } else {
           if (response?.success == false) {
             toast(
@@ -111,7 +97,7 @@ export function CreateEducationCover() {
         <Card>
           <div className="py-5">
             <Link
-              to={`/dashboard/categories`}
+              to={`/dashboard/patientcontent`}
               className="mr-3"
               style={linkStyle}
             >
@@ -120,7 +106,7 @@ export function CreateEducationCover() {
           </div>
           <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
             <Typography variant="h6" color="white">
-              ساخت پوستر جدید
+              ارسال محتوا  
             </Typography>
           </CardHeader>
           <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
@@ -130,33 +116,24 @@ export function CreateEducationCover() {
               className="m-6 mb-4 flex flex-wrap"
             >
               <div className="w-7/12">
-                <label className="ml-3"> عنوان پوستر</label>
+                <label className="ml-3"> عنوان محتوا</label>
                 <input
-                  onChange={(e) => handleField(e)}
+                //   onChange={(e) => handleField(e)}
                   type="text"
                   className="ml-3"
                   name="name"
                   style={inputStyle}
                 />
               </div>
-              <div className="w-7/12 mt-4">
-                <label className="ml-3 block">فایل پوستر:</label>
-                <div className="flex items-center gap-3">
-                  <input
-                    type="file"
-                    name="icon"
-                    accept="image/png,image/jpeg,image/webp,"
-                    style={inputStyle}
-                    onChange={handleFileChange}
-                  />
-                  <div className=" h-20 w-36 rounded-md border-2 p-3">
-                    <img
-                      className="h-full w-full rounded-md object-cover"
-                      src={imagePreview ?? "../../images/no-image.svg"}
-                      alt="آپلود عکس"
-                    />
-                  </div>
-                </div>
+              <div className="w-7/12">
+                <label className="ml-3"> شماره موبایل </label>
+                <input
+                //   onChange={(e) => handleField(e)}
+                  type="text"
+                  className="ml-3"
+                  name="name"
+                  style={inputStyle}
+                />
               </div>
               <div className="col-span-2 mt-4 w-6/12">
                 <Button type="submit">ذخیره</Button>
@@ -169,4 +146,4 @@ export function CreateEducationCover() {
   );
 }
 
-export default CreateEducationCover;
+export default CreatePatientContent;

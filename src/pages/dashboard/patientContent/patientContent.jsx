@@ -23,9 +23,10 @@ import {
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 
-function EducationCovers() {
+function PatientContent() {
   const { userToken } = useContext(AuthContext);
 
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [icon, setIcon] = useState();
   const [imagePreview, setImagePreview] = useState();
@@ -104,14 +105,14 @@ function EducationCovers() {
           className="mb-8 mt-3 flex justify-between p-6"
         >
           <Typography variant="h6" color="white">
-            لیست پوستر ها
+              محتوای ارسال شده به بیماران   
           </Typography>
           <Link
-            to={`/dashboard/educationCovers/create`}
+            to={`/dashboard/patientcontent/create`}
             className="mr-3"
             style={linkStyle}
           >
-            ثبت پوستر جدید
+              ارسال محتوا
           </Link>
         </CardHeader>
 
@@ -134,7 +135,7 @@ function EducationCovers() {
               <table className="w-full min-w-[640px] table-auto text-right">
                 <thead>
                   <tr>
-                    {["#", "عنوان","نمایش فایل  ", "تنظیمات", ].map((el) => (
+                    {["#", "عنوان محتوا","  شماره همراه بیمار ", "تنظیمات", ].map((el) => (
                       <th
                         key={el}
                         className="place-items-center border-b 	 border-blue-gray-50 py-3 px-5 "
@@ -176,12 +177,12 @@ function EducationCovers() {
                           </Typography>
                         </td>
                         <td className={className}>
-                          {/* <Link
+                          <Link
                             to={`/dashboard/category/show/${catgry.id}`}
                             style={linkStyle}
                           >
                             اصلاح
-                          </Link> */}
+                          </Link>
                           <Button
                             onClick={() => deleteCategoryItem(catgry.id)}
                             className="bg-red-700 text-white hover:bg-red-800 focus:outline-none"
@@ -200,9 +201,9 @@ function EducationCovers() {
                     <p className="">آیتمی وجود ندارد :(</p>
                   </div>
                 </>
-              ) : (
-                <></>
-              )}
+               ) : (
+                <></> 
+              )} 
             </CardBody>
           </>
         )}
@@ -214,4 +215,4 @@ function EducationCovers() {
 
 
 
-  export default EducationCovers;
+  export default PatientContent;

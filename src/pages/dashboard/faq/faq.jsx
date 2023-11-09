@@ -15,27 +15,21 @@ import {
 
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import {
-  deleteCategory,
-  getCategory,
-  getCategorysList,
-} from "@/api/services/category";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
+import { getFaq ,getFaqList ,deleteFaq} from "@/api/services/faq";
 
-function EducationCovers() {
+function Faq() {
   const { userToken } = useContext(AuthContext);
 
+  const [faqs, setFaqs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [icon, setIcon] = useState();
-  const [imagePreview, setImagePreview] = useState();
-  const navigate = useNavigate();
 
-  const getDatas = async () => {
-    const result = await getCategorysList()
+  const getFaqsList = async () => {
+    const result = await getFaqList()
       .then(function (response) {
         console.log("response", response);
-        setCategories(response?.data);
+        setFaqs(response?.data);
       })
       .catch(function (err) {
         console.log("error", err);
@@ -46,7 +40,7 @@ function EducationCovers() {
 
   useEffect(() => {
     setTimeout(() => {
-      getDatas();
+      getFaqsList();
     }, 3000);
   }, []);
 
@@ -58,23 +52,12 @@ function EducationCovers() {
     borderRadius: "8px",
   };
   
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    // setIcon(file)
-    const file_url = URL.createObjectURL(file);
-    console.log("file", file);
-    console.log("file_url", file_url);
-    console.log("image target", event.target.files[0]);
-    setIcon(event.target.files[0]);
-    setImagePreview(file_url);
-    setIcon(file_url);
-  };
-  const deleteCategoryItem = async (id) => {
-    const deleteResult = await deleteCategory(id, userToken)
+  const deleteFaqs = async (id) => {
+    const deleteResult = await deleteFaq(id, userToken)
       .then(function (response) {
         if (response.status) {
           toast.success("حذف با موفقیت انجام شد !");
-          setCategories(categories.filter((catgry) => catgry.id !== id));
+          setFaqs(faqs.filter((faq) => faq.id !== id));
         } else {
           toast.error("خطا !! مجددا تلاش نمایید");
         }
@@ -104,14 +87,14 @@ function EducationCovers() {
           className="mb-8 mt-3 flex justify-between p-6"
         >
           <Typography variant="h6" color="white">
-            لیست پوستر ها
+                 سوالات متداول    
           </Typography>
           <Link
-            to={`/dashboard/educationCovers/create`}
+            to={`/dashboard/faq/create`}
             className="mr-3"
             style={linkStyle}
           >
-            ثبت پوستر جدید
+              ایجاد سوال 
           </Link>
         </CardHeader>
 
@@ -134,7 +117,7 @@ function EducationCovers() {
               <table className="w-full min-w-[640px] table-auto text-right">
                 <thead>
                   <tr>
-                    {["#", "عنوان","نمایش فایل  ", "تنظیمات", ].map((el) => (
+                    {["#","سوالات متداول", "تنظیمات", ].map((el) => (
                       <th
                         key={el}
                         className="place-items-center border-b 	 border-blue-gray-50 py-3 px-5 "
@@ -150,9 +133,9 @@ function EducationCovers() {
                   </tr>
                 </thead>
                 <tbody>
-                  {categories?.map((catgry, key) => {
+                  {faqs?.map((faq, key) => {
                     const className = `py-3 px-5 ${
-                      key === categories.length - 1
+                      key === faq.length - 1
                         ? ""
                         : "border-b border-blue-gray-50"
                     }`;
@@ -162,28 +145,23 @@ function EducationCovers() {
                         <td className={className}>
                           <div className="flex items-center gap-4">
                             {" "}
-                            {catgry?.id}
+                            {faq?.id}
                           </div>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {catgry?.name}
+                            {faq?.context}
                           </Typography>
                         </td>
                         <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {icon}
-                          </Typography>
-                        </td>
-                        <td className={className}>
-                          {/* <Link
-                            to={`/dashboard/category/show/${catgry.id}`}
+                          <Link
+                            to={`/dashboard/faq/show/${faq.id}`}
                             style={linkStyle}
                           >
                             اصلاح
-                          </Link> */}
+                          </Link>
                           <Button
-                            onClick={() => deleteCategoryItem(catgry.id)}
+                            onClick={() => deleteFaq(faq.id)}
                             className="bg-red-700 text-white hover:bg-red-800 focus:outline-none"
                           >
                             حذف
@@ -194,15 +172,15 @@ function EducationCovers() {
                   })}
                 </tbody>
               </table>
-              {categories.length == 0 ? (
+              {faqs.length == 0 ? (
                 <>
                   <div className="flex h-[80vh] w-full items-center justify-center">
                     <p className="">آیتمی وجود ندارد :(</p>
                   </div>
                 </>
-              ) : (
-                <></>
-              )}
+               ) : (
+                <></> 
+              )} 
             </CardBody>
           </>
         )}
@@ -214,4 +192,4 @@ function EducationCovers() {
 
 
 
-  export default EducationCovers;
+  export default Faq;

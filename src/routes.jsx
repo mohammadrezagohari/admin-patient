@@ -19,6 +19,9 @@ import Tutorials from "./pages/dashboard/tutorials/tutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
 import EducationCovers from "./pages/dashboard/educationCovers/educationCovers";
 import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
+import PatientContent from "./pages/dashboard/patientContent/patientContent";
+import Questions from "./pages/dashboard/faq/faq";
+import Faq from "./pages/dashboard/faq/faq";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -50,10 +53,22 @@ export const routes = [
  
 
       {
-        icon: <UserCircleIcon {...icon} />,
+        icon: <BellIcon {...icon} />,
         name: "آموزش های جدید",
         path: "/tutorials",
         element: <Tutorials />,
+      },
+      {
+        icon: <BellIcon {...icon} />,
+        name: "مقالات",
+        path: "/articles",
+        element: <Home />,
+      },
+      {
+        icon: <BellIcon {...icon} />,
+        name: "ارسال متحوا به کاربر",
+        path: "/patientcontent",
+        element: <PatientContent />,
       },
       {
         icon: <BellIcon {...icon} />,
@@ -74,37 +89,32 @@ export const routes = [
         path: "/systembenefit",
         element: <SystemBenefit />,
       },
-      {
-        icon: <BellIcon {...icon} />,
-        name: "سوالات متداول",
-        path: "/sections",
-        element: <Profile />,
-      },
+   
       {
         icon: <BellIcon {...icon} />,
         name: "  اهداف سامانه آموزش به بیمار",
-        path: "/courses",
+        path: "/patientedubenefit",
         element: <Profile />,
       },
       {
         icon:<HiNewspaper/>,
         name: "آخرین اخبار",
-        path: "/units",
+        path: "/lastnews",
         element: <Profile />,
       }, 
+      {
+        icon: <BellIcon {...icon} />,
+        name: "سوالات متداول",
+        path: "/faq",
+        element: <Faq />,
+      },
       {
         icon: <BellIcon {...icon} />,
         name: "پیشنهادات",
         path: "/suggestions",
         element: <Profile />,
       },
-  
-    //   {
-    //     icon: <BellIcon {...icon} />,
-    //     name: "تماس باما ",
-    //     path: "/contacts",
-    //     element: <Contact />,
-    //   },
+
       {
         icon: <BellIcon {...icon} />,
         name: " درباره ما ",

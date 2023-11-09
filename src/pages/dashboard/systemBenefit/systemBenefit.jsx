@@ -94,7 +94,7 @@ function SystemBenefit() {
         <CardHeader
           variant="gradient"
           color="blue"
-          className="mb-8 mt-3 flex justify-between p-6"
+          className="mb-8 mt-3 flex justify-between p-6 "
         >
           <Typography variant="h6" color="white">
             لیست عنوان های فواید سیستم

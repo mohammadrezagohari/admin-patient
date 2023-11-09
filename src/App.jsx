@@ -38,6 +38,12 @@ import EducationCovers from "./pages/dashboard/educationCovers/educationCovers";
 import CreateEducationCover from "./pages/dashboard/educationCovers/createEducationCover";
 import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
 import CreateSystemBenefit from "./pages/dashboard/systemBenefit/createSystemBenefit";
+import PatientContent from "./pages/dashboard/patientContent/patientContent";
+import CreatePatientContent from "./pages/dashboard/patientContent/createPatientContent";
+import Questions from "./pages/dashboard/faq/faq";
+import CreateQuestions, { CreateFaq } from "./pages/dashboard/faq/createFaq";
+import Faq from "./pages/dashboard/faq/faq";
+import ShowFaq from "./pages/dashboard/faq/showFaq";
 
 function App() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -83,14 +89,34 @@ function App() {
               element={<ShowCategory />}
             />
 
-            {/* <Route
-                path="/dashboard/province/create"
-                element={<CreateProvince />}
+            <Route
+                path="/dashboard/patientcontent"
+                element={<PatientContent />}
+              />
+             <Route
+                path="/dashboard/patientcontent/create"
+                element={<CreatePatientContent />}
+              />
+                {/* <Route
+                path="/dashboard/patientcontent/show/:id"
+                element={<CreatePatientContent />}
+              /> */}
+
+
+                <Route
+                path="/dashboard/faq"
+                element={<Faq />}
+              />
+              
+               <Route
+                path="/dashboard/faq/create"
+                element={<CreateFaq />}
               />
               <Route
-                path="/dashboard/province/show/:id"
-                element={<ShowProvince />}
-              /> */}
+              path="  /dashboard/faq/show/:id"
+              element={<ShowFaq />}
+            />
+              
             <Route
               path="/dashboard/province/:id/cities/show"
               element={<ShowCities />}

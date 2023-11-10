@@ -11,17 +11,26 @@ import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
 import { useRef } from "react";
 import { useState } from "react";
+// import { AuthProvider } from "@/gard/context/AuthContext";
+// import { useLocalStorage } from "@/gard/storage/useLocalStorage"; 
 
 export function Dashboard({ children }) {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavType , openSidenav} = controller;
   const hamergurMenuRef=useRef();
   const [isShow,setIsShow] = useState(false);
-
+  // const { userToken } = useContext(AuthContext);
   const showMenuHandler=()=>{
     setIsShow(prev=>!prev);
     console.log('is hsow: ',isShow);
   }
+  // const logOut= (userToken)=>{
+  //   localStorage.removeItem(userToken);
+  //   // Perform logout logic
+  //   setIsLoggedIn(false);
+  
+  // }
+
   return (
 
       <>

@@ -17,8 +17,10 @@ import { toast } from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 import { deleteTutorilas, getTutorials } from "@/api/services/tutorial";
-import DataTable from "react-data-table-component";
+// import DataTable from "react-data-table-component";
+// import { ThreeDots } from "react-loader-spinner";
 import { useQuery } from "react-query";
+
 
 function Tutorials() {
   const { userToken } = useContext(AuthContext);
@@ -138,7 +140,7 @@ function Tutorials() {
       {loading && <div>Loading...</div>}
       {error && <div>Error: {error.message}</div>}
       {tutorials && (
-        <DataTable
+        <ThreeDots
           columns={columns}
           data={tutorials}
           pagination={true}

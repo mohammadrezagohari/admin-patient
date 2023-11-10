@@ -136,7 +136,7 @@ const DashboardBody = () => {
               </div>
             </CategotyBox>
         </label> */}
-        <iframe src="https://visual.is/visualizations/LA1kX2s5PEd6b3SBWSCTw4is/embed" width="100%" height="100%" frameborder="0" style={{borderRadius:'8px'}}></iframe>
+        {/* <iframe src="https://visual.is/visualizations/LA1kX2s5PEd6b3SBWSCTw4is/embed" width="100%" height="100%" frameborder="0" style={{borderRadius:'8px'}}></iframe> */}
       </CardBody>
     </Card>
   );

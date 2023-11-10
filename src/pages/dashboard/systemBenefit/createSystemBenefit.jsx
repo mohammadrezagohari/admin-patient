@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { createCategory } from "@/api/services/category";
+import { getBenefit,createSystemBenefit } from "@/api/services/benefit";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 
@@ -17,9 +17,9 @@ export function CreateSystemBenefit() {
   const { userToken } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
-  const [name, setName] = useState();
-  const [icon, setIcon] = useState();
-  const [imagePreview, setImagePreview] = useState();
+  const [title, setTitle] = useState();
+  const [is_active, setIs_active] = useState();
+
 
   const inputStyle = {
     border: "1px solid gray",
@@ -36,24 +36,12 @@ export function CreateSystemBenefit() {
     padding: "0.5rem",
     borderRadius: "8px",
   };
-  const handleField = (e) => {
-    setName(e.target.value);
-  };
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    // setIcon(file)
-    const file_url = URL.createObjectURL(file);
-    console.log("file", file);
-    console.log("file_url", file_url);
-    console.log("image target", event.target.files[0]);
-    setIcon(event.target.files[0]);
-    setImagePreview(file_url);
-  };
 
-  const storeCategory = async (e) => {
+
+  const storeSysBenefit = async (e) => {
     e.preventDefault();
-    const createResult = await createCategory(name, icon, userToken)
+    const createResult = await createSystemBenefit(title, is_active, userToken)
       .then(function (response) {
         console.log('dataresult', response)
         if (response.status) {
@@ -62,11 +50,11 @@ export function CreateSystemBenefit() {
           if (response?.success == false) {
             toast(
               `${
-                response?.data?.name != undefined ? response?.data?.name : ""
+                response?.title != undefined ? response?.title : ""
               } \n
                   ${
-                    response?.data?.icon != undefined
-                      ? response?.data?.icon
+                    response?.is_active != undefined
+                      ? response?.is_active
                       : ""
                   } \n`,
               {
@@ -132,7 +120,8 @@ export function CreateSystemBenefit() {
               <div className="w-7/12">
                 <label className="ml-3"> عنوان فواید </label>
                 <textarea
-                  onChange={(e) => handleField(e)}
+                  onChange={(e) => setTitle(e)}
+                  value={title}
                   type="text"
                   className="ml-3"
                   name="name"

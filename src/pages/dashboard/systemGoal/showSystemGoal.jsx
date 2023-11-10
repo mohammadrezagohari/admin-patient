@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+
 import {
   Card,
   CardHeader,
@@ -8,22 +9,23 @@ import {
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { getFaq } from "@/api/services/faq";
+import { getGoal,showGoal } from "@/api/services/goal";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 
-export function CreateFaq() {
+export function ShowSystemGoals() {
   const { userToken } = useContext(AuthContext);
-  const [question,setQuestion] = useState();
-  const [description,setDescription] = useState();
-
 
   const [loading, setLoading] = useState(true);
+  const [titles, setTitles] = useState();
+  const [descriptions, setDescriptions] = useState();
+
 
   const inputStyle = {
     border: "1px solid gray",
     borderRadius: "5px",
     padding: "0.45rem",
+    textAlign: "center",
     width: "100%",
     marginTop: "1rem",
   };
@@ -35,42 +37,28 @@ export function CreateFaq() {
     borderRadius: "8px",
   };
 
-  const storeFaq = async (e) => {
-    e.preventDefault();
-    const createResult = await createCategory(context, userToken)
-      .then(function (response) {
-        console.log('dataresult', response)
-        if (response.status) {
-          toast.success(" سوال با موفقیت درج شد!   !");
-        } else {
-          if (response?.success == false) {
-            toast(
-              `${
-                response?.data?.context != undefined ? response?.data?.context : ""
-              } \n`,
-              {
-                duration: 2000,
-              }
-            );
-          }
-          toast.error("خطایی رخ داده است");
-        }
-        console.log(response);
-        // navigate(-1);
-      })
-      .catch(function (error) {
-        toast.error("خطا !! مجددا تلاش نمایید");
-        console.log("error :", error);
-        console.log(data);
-      });
 
-    return createResult;
+  const showSysGoals = async (id) => {
+    const showResult = await showGoal(id, userToken)
+      .then(function (response) {
+        setTitles(response?.title);
+        setDescriptions(`${response?.description}`);
+      })
+      .catch(function (err) {
+        console.log("error", err);
+      });
+    setLoading(false);
+    return showResult;
   };
   useEffect(() => {
     setTimeout(() => {
-      setLoading(false);
+        showSysGoals(id);
     }, 3000);
   }, []);
+
+
+
+  
   return (
     <>
       {loading ? (
@@ -90,7 +78,7 @@ export function CreateFaq() {
         <Card>
           <div className="py-5">
             <Link
-              to={`/dashboard/faq`}
+              to={`/dashboard/systemgoal`}
               className="mr-3"
               style={linkStyle}
             >
@@ -99,41 +87,37 @@ export function CreateFaq() {
           </div>
           <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
             <Typography variant="h6" color="white">
-              ارسال سوال  
+              ساخت عنوان جدید
             </Typography>
           </CardHeader>
           <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
             <form
               method="post"
-              // onSubmit={storeCover}
+              // onSubmit={storeCategory}
               className="m-6 mb-4 flex flex-wrap"
             >
-                   <div className="w-7/12">
-                <label className="ml-3">  عنوان سوال </label>
+              <div className="w-7/12">
+                <label className="ml-3"> عنوان هدف </label>
                 <input
-                  onChange={(e) => setQuestion(e)}
-                  value={question}
-                  type="text"
-                  className="ml-3 p-4"
+                type="text"
+                  onChange={(e) => setTitles(e)}
+                //   value={titles}
+                  className="ml-3"
                   name="name"
                   style={inputStyle}
-                  autoComplete="off"
                 />
-                
               </div>
-              <div className="w-7/12  mt-4">
+              <div className="w-7/12">
                 <label className="ml-3"> توضیحات  </label>
                 <textarea
-                  onChange={(e) => setDescription(e)}
-                  value={description}
+                  onChange={(e) => setDescriptions(e)}
+                //   value={descriptions}
                   type="text"
-                  className="ml-3 p-4"
+                  className="ml-3"
                   name="name"
                   style={inputStyle}
-                >
-                </textarea>
+                />
               </div>
-         
               <div className="col-span-2 mt-4 w-6/12">
                 <Button type="submit">ذخیره</Button>
               </div>
@@ -145,4 +129,4 @@ export function CreateFaq() {
   );
 }
 
-export default CreateFaq;
+export default ShowSystemGoals;

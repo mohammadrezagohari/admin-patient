@@ -42,10 +42,11 @@ const CategotyBox = (props, { children }) => {
         ref={lblRef}
         onClick={checkHandler}
         style={catBoxStyle}
-        className={`${
-          checked ? "bg-darkBlue !text-white" : "bg-white text-darkBlue"
-        } cursor-pointer pr-3 text-darkBlue transition hover:bg-color20% `}
+        className={` cursor-pointer pr-3 text-darkBlue transition hover:bg-color20% `}
       >
+        {/* ${
+          checked ? "bg-darkBlue !text-white" : "bg-white text-darkBlue"
+        } */}
         {/* <input onChange={styleChange} type="radio" className='hidden' /> */}
         <span
           className="ml-3 flex h-14 w-14 items-center justify-center rounded-full"

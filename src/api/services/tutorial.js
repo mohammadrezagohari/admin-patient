@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { _apiClient } from "../baseApi";
 import apiClient from "../apiClient";
 
 const header = {
@@ -15,17 +15,9 @@ const auth_header_files = {
   "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 
-export const getTutorials = async (name, userToken) => {
-  header.Authorization = `Bearer ${userToken}`;
-
-  const response = await apiClient.get("/tutorial?count=100", {
-    headers: header,
-    name: name,
-  });
-  if (response.status !== 200) {
-    return null;
-  }
-  return response?.data;
+export const getTutorials = async (page, userToken = null) => {
+  // export const getTutorials = (userToken) => {
+  return _apiClient("tutorial", "GET", { page: page }, userToken); // Replace with your endpoint
 };
 
 export const showTutorials = async (id, userToken) => {

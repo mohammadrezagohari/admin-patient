@@ -160,7 +160,7 @@ export function CreateCategory() {
           </CardHeader>
           <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
             <form
-              method="post"
+              method="POST"
               onSubmit={storeTutorial}
               className="m-6 mb-4 flex flex-wrap"
             >

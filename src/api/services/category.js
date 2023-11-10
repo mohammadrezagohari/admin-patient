@@ -29,8 +29,9 @@ export const getCategory = async () => {
   return response?.data;
 };
 
-export const createCategory = async (name,icon, userToken) => {
+export const createCategory = async (name, icon, userToken) => {
   auth_header_files.Authorization = `Bearer ${userToken}`;
+  const { data, error, isLoading } = useData("category/store");
   const response = await apiClient.post(
     `category/store`,
     {
@@ -74,7 +75,7 @@ export const updateCategory = async (id, values, userToken) => {
   return response?.data;
 };
 
-export const deleteCategory = async (id,userToken) => {
+export const deleteCategory = async (id, userToken) => {
   header.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.delete(`category/delete/${id}`, {
     headers: header,

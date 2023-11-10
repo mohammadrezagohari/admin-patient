@@ -1,17 +1,17 @@
 import { useQuery } from "react-query";
 import apiClient from "../apiClient";
 
-const header = {
+const auth_header = {
   "Content-Type": "application/json",
   Accept: "application/json",
   "Access-Control-Request-Method": "POST",
   "Access-Control-Request-Headers": "Content-Type, Accept",
-  Authorization: `Bearer ${localStorage.getItem("_token_admin")}`,
+  // Authorization: `Bearer ${localStorage.getItem("_token_admin")}`,
 };
 
 export const getArticle = async () => {
   const response = await apiClient.get("/article?count=100", {
-    headers: header,
+    headers: auth_header,
   });
   if (response.status !== 200) {
     return null;
@@ -22,8 +22,8 @@ export const getArticle = async () => {
 export const showArticle = async (id, userToken) => {
   auth_header.Authorization = `Bearer ${userToken}`;
 
-  const response = await apiClient.get(`/course/show/${id}`, {
-    headers: header,
+  const response = await apiClient.get(`/article/show/${id}`, {
+    headers: auth_header,
   });
   console.log("status", response);
   if (response.status !== 200) {
@@ -41,7 +41,7 @@ export const createArticle = async (context, title, category_id) => {
       category_id: category_id,
     },
     {
-      headers: header,
+      headers: auth_header,
     }
   );
   if (response.status !== 200) {
@@ -59,7 +59,7 @@ export const updateArticle = async (values, id) => {
     `/article/update/${id}`,
 
     {
-      headers: header,
+      headers: auth_header,
     },
     {
       title: values?.title,
@@ -77,7 +77,7 @@ export const updateArticle = async (values, id) => {
 export const deleteArticle = async (id) => {
   // auth_header_files.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.delete(`/article/delete/${id}`, {
-    headers: header,
+    headers: auth_header,
   });
   console.log("status", response);
   if (response.status !== 200) {

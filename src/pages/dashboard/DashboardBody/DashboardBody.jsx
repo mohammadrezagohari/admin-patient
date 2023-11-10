@@ -110,8 +110,8 @@ const DashboardBody = () => {
   }, []);
   return (
     <Card className="rounded-4 h-full w-full bg-white">
-      <CardBody>
-        <label
+      <CardBody className="h-full w-full p-0">
+        {/* <label
           id="parentCkeck"
           className="h-26 flex w-full items-center justify-around  overflow-hidden rounded-xl border-2 border-gray-100 p-5 pb-8 "
         >
@@ -135,7 +135,8 @@ const DashboardBody = () => {
                 <div className="p-1">{articleQuantity}</div>
               </div>
             </CategotyBox>
-        </label>
+        </label> */}
+        <iframe src="https://visual.is/visualizations/LA1kX2s5PEd6b3SBWSCTw4is/embed" width="100%" height="100%" frameborder="0" style={{borderRadius:'8px'}}></iframe>
       </CardBody>
     </Card>
   );

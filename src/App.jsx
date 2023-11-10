@@ -28,12 +28,22 @@ import { Button, IconButton } from "@material-tailwind/react";
 import UserPanel from "./pages/dashboard/users/panel";
 // import CreateContact from "./pages/dashboard/contact/createContact";
 // import CreateAboutUs from "./pages/dashboard/about/createAbout";
-import { Profile, Users } from "./pages/dashboard";
+import { Home, Profile, Users } from "./pages/dashboard";
 import { useContext } from "react";
 import CreateTutorials from "./pages/dashboard/tutorials/create-tutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
 import Category from "./pages/dashboard/category/category";
 import Tutorials from "./pages/dashboard/tutorials/tutorials";
+import EducationCovers from "./pages/dashboard/educationCovers/educationCovers";
+import CreateEducationCover from "./pages/dashboard/educationCovers/createEducationCover";
+import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
+import CreateSystemBenefit from "./pages/dashboard/systemBenefit/createSystemBenefit";
+import PatientContent from "./pages/dashboard/patientContent/patientContent";
+import CreatePatientContent from "./pages/dashboard/patientContent/createPatientContent";
+import Questions from "./pages/dashboard/faq/faq";
+import CreateQuestions, { CreateFaq } from "./pages/dashboard/faq/createFaq";
+import Faq from "./pages/dashboard/faq/faq";
+import ShowFaq from "./pages/dashboard/faq/showFaq";
 
 function App() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -79,14 +89,34 @@ function App() {
               element={<ShowCategory />}
             />
 
-            {/* <Route
-                path="/dashboard/province/create"
-                element={<CreateProvince />}
+            <Route
+                path="/dashboard/patientcontent"
+                element={<PatientContent />}
+              />
+             <Route
+                path="/dashboard/patientcontent/create"
+                element={<CreatePatientContent />}
+              />
+                {/* <Route
+                path="/dashboard/patientcontent/show/:id"
+                element={<CreatePatientContent />}
+              /> */}
+
+
+                <Route
+                path="/dashboard/faq"
+                element={<Faq />}
+              />
+              
+               <Route
+                path="/dashboard/faq/create"
+                element={<CreateFaq />}
               />
               <Route
-                path="/dashboard/province/show/:id"
-                element={<ShowProvince />}
-              /> */}
+              path="  /dashboard/faq/show/:id"
+              element={<ShowFaq />}
+            />
+              
             <Route
               path="/dashboard/province/:id/cities/show"
               element={<ShowCities />}
@@ -100,8 +130,12 @@ function App() {
               path="/dashboard/tutorials/create"
               element={<CreateTutorials />}
             />
-            <Route path="/dashboard/dashboard" element={<DashboardBody />} />
-            <Route path="/" element={<DashboardBody />} />
+            <Route path="/dashboard/dashboard" element={<Home />} />
+            <Route path="/dashboard/educationCovers" element={<EducationCovers />} />
+            <Route path="/dashboard/educationCovers/create" element={<CreateEducationCover />} />
+            <Route path="/dashboard/systemBenefit" element={<SystemBenefit />} />
+            <Route path="/dashboard/systemBenefit/create" element={<CreateSystemBenefit />} />
+
           </Routes>
         </Dashboard>
       </>

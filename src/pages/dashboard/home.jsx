@@ -34,7 +34,8 @@ export function Home() {
     useContext(AuthContext);
 
   return (
-    <div className="mt-12 ">
+    <>
+    {/* <div className="mt-12 ">
       <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
         <Card className="overflow-hidden xl:col-span-2">
           <CardHeader
@@ -59,7 +60,7 @@ export function Home() {
           <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
             <table className="w-full min-w-[640px] table-auto">
               <thead>
-                {/* <tr>
+                 <tr>
                   {["companies", "members", "budget", "completion"].map(
                     (el) => (
                       <th
@@ -75,7 +76,7 @@ export function Home() {
                       </th>
                     )
                   )}
-                </tr> */}
+                </tr> 
               </thead>
               <tbody>
         
@@ -108,7 +109,13 @@ export function Home() {
           </CardBody>
         </Card>
       </div>
-    </div>
+    </div> */}
+     <Card className="rounded-4 h-full w-full bg-white">
+      <CardBody className="h-full w-full p-0">
+        <iframe src="https://visual.is/visualizations/LA1kX2s5PEd6b3SBWSCTw4is/embed" width="100%" height="100%" frameborder="0" style={{borderRadius:'8px'}}></iframe>
+      </CardBody>
+    </Card>
+    </>
   );
 }
 

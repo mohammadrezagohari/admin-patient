@@ -18,6 +18,8 @@ export const fetchUsers = async (userToken) => {
   return response.data;
 };
 
+
+
 // const fetchUser = async (userId) => {
 //   const response = await apiClient.get("/profile/me"); // Replace with your API endpoint
 

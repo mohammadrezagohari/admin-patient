@@ -14,7 +14,7 @@ const auth_header_files = {
   "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 
-export const getSystemBenefitContext= async () => {
+export const getBenefit= async () => {
   const response = await apiClient.get("/context?count=100", {
     headers: header,
   });
@@ -24,16 +24,15 @@ export const getSystemBenefitContext= async () => {
   return response?.data;
 };
 
-export const createSystemBenefit = async (context, userToken) => {
+
+export const createSystemBenefit = async (values, userToken) => {
   auth_header_files.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.post(
     `systemBenefit/store`,
     {
-    context:context,
+      title:values?.title,
+      is_active:values?.is_active,
     },
-    // {
-    //   headers: auth_header_files,
-    // }
   );
   if (!response.status) {
     return null;
@@ -41,26 +40,24 @@ export const createSystemBenefit = async (context, userToken) => {
   return response?.data;
 };
 
-export const showSystemBenefitContext = async (id) => {
-  const response = await apiClient.get(`systemBenefit/show/${id}`, {
-    headers: header,
-  });
-  if (!response.status) {
-    return null;
-  }
-  return response?.data;
-};
+// export const showSystemBenefitContext = async (id) => {
+//   const response = await apiClient.get(`systemBenefit/show/${id}`, {
+//     headers: header,
+//   });
+//   if (!response.status) {
+//     return null;
+//   }
+//   return response?.data;
+// };
 
-export const updateSystemBenefit= async (context,values, userToken) => {
+export const updateSystemBenefit= async (values, userToken) => {
   auth_header_files.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.patch(
     `systemBenefit/update/${id}`,
     {
-        context: values.context,
+      title:values?.title,
+      is_active:values?.is_active,
     },
-    // {
-    //   headers: auth_header_files,
-    // }
   );
   if (!response.status) {
     return null;
@@ -81,12 +78,12 @@ export const deleteSystemBenefit= async (id,userToken) => {
 
 // -------------------------------------------------------------------
 
-export const getSystemBenefitList = async () => {
-  const response = await apiClient.get("context?count=999", {
-    headers: header,
-  });
-  if (!response.status) {
-    return null;
-  }
-  return response?.data;
-};
+// export const getSystemBenefitList = async () => {
+//   const response = await apiClient.get("context?count=999", {
+//     headers: header,
+//   });
+//   if (!response.status) {
+//     return null;
+//   }
+//   return response?.data;
+// };

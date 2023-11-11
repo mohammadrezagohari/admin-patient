@@ -9,19 +9,21 @@ import {
 } from "@heroicons/react/24/solid";
 // import { HiNewspaper } from 'react-icons/hi2';
 
-import { Home, Profile, Notifications, Users } from "@/pages/dashboard";
+import {  Profile, Notifications, Users } from "@/pages/dashboard";
 import { SignIn } from "@/pages/auth";
 import Register from "./pages/auth/register";
 import Forget from "./pages/auth/forget";
 import Category from "./pages/dashboard/category/category";
 import About from "./pages/dashboard/about/about";
-import Tutorials from "./pages/dashboard/tutorials/tutorials";
+import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
 import EducationCovers from "./pages/dashboard/educationCovers/educationCovers";
 import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
 import PatientContent from "./pages/dashboard/patientContent/patientContent";
 import Questions from "./pages/dashboard/faq/faq";
 import Faq from "./pages/dashboard/faq/faq";
+import Home from "./pages/dashboard/home";
+import SystemGoal from "./pages/dashboard/systemGoal/sysGoal";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -93,8 +95,8 @@ export const routes = [
       {
         icon: <BellIcon {...icon} />,
         name: "  اهداف سامانه آموزش به بیمار",
-        path: "/patientedubenefit",
-        element: <Profile />,
+        path: "/systemgoal",
+        element: <SystemGoal />,
       },
     //   {
     //     icon:<HiNewspaper/>,

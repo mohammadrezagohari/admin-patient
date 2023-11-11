@@ -28,12 +28,12 @@ import { Button, IconButton } from "@material-tailwind/react";
 import UserPanel from "./pages/dashboard/users/panel";
 // import CreateContact from "./pages/dashboard/contact/createContact";
 // import CreateAboutUs from "./pages/dashboard/about/createAbout";
-import { Home, Profile, Users } from "./pages/dashboard";
+import { Profile, Users } from "./pages/dashboard";
 import { useContext } from "react";
 import CreateTutorials from "./pages/dashboard/tutorials/create-tutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
 import Category from "./pages/dashboard/category/category";
-import Tutorials from "./pages/dashboard/tutorials/tutorials";
+import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
 import EducationCovers from "./pages/dashboard/educationCovers/educationCovers";
 import CreateEducationCover from "./pages/dashboard/educationCovers/createEducationCover";
 import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
@@ -44,6 +44,10 @@ import Questions from "./pages/dashboard/faq/faq";
 import CreateQuestions, { CreateFaq } from "./pages/dashboard/faq/createFaq";
 import Faq from "./pages/dashboard/faq/faq";
 import ShowFaq from "./pages/dashboard/faq/showFaq";
+import Home from "./pages/dashboard/home";
+import SystemGoal from "./pages/dashboard/systemGoal/sysGoal";
+import CreateSystemGoal from "./pages/dashboard/systemGoal/createSysGoal";
+import ShowSystemGoals from "./pages/dashboard/systemGoal/showSystemGoal";
 
 function App() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -67,17 +71,8 @@ function App() {
             <Route path="/dashboard/profile/profile" element={<Profile />} />
             <Route path="/dashboard/tutorials" element={<Tutorials />} />
             <Route path="/dashboard/users/panel/:id" element={<UserPanel />} />
-            {/* 
-            <Route path="/dashboard/grades/" element={<Grade />} />
-            <Route path="/dashboard/grades/create" element={<CreateGrade />} />
-            <Route path="/dashboard/grades/show/:id" element={<ShowGrade />} /> */}
 
-            {/* <Route
-              path="/dashboard/contact/create"
-              element={<CreateContact />}
-            />
-
-            <Route path="/dashboard/about/create" element={<CreateAboutUs />} /> */}
+            {/* <Route path="/dashboard/about/create" element={<CreateAboutUs />} />  */}
 
             <Route path="/dashboard/categories" element={<Category />} />
             <Route
@@ -97,17 +92,25 @@ function App() {
                 path="/dashboard/patientcontent/create"
                 element={<CreatePatientContent />}
               />
-                {/* <Route
-                path="/dashboard/patientcontent/show/:id"
-                element={<CreatePatientContent />}
-              /> */}
+
+              <Route
+                path="/dashboard/systemgoal"
+                element={<SystemGoal />}
+              />
+                <Route
+                path="/dashboard/systemgoal/create"
+                element={<CreateSystemGoal />}
+              />
+                <Route
+                path="/dashboard/systemgoal/show/${goal.id}"
+                element={<ShowSystemGoals />}
+              />
 
 
                 <Route
                 path="/dashboard/faq"
                 element={<Faq />}
               />
-              
                <Route
                 path="/dashboard/faq/create"
                 element={<CreateFaq />}
@@ -116,7 +119,11 @@ function App() {
               path="  /dashboard/faq/show/:id"
               element={<ShowFaq />}
             />
-              
+               <Route
+              path="/dashboard/home"
+              element={<Home />}
+            />
+
             <Route
               path="/dashboard/province/:id/cities/show"
               element={<ShowCities />}

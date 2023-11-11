@@ -18,11 +18,13 @@ const auth_header = {
     return response?.data;
   };
   
-  export const createFaq = async (context, userToken) => {
+  export const createSystemGoal = async (values, userToken) => {
     const response = await apiClient.post(
       `goal/store`,
       {
-        context: context,
+        title: values?.title,
+        description: values?.description,
+
       },
       {
         headers: auth_header,
@@ -48,7 +50,8 @@ const auth_header = {
     const response = await apiClient.patch(
       `goal/update/${id}`,
       {
-        context: values.context,
+        title: values?.title,
+        description: values?.description,
       },
       {
         headers: auth_header,

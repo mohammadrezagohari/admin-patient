@@ -10,6 +10,7 @@ module.exports = withMT({
         'darkBlue' : '#162C7C',
         'themeclr1':'#183087',
         'color20%':'#18308733',
+        'hrcolor':'#1E88E5',
       },
     },
     fontFamily:{

@@ -15,28 +15,25 @@ import {
 
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import {
-  deleteCategory,
-  getCategory,
-  getCategorysList,
-} from "@/api/services/category";
+import { getSystemMode } from "@mui/system/cssVars/useCurrentColorScheme";
 // import {
 //     getSystemBenefitList,
 //     getSystemBenefit,
 //     deleteSystemBenefit,
 //   } from "@/api/services/benefit";
+import { getBenefit,deleteSystemBenefit} from "@/api/services/benefit";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 
 function SystemBenefit() {
   const { userToken } = useContext(AuthContext);
 
-  const [categories, setCategories] = useState([]);
+  const [sysBenefit, setSysBenefit] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const getDatas = async () => {
-    const result = await getCategorysList()
+  const getBenefits = async () => {
+    const result = await getBenefit()
       .then(function (response) {
         console.log("response", response);
         setCategories(response?.data);
@@ -50,7 +47,7 @@ function SystemBenefit() {
 
   useEffect(() => {
     setTimeout(() => {
-      getDatas();
+      getBenefits();
     }, 3000);
   }, []);
 
@@ -61,13 +58,13 @@ function SystemBenefit() {
     padding: "0.5rem",
     borderRadius: "8px",
   };
-  const deleteCategoryItem = async (id) => {
-    const deleteResult = await deleteCategory(id, userToken)
+  const deleteSystemBenefits = async (id) => {
+    const deleteResult = await deleteSystemBenefit(id, userToken)
       .then(function (response) {
         console.log('delete res',response);
         if (response.status) {
           toast.success("حذف با موفقیت انجام شد !");
-          setCategories(categories.filter((catgry) => catgry.id !== id));
+          setSysBenefit(sysBenefit.filter((benefit) => benefit.id !== id));
         } else {
           toast.error("خطا !! مجددا تلاش نمایید");
         }
@@ -127,7 +124,7 @@ function SystemBenefit() {
               <table className="w-full min-w-[640px] table-auto text-right">
                 <thead>
                   <tr>
-                    {["#", "خلاصه مطلب", "تنظیمات"].map((el) => (
+                    {["#","عنوان " ," وضعیت  ", "تنظیمات"].map((el) => (
                       <th
                         key={el}
                         className="place-items-center border-b 	 border-blue-gray-50 py-3 px-5 "
@@ -143,9 +140,9 @@ function SystemBenefit() {
                   </tr>
                 </thead>
                 <tbody>
-                  {categories?.map((catgry, key) => {
+                  {sysBenefit?.map((benefit, key) => {
                     const className = `py-3 px-5 ${
-                      key === categories.length - 1
+                      key === benefit.length - 1
                         ? ""
                         : "border-b border-blue-gray-50"
                     }`;
@@ -155,24 +152,28 @@ function SystemBenefit() {
                         <td className={className}>
                           <div className="flex items-center gap-4">
                             {" "}
-                            {catgry?.id}
+                            {benefit?.id}
                           </div>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {catgry?.name}
+                            {benefit?.title}
                           </Typography>
                         </td>
-
                         <td className={className}>
-                          <Link
-                            to={`/dashboard/category/show/${catgry.id}`}
+                          <Typography className="text-xs font-semibold text-blue-gray-600">
+                            {benefit?.is_active}
+                          </Typography>
+                        </td>
+                        <td className={className}>
+                          {/* <Link
+                            to={`/dashboard//show/${benefit.id}`}
                             style={linkStyle}
                           >
                             اصلاح
-                          </Link>
+                          </Link> */}
                           <Button
-                            onClick={() => deleteCategoryItem(catgry.id)}
+                            onClick={() => deleteSystemBenefit(benefit.id)}
                             className="bg-red-700 text-white hover:bg-red-800 focus:outline-none"
                           >
                             حذف
@@ -183,7 +184,7 @@ function SystemBenefit() {
                   })}
                 </tbody>
               </table>
-              {categories.length == 0 ? (
+              {sysBenefit.length == 0 ? (
                 <>
                   <div className="flex h-[80vh] w-full items-center justify-center">
                     <p className="">آیتمی وجود ندارد :(</p>

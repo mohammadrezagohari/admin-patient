@@ -17,32 +17,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
-import { getFaq ,getFaqList ,deleteFaq} from "@/api/services/faq";
+import { getGoal ,deleteGoal} from "@/api/services/goal";
 
-function Faq() {
+function SystemGoal() {
   const { userToken } = useContext(AuthContext);
 
-  const [faqs, setFaqs] = useState([]);
+  const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // const getFaqsList = async () => {
-  //   const result = await getFaqList()
-  //     .then(function (response) {
-  //       console.log("response", response);
-  //       setFaqs(response?.data);
-  //     })
-  //     .catch(function (err) {
-  //       console.log("error", err);
-  //     });
-  //   setLoading(false);
-  //   return result;
-  // };
   
-  const getFaqs = async () => {
-    const result = await getFaq()
+  const getGoals = async () => {
+    const result = await getGoal()
       .then(function (response) {
         console.log("response", response);
-        setFaqs(response?.data);
+        setGoals(response?.data);
       })
       .catch(function (err) {
         console.log("error", err);
@@ -54,7 +42,7 @@ function Faq() {
 
   useEffect(() => {
     setTimeout(() => {
-      getFaqs();
+        getGoals();
     }, 3000);
   }, []);
 
@@ -66,12 +54,12 @@ function Faq() {
     borderRadius: "8px",
   };
   
-  const deleteFaqs = async (id) => {
-    const deleteResult = await deleteFaq(id, userToken)
+  const deleteGoals = async (id) => {
+    const deleteResult = await deleteGoal(id, userToken)
       .then(function (response) {
         if (response.status) {
           toast.success("حذف با موفقیت انجام شد !");
-          setFaqs(faqs.filter((faq) => faq.id !== id));
+          setGoals(goals.filter((goal) => goal.id !== id));
         } else {
           toast.error("خطا !! مجددا تلاش نمایید");
         }
@@ -101,14 +89,14 @@ function Faq() {
           className="mb-8 mt-3 flex justify-between p-6"
         >
           <Typography variant="h6" color="white">
-                 سوالات متداول    
+                 اهداف سامانه آموزش به بیمار     
           </Typography>
           <Link
-            to={`/dashboard/faq/create`}
+            to={`/dashboard/systemgoal/create`}
             className="mr-3"
             style={linkStyle}
           >
-              ایجاد سوال 
+            ایجاد اهداف  
           </Link>
         </CardHeader>
 
@@ -131,7 +119,7 @@ function Faq() {
               <table className="w-full min-w-[640px] table-auto text-right">
                 <thead>
                   <tr>
-                    {["#"," سوال",'توضیحات', "تنظیمات", ].map((el) => (
+                    {["#"," عنوان",'توضیحات', "تنظیمات", ].map((el) => (
                       <th
                         key={el}
                         className="place-items-center border-b 	 border-blue-gray-50 py-3 px-5 "
@@ -147,9 +135,9 @@ function Faq() {
                   </tr>
                 </thead>
                 <tbody>
-                  {faqs?.map((faq, key) => {
+                  {goals?.map((goal, key) => {
                     const className = `py-3 px-5 ${
-                      key === faq.length - 1
+                      key === goal.length - 1
                         ? ""
                         : "border-b border-blue-gray-50"
                     }`;
@@ -159,28 +147,28 @@ function Faq() {
                         <td className={className}>
                           <div className="flex items-center gap-4">
                             {" "}
-                            {faq?.id}
+                            {goal?.id}
                           </div>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {faq?.question}
+                            {goal?.title}
                           </Typography>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600 max-w-8">
-                            {faq?.description}
+                            {goal?.description}
                           </Typography>
                         </td>
                         <td className={className}>
                           <Link
-                            to={`/dashboard/faq/show/${faq.id}`}
+                            to={`/dashboard/systemgoal/show/${goal.id}`}
                             style={linkStyle}
                           >
                             اصلاح
                           </Link>
                           <Button
-                            onClick={() => deleteFaq(faq.id)}
+                            onClick={() => deleteGoals(goal.id)}
                             className="bg-red-700 text-white hover:bg-red-800 focus:outline-none"
                           >
                             حذف
@@ -191,7 +179,7 @@ function Faq() {
                   })}
                 </tbody>
               </table>
-              {faqs.length == 0 ? (
+              {goals.length == 0 ? (
                 <>
                   <div className="flex h-[80vh] w-full items-center justify-center">
                     <p className="">آیتمی وجود ندارد :(</p>
@@ -211,4 +199,4 @@ function Faq() {
 
 
 
-  export default Faq;
+  export default SystemGoal;

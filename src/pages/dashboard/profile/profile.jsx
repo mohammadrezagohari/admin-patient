@@ -182,7 +182,7 @@ export function Profile() {
                     name="gender"
                     size="md"
                     label="جنسیت"
-                    value={(values.gender = "men" ? "مرد" : "زن")}
+                    value={(values.sex = "men" ? "مرد" : "زن")}
                   />
                   <br/>
                   {/* <div className="col-span-1 md:col-span-2 lg:col-span-2"></div> */}

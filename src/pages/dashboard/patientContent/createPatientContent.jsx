@@ -9,16 +9,17 @@ import {
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { createCategory } from "@/api/services/category";
+import { createTutorials } from "@/api/services/tutorial";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
+import TutorialDropdown from "@/components/tutorial-dropdown/tutorial-dropdown";
 
 export function CreatePatientContent() {
   const { userToken } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
-  const [name, setName] = useState();
-  const [icon, setIcon] = useState();
+  const [mobile, setMobile] = useState(null);
+  const [tutorial, setTutorial] = useState(null);
   const [imagePreview, setImagePreview] = useState();
 
   const inputStyle = {
@@ -37,11 +38,14 @@ export function CreatePatientContent() {
     borderRadius: "8px",
   };
 
-  const storeCover = async (e) => {
+  const storeMessage = async (e) => {
     e.preventDefault();
-    const createResult = await createCategory(name, icon, userToken)
+    const createResult = await createTutorials(
+      { mobile: mobile, tutorial: tutorial },
+      userToken
+    )
       .then(function (response) {
-        console.log('dataresult', response)
+        console.log("dataresult", response);
         if (response.status) {
           toast.success(" محتوا با موفقیت ارسال شده است!");
         } else {
@@ -106,29 +110,26 @@ export function CreatePatientContent() {
           </div>
           <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
             <Typography variant="h6" color="white">
-              ارسال محتوا  
+              ارسال محتوا
             </Typography>
           </CardHeader>
           <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
             <form
               method="post"
-              // onSubmit={storeCover}
+              onSubmit={storeMessage}
               className="m-6 mb-4 flex flex-wrap"
             >
               <div className="w-7/12">
                 <label className="ml-3"> عنوان محتوا</label>
-                <input
-                //   onChange={(e) => handleField(e)}
-                  type="text"
-                  className="ml-3"
-                  name="name"
-                  style={inputStyle}
+                <TutorialDropdown
+                  tutorial={tutorial}
+                  setTutorial={setTutorial}
                 />
               </div>
               <div className="w-7/12">
                 <label className="ml-3"> شماره موبایل </label>
                 <input
-                //   onChange={(e) => handleField(e)}
+                  onChange={(e) => setMobile(e.target.value)}
                   type="text"
                   className="ml-3"
                   name="name"
@@ -136,7 +137,7 @@ export function CreatePatientContent() {
                 />
               </div>
               <div className="col-span-2 mt-4 w-6/12">
-                <Button type="submit">ذخیره</Button>
+                <Button type="submit">ارسال</Button>
               </div>
             </form>
           </CardBody>

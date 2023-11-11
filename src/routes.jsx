@@ -7,7 +7,7 @@ import {
   UserPlusIcon,
   
 } from "@heroicons/react/24/solid";
-import { HiNewspaper } from 'react-icons/hi2';
+// import { HiNewspaper } from 'react-icons/hi2';
 
 import { Home, Profile, Notifications, Users } from "@/pages/dashboard";
 import { SignIn } from "@/pages/auth";
@@ -96,12 +96,12 @@ export const routes = [
         path: "/patientedubenefit",
         element: <Profile />,
       },
-      {
-        icon:<HiNewspaper/>,
-        name: "آخرین اخبار",
-        path: "/lastnews",
-        element: <Profile />,
-      }, 
+    //   {
+    //     icon:<HiNewspaper/>,
+    //     name: "آخرین اخبار",
+    //     path: "/lastnews",
+    //     element: <Profile />,
+    //   }, 
       {
         icon: <BellIcon {...icon} />,
         name: "سوالات متداول",

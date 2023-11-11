@@ -1,5 +1,6 @@
 import { QueryClient, useQuery, useQueryClient } from "react-query";
 import apiClient from "../apiClient";
+import { _apiClient } from "../baseApi";
 import { userRegister } from "./auth-api";
 const auth_header = {
   "Content-Type": "multipart/form-data",
@@ -15,8 +16,10 @@ export const fetchUsers = async (userToken) => {
   if (!response.status) {
     throw new Error("Failed to fetch data");
   }
-  return response.data;
+  return response?.data;
 };
+
+
 
 
 

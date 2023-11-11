@@ -155,6 +155,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import CategotyBox from "@/components/CategoryBox/CategoryBox";
 import { ThreeDots } from "react-loader-spinner";
+import Sortable from "sortablejs";
 import { useRef } from "react";
 
 import {
@@ -179,6 +180,8 @@ const Home = () => {
   const [users, setUsers] = useState([]);
   const listRef = useRef(null);
   const [imagePreview, setImagePreview] = useState();
+  const [isOpentDropDown, setIsOpentDropDown] = useState(null);
+ 
 
   const catBoxStyle = {
     border: "1px solid #E9E9E9",
@@ -262,23 +265,34 @@ const Home = () => {
   }, []);
 
 
-  const getDatas = async () => {
-    const result = await fetchUsers(userToken)
-      .then(function (response) {
-        console.log("response", response);
-        setUsers(response?.data);
-      })
-      .catch(function (error) {
-        console.log(error.message);
-      });
-    setLoading(false);
-    return result;
+  // const getDatas = async () => {
+  //   const result = await fetchUsers(userToken)
+  //     .then(function (response) {
+  //       console.log("response", response);
+  //       setUsers(response?.data);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error.message);
+  //     });
+  //   setLoading(false);
+  //   return result;
+  // };
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     getDatas();
+  //     console.log("first");
+  //   }, 3000);
+  // }, []);
+
+  const openDropDown = (id) => {
+    if (isOpentDropDown === id) {
+      setIsOpentDropDown(null);
+    } else {
+      setIsOpentDropDown(id);
+    }
+    console.log("isOpentDropDown : ", isOpentDropDown);
   };
-  useEffect(() => {
-    setTimeout(() => {
-      getDatas();
-    }, 3000);
-  }, []);
+
 
   useEffect(() => {
     if (listRef.current) {
@@ -303,6 +317,31 @@ const Home = () => {
     tutorialCount();
     categoryCount();
   }, []);
+
+  const getDatas = async () => {
+    const result = await fetchUsers(userToken)
+      .then(function (response) {
+        console.log("response", response);
+        setUsers(response?.data);
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+    setLoading(false);
+    return result;
+  };
+
+  // useEffect(() => {
+  //   getDatas();
+  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      getDatas();
+    }, 3000);
+  }, []);
+
+
+
   return (
     <>
     <Card className="rounded-4 h-full w-full bg-white">
@@ -332,7 +371,7 @@ const Home = () => {
                     </div>
                   </CategotyBox>
                  </label> 
-      <div className="tutorialLists rounded-xl border-2 border-gray-100 h-46 overflow-hidden mt-4">
+            <div className="tutorialLists rounded-xl border-2 border-gray-100 h-46 overflow-hidden mt-4">
                     <section  className="relative h-12 flex items-center pr-4  w-full m-0 bg-hrcolor text-white ">
                       <Typography>
                         لیست آموزش ها
@@ -362,7 +401,7 @@ const Home = () => {
         ) : (
           <>
             <CardBody className=" h-44 overflow-y-scroll px-0 pt-0 pb-2">
-              <table className="w-full min-w-[640px] table-auto text-right">
+              <table className="w-full  table-auto text-right">
                 <thead>
                   <tr>
                     {["#", "عنوان اصلی"," کاور","مشاهده", ].map((el) => (
@@ -438,14 +477,14 @@ const Home = () => {
 
 
               {/* ////////////////////////////////////// */}
-              <div className="tutorialLists overflow-hidden rounded-xl border-2 border-gray-100 h-20 mt-4">
-                    <section  className="h-12 bg-hrcolor flex items-center pr-4  w-full m-0 text-white ">
+         <div className="tutorialLists overflow-y-scroll rounded-xl border-2 border-gray-100 h-48 mt-4">
+                    <section className="relative h-12 flex items-center pr-4  w-full m-0 bg-hrcolor text-white ">
                       <Typography>
                         لیست  کاربران
                       </Typography>
                     </section>
                     {loading ? (
-          <div className="flex w-full  items-center justify-center py-60">
+          <div className="flex w-full  items-center justify-center py-60 overflow-y-scroll ">
             <ThreeDots
               height="80"
               width="80"
@@ -459,75 +498,185 @@ const Home = () => {
           </div>
         ) : (
           <>
-            <CardBody className="min-h-screen  overflow-x-scroll px-0 pt-0 pb-2">
-              <table className="w-full min-w-[640px] table-auto text-right">
-                <thead>
-                  <tr>
-                    {["#", "نام و نام خانوادگی"," شماره تماس","سمت","مشاهده", ].map((el) => (
-                      <th
-                        key={el}
-                        className="place-items-center border-b 	 border-blue-gray-50 py-3 px-5 "
+          <CardBody className="px-0 pt-0 pb-2 ">
+            <div class=" rounded-xl border-2 border-gray-100 h-46  mt-4">
+            <table className="w-full min-w-[640px] min-h-max table-auto text-right">
+              <thead className="w-full">
+                <tr>
+                  {[
+                    "#",
+                    "عکس",
+                    "نام",
+                    "جنسیت",
+                    "موبایل",
+                    "وضعیت",
+                    "شهر",
+                    "تنظیمات",
+                  ].map((el) => (
+                    <th
+                      key={el}
+                      className="place-items-center border-b	 border-blue-gray-50 py-3 px-5 "
+                    >
+                      <Typography
+                        variant="small"
+                        className="text-[11px] font-bold uppercase text-blue-gray-400"
                       >
-                        <Typography
-                          variant="small"
-                          className="text-[11px] font-bold uppercase text-blue-gray-400"
-                        >
-                          {el}
+                        {el}
+                      </Typography>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+
+              <tbody ref={listRef} className="w-full">
+                {users?.map((user, key) => {
+                  const className = `py-3 px-5 ${
+                    key === users.length - 1
+                      ? ""
+                      : "border-b border-blue-gray-50"
+                  }`;
+
+                  return (
+                    <tr key={key}>
+                      <td className={className}>
+                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                          {user?.id}
                         </Typography>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {users?.map((user, key) => {
-                    const className = `py-3 px-5 ${
-                      key === user.length - 1
-                        ? ""
-                        : "border-b border-blue-gray-50"
-                    }`;
-                    return (
-                      <tr key={key}>
-                        <td className={className}>
-                          <div className="flex items-center gap-4">
-                            {" "}
-                            {user?.id}
-                          </div>
-                        </td>
-                        <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {user?.firts_name + user?.last_name}
-                          </Typography>
-                        </td>
-                        <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {user?.mobile}
-                          </Typography>
-                        </td>
-                        <td className={className}>
-                          {user?.workspace_id}
-                        </td>
-                        <td className={className}>
-                          <Link to=''>
-                              <img src="../img/svgs/eye.svg" alt=""/>
-                          </Link>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              {5 == 0 ? (
-                <>
-                  <div className="flex h-[80vh] w-full items-center justify-center">
-                    <p className="">آیتمی وجود ندارد :(</p>
-                  </div>
-                </>
-               ) : (
-                <></> 
-              )} 
-            </CardBody>
-          </>
-        )}
+                      </td>
+                      <td className={className}>
+                        <div className="flex items-center gap-4">
+                          <Avatar
+                            src={
+                              user?.sex == "men"
+                                ? "/images/avatar/men.png"
+                                : "/images/avatar/women.png"
+                            }
+                            alt={user?.name}
+                            size="sm"
+                          />
+                        </div>
+                      </td>
+                      <td className={className}>
+                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                          {user?.first_name + " " + user.last_name}
+                        </Typography>
+                      </td>
+                      <td className={className}>
+                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                          {user?.sex == "men" ? "آقا" : "خانم"}
+                        </Typography>
+                      </td>
+                      <td className={className}>
+                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                          {user?.mobile}
+                        </Typography>
+                      </td>
+                      <td className={className}>
+                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                          {user?.is_enable ? (
+                            <i className="fa fa-check bg-green-500 text-white p-2"></i>
+                          ) : (
+                            <i className="fa fa-close bg-red-500 text-white p-2"></i>
+                          )}
+                        </Typography>
+                      </td>
+                      <td className={className}>
+                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                          {user?.city?.name ?? "تعین نشده"}
+                        </Typography>
+                      </td>
+
+                      <td className={`relative ${className}`}>
+                        <button
+                          onClick={() => openDropDown(user.id)}
+                    
+                          className="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          type="button"
+                        >
+                          <svg
+                            className="ml-2.5 h-2.5 w-2.5"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 10 6"
+                          >
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="m1 1 4 4 4-4"
+                            />
+                          </svg>
+                          امکانات
+                        </button>
+
+                        {isOpentDropDown === user.id ? (
+                          <>
+                            <div
+                              className="absolute left-0 z-10 w-44 divide-y divide-gray-100 rounded-lg bg-white shadow dark:bg-gray-700"
+                            >
+                              <ul
+                                className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                aria-labelledby="dropdownDelayButton"
+                              >
+                          
+                                <li className="w-full flex justify-center">
+                                  <Link
+                                    to={`/dashboard/users/edit/${user.id}`}
+                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                  >
+                                    اصلاح
+                                  </Link>
+                                </li>
+                                <li className="w-full">
+                                  <Button
+                                    onClick={() => deleteUser(user.id)}
+                                    className=" flex justify-center w-full rounded-none bg-white px-0 pr-4 text-right text-gray-600 shadow-none hover:bg-gray-100 hover:shadow-none focus:outline-none"
+                                  >
+                                    حذف
+                                  </Button>
+                                </li>
+                              </ul>
+                            </div>
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            </div>
+           
+
+            {/* <div className="my-6 mx-auto mt-10 flex w-full items-center  justify-center gap-3">
+          <button
+            className={`rounded-md bg-purple p-1 px-2 text-sm text-white ${
+              currentPage === 1 ? "opacity-50" : ""
+            }`}
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+          >
+            قبلی
+          </button>
+          <span className="p-1">{currentPage}</span>
+          <button
+            className={`rounded-md bg-purple p-1 px-2 text-sm text-white ${
+              currentPage === totalPages ? "opacity-50" : ""
+            }`}
+            disabled={currentPage === totalPages}
+            onClick={() => handlePageChange(currentPage + 1)}
+          >
+            بعدی
+          </button>
+        </div> */}
+          </CardBody>
+        </>
+      )}
+        
               </div>
             </CardBody>
           </Card>

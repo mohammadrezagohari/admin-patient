@@ -33,6 +33,7 @@ import axios from "axios";
 import { getProfileMe } from "@/api/services/auth-api";
 import { getProvince } from "./../../../api/services/province";
 import { AuthContext } from "@/gard/context/AuthContext";
+import { fetchUsers } from "@/api/services/users";
 
 export function Profile() {
   const { userToken } = useContext(AuthContext);
@@ -59,22 +60,39 @@ export function Profile() {
     return result;
   };
 
-  const getProfileMeData = async () => {
-    const result = await getProfileMe(userToken)
+  // const getProfileMeData = async () => {
+  //   const result = await getProfileMe(userToken)
+  //     .then(function (response) {
+  //       console.log("response:", response.data);
+  //       setUserInfo(response?.data);
+  //     })
+  //     .catch(function (error) {
+  //       console.log("error :", error.message);
+  //     });
+  //   return result;
+  // };
+  // useEffect(() => {
+  //   getProfileMeData();
+  //   getAllProvince();
+  // }, []);
+  const getDatas = async () => {
+    const result = await fetchUsers(userToken)
       .then(function (response) {
-        console.log("response:", response.data);
-        setUserInfo(response?.data);
+        console.log("response", response);
+        setUsers(response?.data);
       })
       .catch(function (error) {
-        console.log("error :", error.message);
+        console.log(error.message);
       });
+    setLoading(false);
     return result;
   };
   useEffect(() => {
-    getProfileMeData();
-    getAllProvince();
+    setTimeout(() => {
+      getDatas();
+      console.log("first");
+    }, 3000);
   }, []);
-
   return (
 
       <>
@@ -155,7 +173,8 @@ export function Profile() {
                     onChange={handleChange}
                     name="city_id"
                     size="md"
-                    value={values.city_id}
+                    autoComplete="off"
+                    value={values?.city_id}
                     label="شهر"
                   />
                   <Input
@@ -163,7 +182,8 @@ export function Profile() {
                     onChange={handleChange}
                     name="mobile"
                     size="md"
-                    value={values.mobile}
+                    value={values?.mobile}
+                    // value={values.city_id}
                     label="موبایل"
                   />
                   <Input

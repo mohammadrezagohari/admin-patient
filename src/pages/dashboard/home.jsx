@@ -153,6 +153,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import CategotyBox from "@/components/CategoryBox/CategoryBox";
 import { ThreeDots } from "react-loader-spinner";
+import Sortable from "sortablejs";
 import { useRef } from "react";
 
 import {
@@ -176,6 +177,8 @@ const Home = () => {
   const [users, setUsers] = useState(null);
   const listRef = useRef(null);
   const [imagePreview, setImagePreview] = useState();
+  const [isOpentDropDown, setIsOpentDropDown] = useState(null);
+ 
 
   const catBoxStyle = {
     border: "1px solid #E9E9E9",
@@ -256,22 +259,35 @@ const Home = () => {
     }, 3000);
   }, []);
 
-  const getDatas = async () => {
-    const result = await fetchUsers(userToken)
-      .then(function (response) {
-        setUsers(response?.data);
-      })
-      .catch(function (error) {
-        console.log(error.message);
-      });
-    setLoading(false);
-    return result;
+
+  // const getDatas = async () => {
+  //   const result = await fetchUsers(userToken)
+  //     .then(function (response) {
+  //       console.log("response", response);
+  //       setUsers(response?.data);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error.message);
+  //     });
+  //   setLoading(false);
+  //   return result;
+  // };
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     getDatas();
+  //     console.log("first");
+  //   }, 3000);
+  // }, []);
+
+  const openDropDown = (id) => {
+    if (isOpentDropDown === id) {
+      setIsOpentDropDown(null);
+    } else {
+      setIsOpentDropDown(id);
+    }
+    console.log("isOpentDropDown : ", isOpentDropDown);
   };
-  useEffect(() => {
-    setTimeout(() => {
-      getDatas();
-    }, 3000);
-  }, []);
+
 
   useEffect(() => {
     if (listRef.current) {
@@ -293,6 +309,31 @@ const Home = () => {
     tutorialCount();
     categoryCount();
   }, []);
+
+  const getDatas = async () => {
+    const result = await fetchUsers(userToken)
+      .then(function (response) {
+        console.log("response", response);
+        setUsers(response?.data);
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+    setLoading(false);
+    return result;
+  };
+
+  // useEffect(() => {
+  //   getDatas();
+  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      getDatas();
+    }, 3000);
+  }, []);
+
+
+
   return (
     <>
       <Card className="rounded-4 h-full w-full bg-white">

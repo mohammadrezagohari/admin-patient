@@ -15,7 +15,7 @@ export const fetchUsers = async (userToken) => {
   if (!response.status) {
     throw new Error("Failed to fetch data");
   }
-  return response.data;
+  return response?.data;
 };
 
 

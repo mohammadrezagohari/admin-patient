@@ -14,12 +14,12 @@ import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 
 export function CreateCategory() {
-  const { userToken } = useContext(AuthContext);
 
+  const { userToken } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
-  const [name, setName] = useState();
-  const [icon, setIcon] = useState();
-  const [imagePreview, setImagePreview] = useState();
+  const [name, setName] = useState(null);
+  const [icon, setIcon] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const inputStyle = {
     border: "1px solid gray",
@@ -29,6 +29,7 @@ export function CreateCategory() {
     width: "100%",
     marginTop: "1rem",
   };
+
   const linkStyle = {
     backgroundColor: "purple",
     color: "white",
@@ -36,6 +37,7 @@ export function CreateCategory() {
     padding: "0.5rem",
     borderRadius: "8px",
   };
+  
   const handleField = (e) => {
     setName(e.target.value);
   };
@@ -55,7 +57,7 @@ export function CreateCategory() {
     e.preventDefault();
     const createResult = await createCategory(name, icon, userToken)
       .then(function (response) {
-        console.log('dataresult', response)
+        console.log("dataresult", response);
         if (response.status) {
           toast.success(" دسته بندی با موفقیت افزوده شد !");
         } else {
@@ -139,7 +141,7 @@ export function CreateCategory() {
                   style={inputStyle}
                 />
               </div>
-              <div className="w-7/12 mt-4">
+              <div className="mt-4 w-7/12">
                 <label className="ml-3 block">آیکون:</label>
                 <div className="flex items-center gap-3">
                   <input

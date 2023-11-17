@@ -31,7 +31,6 @@ export const getCategory = async () => {
 
 export const createCategory = async (name, icon, userToken) => {
   auth_header_files.Authorization = `Bearer ${userToken}`;
-  const { data, error, isLoading } = useData("category/store");
   const response = await apiClient.post(
     `category/store`,
     {

@@ -15,9 +15,10 @@ const auth_header_files = {
   "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 
-export const getTutorials = async (page, userToken = null) => {
+// export const getTutorials = async (page, userToken = null) => {
+export const getTutorials = async (userToken = null) => {
   // export const getTutorials = (userToken) => {
-  return _apiClient("tutorial", "GET", { page: page }, userToken); // Replace with your endpoint
+  return await _apiClient("tutorial?count=99", "GET", userToken);
 };
 
 export const showTutorials = async (id, userToken) => {
@@ -33,27 +34,43 @@ export const showTutorials = async (id, userToken) => {
   return response?.data;
 };
 
-export const createTutorials = async (values, userToken) => {
+export const createTutorials = (values, userToken) => {
+  // const data = {
+  //     main_title: values.main_title,
+  //     first_title: values.first_title,
+  //     first_context: values.first_context,
+  //     second_title: values.second_title,
+  //     second_context: values.second_context,
+  //     main_image: values.main_image,
+  //     category_id: values.category_id,
+  // };
+  // console.log('data',data);
+  // return  _apiClient("tutorial/store", "post", userToken,data);
+
   auth_header_files.Authorization = `Bearer ${userToken}`;
-  const response = await apiClient.post(
-    `/tutorial/store`,
-    {
-      main_title: values.main_title,
-      first_title: values.first_title,
-      first_context: values.first_context,
-      second_title: values.second_title,
-      second_context: values.second_context,
-      main_image: values.main_image,
-      category_id: values.category_id,
-    },
-    {
-      headers: auth_header_files,
-    }
-  );
-  if (response.status !== 200) {
-    return null;
-  }
-  return response?.data;
+  const response = apiClient
+    .post(
+      `/tutorial/store`,
+      {
+        main_title: values.main_title,
+        first_title: values.first_title,
+        first_context: values.first_context,
+        second_title: values.second_title,
+        second_context: values.second_context,
+        main_image: values.main_image,
+        category_id: values.category_id,
+      },
+      {
+        headers: auth_header_files,
+      }
+    )
+    .then((response) => {
+      if (response.status !== 200) {
+        return null;
+      }
+      return response;
+    });
+  return response;
 };
 
 // ----------------------------------------------------------------------------

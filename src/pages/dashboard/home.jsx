@@ -323,9 +323,6 @@ const Home = () => {
     return result;
   };
 
-  // useEffect(() => {
-  //   getDatas();
-  // }, []);
   useEffect(() => {
     setTimeout(() => {
       getDatas();
@@ -418,7 +415,6 @@ const Home = () => {
                           <tr key={key}>
                             <td className={className}>
                               <div className="flex items-center gap-4">
-                                {" "}
                                 {tutorial?.id}
                               </div>
                             </td>

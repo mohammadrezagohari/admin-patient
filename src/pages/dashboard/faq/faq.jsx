@@ -17,7 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
-import { getFaq ,getFaqList ,deleteFaq} from "@/api/services/faq";
+import { getFaq  ,deleteFaq} from "@/api/services/faq";
 
 function Faq() {
   const { userToken } = useContext(AuthContext);
@@ -25,18 +25,6 @@ function Faq() {
   const [faqs, setFaqs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // const getFaqsList = async () => {
-  //   const result = await getFaqList()
-  //     .then(function (response) {
-  //       console.log("response", response);
-  //       setFaqs(response?.data);
-  //     })
-  //     .catch(function (err) {
-  //       console.log("error", err);
-  //     });
-  //   setLoading(false);
-  //   return result;
-  // };
   
   const getFaqs = async () => {
     const result = await getFaq()
@@ -87,13 +75,6 @@ function Faq() {
     <>
       <Card>
         <div className="py-5">
-          {/* <Link
-            to={`/dashboard/category/create`}
-            className="mr-3"
-            style={linkStyle}
-          >
-            ثبت دسته بندی جدید
-          </Link> */}
         </div>
         <CardHeader
           variant="gradient"

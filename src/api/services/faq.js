@@ -73,15 +73,5 @@ const auth_header = {
     return response?.data;
   };
 
-  export const   getFaqList = async () => {
-    const response = await apiClient.get("faq?count=999", {
-      headers: auth_header,
-    });
-    if (!response.status) {
-      return null;
-    }
-    return response?.data;
-  };
-  // -------------------------------------------------------------------
 
   

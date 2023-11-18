@@ -17,13 +17,14 @@ import Category from "./pages/dashboard/category/category";
 import About from "./pages/dashboard/about/about";
 import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
-import EducationCovers from "./pages/dashboard/educationCovers/educationCovers";
+import EducationCovers from "./pages/dashboard/poster/poster";
 import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
 import PatientContent from "./pages/dashboard/patientContent/patientContent";
 import Questions from "./pages/dashboard/faq/faq";
 import Faq from "./pages/dashboard/faq/faq";
 import Home from "./pages/dashboard/home";
 import SystemGoal from "./pages/dashboard/systemGoal/sysGoal";
+import Poster from "./pages/dashboard/poster/poster";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -81,8 +82,8 @@ export const routes = [
       {
         icon: <BellIcon {...icon} />,
         name: " پوسترهای آموزشی",
-        path: "/educationCovers",
-        element: <EducationCovers />,
+        path: "/poster",
+        element: <Poster />,
       },
      
       {

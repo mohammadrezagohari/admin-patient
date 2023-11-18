@@ -100,7 +100,7 @@ export const updateProfiles = async (id, values, userToken) => {
       city_id: values?.city_id,
       sex: values?.sex,
       workspace_id:values?.workspace_id,
-      password: values?.password
+      password: values?.password,
     },
     {
       headers: auth_header,

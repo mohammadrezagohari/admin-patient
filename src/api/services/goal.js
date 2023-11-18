@@ -18,7 +18,7 @@ const auth_header = {
     return response?.data;
   };
   
-  export const createSystemGoal = async (values, userToken) => {
+  export const createGoal = async (values, userToken) => {
     const response = await apiClient.post(
       `goal/store`,
       {

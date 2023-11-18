@@ -34,8 +34,8 @@ import CreateTutorials from "./pages/dashboard/tutorials/create-tutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
 import Category from "./pages/dashboard/category/category";
 import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
-import EducationCovers from "./pages/dashboard/educationCovers/educationCovers";
-import CreateEducationCover from "./pages/dashboard/educationCovers/createEducationCover";
+import EducationCovers from "./pages/dashboard/poster/poster";
+import CreateEducationCover, { CreatePoster } from "./pages/dashboard/poster/createPoster";
 import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
 import CreateSystemBenefit from "./pages/dashboard/systemBenefit/createSystemBenefit";
 import PatientContent from "./pages/dashboard/patientContent/patientContent";
@@ -48,6 +48,7 @@ import Home from "./pages/dashboard/home";
 import SystemGoal from "./pages/dashboard/systemGoal/sysGoal";
 import CreateSystemGoal from "./pages/dashboard/systemGoal/createSysGoal";
 import ShowSystemGoals from "./pages/dashboard/systemGoal/showSystemGoal";
+import Poster from "./pages/dashboard/poster/poster";
 
 function App() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -138,8 +139,8 @@ function App() {
               element={<CreateTutorials />}
             />
             <Route path="/dashboard/dashboard" element={<Home />} />
-            <Route path="/dashboard/educationCovers" element={<EducationCovers />} />
-            <Route path="/dashboard/educationCovers/create" element={<CreateEducationCover />} />
+            <Route path="/dashboard/poster/create" element={<CreatePoster />} />
+            <Route path="/dashboard/poster" element={<Poster />} />
             <Route path="/dashboard/systemBenefit" element={<SystemBenefit />} />
             <Route path="/dashboard/systemBenefit/create" element={<CreateSystemBenefit />} />
 

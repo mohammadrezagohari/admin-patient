@@ -6,6 +6,7 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import Select from "react-select";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { getFaq } from "@/api/services/faq";
@@ -15,7 +16,7 @@ import { AuthContext } from "@/gard/context/AuthContext";
 export function CreateFaq() {
   const { userToken } = useContext(AuthContext);
   const [question,setQuestion] = useState();
-  const [description,setDescription] = useState();
+  const [titlles,setTitles] = useState();
 
 
   const [loading, setLoading] = useState(true);
@@ -35,9 +36,9 @@ export function CreateFaq() {
     borderRadius: "8px",
   };
 
-  const storeFaq = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const createResult = await createCategory(context, userToken)
+    const createResult = await createCategory(question,description, userToken)
       .then(function (response) {
         console.log('dataresult', response)
         if (response.status) {
@@ -46,7 +47,10 @@ export function CreateFaq() {
           if (response?.success == false) {
             toast(
               `${
-                response?.data?.context != undefined ? response?.data?.context : ""
+                response?.data?.question != undefined ? response?.data?.question : ""
+              } \n`,
+              `${
+                response?.data?.description != undefined ? response?.data?.description : ""
               } \n`,
               {
                 duration: 2000,
@@ -56,7 +60,6 @@ export function CreateFaq() {
           toast.error("خطایی رخ داده است");
         }
         console.log(response);
-        // navigate(-1);
       })
       .catch(function (error) {
         toast.error("خطا !! مجددا تلاش نمایید");
@@ -105,10 +108,10 @@ export function CreateFaq() {
           <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
             <form
               method="post"
-              // onSubmit={storeCover}
-              className="m-6 mb-4 flex flex-wrap"
+              onSubmit={handleSubmit}
+              className="m-6 mt-0 mb-4  grid grid-cols-2 gap-x-6"
             >
-                   <div className="w-7/12">
+             <div className="w-full">
                 <label className="ml-3">  عنوان سوال </label>
                 <input
                   onChange={(e) => setQuestion(e)}
@@ -121,23 +124,48 @@ export function CreateFaq() {
                 />
                 
               </div>
-              <div className="w-7/12  mt-4">
-                <label className="ml-3"> توضیحات  </label>
+              <div className="w-full h-full ">
+                <label className=""> توضیحات  </label>
                 <textarea
-                  onChange={(e) => setDescription(e)}
-                  value={description}
+                  onChange={(e) => setTitles(e)}
+                  // value={title}
                   type="text"
-                  className="ml-3 p-4"
+                  className="ml-3 p-4 h-full "
                   name="name"
                   style={inputStyle}
                 >
                 </textarea>
               </div>
-         
-              <div className="col-span-2 mt-4 w-6/12">
-                <Button type="submit">ذخیره</Button>
-              </div>
+
+              <div className="-mt-5">
+                          <label htmlFor="isActive">وضعیت نمایش</label>
+                          <Select
+                            id="isActive"
+                            className=""
+                            options={[
+                              {
+                                value: true,
+                                label: "فعال",
+                              },
+                              {
+                                value: false,
+                                label: "غیرفعال",
+                              },
+                            ]}
+                            // defaultValue={{
+                            //   value: values.is_active,
+                            //   label: values.is_active == true ? "فعال" : "غیرفعال",
+                            // }}
+                          />
+                    </div>
+                        {/* <div className="w-6/12">
+                        gfhg
+                      </div> */}
+                        <div className="col-span-2 mt-4 w-6/12">
+                      <Button type="submit">ذخیره</Button>
+                      </div>
             </form>
+            {/* )} */}
           </CardBody>
         </Card>
       )}

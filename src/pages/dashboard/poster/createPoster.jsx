@@ -9,16 +9,19 @@ import {
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { createCategory } from "@/api/services/category";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 
-export function CreateEducationCover() {
+import { getPoster,createPoster,deletePoster } from "@/api/services/poster";
+
+export function CreatePoster() {
   const { userToken } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
-  const [name, setName] = useState();
-  const [icon, setIcon] = useState();
+  const [posters ,setPosters] = useState();
+  const [posterImg, setPosterImg] = useState();
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
   const [imagePreview, setImagePreview] = useState();
 
   const inputStyle = {
@@ -36,9 +39,7 @@ export function CreateEducationCover() {
     padding: "0.5rem",
     borderRadius: "8px",
   };
-  const handleField = (e) => {
-    setName(e.target.value);
-  };
+
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -47,13 +48,13 @@ export function CreateEducationCover() {
     console.log("file", file);
     console.log("file_url", file_url);
     console.log("image target", event.target.files[0]);
-    setIcon(event.target.files[0]);
+    setPosterImg(event.target.files[0]);
     setImagePreview(file_url);
   };
 
-  const storeCover = async (e) => {
+  const storePosters = async (e) => {
     e.preventDefault();
-    const createResult = await createCategory(name, icon, userToken)
+    const createResult = await createPoster(title, description, userToken)
       .then(function (response) {
         console.log('dataresult', response)
         if (response.status) {
@@ -62,14 +63,19 @@ export function CreateEducationCover() {
           if (response?.success == false) {
             toast(
               `${
-                response?.data?.name != undefined ? response?.data?.name : ""
+                response?.data?.title != undefined ? response?.data?.title : ""
               } \n
                   ${
-                    response?.data?.icon != undefined
-                      ? response?.data?.icon
+                    response?.data?.description != undefined
+                      ? response?.data?.description
                       : ""
-                  } \n`,
-              {
+                  } \n`
+                  // ${
+                  //   response?.data?.poster != undefined
+                  //     ? response?.data?.poster
+                  //     : ""
+                  // } \n`,
+              ,{
                 duration: 2000,
               }
             );
@@ -111,7 +117,7 @@ export function CreateEducationCover() {
         <Card>
           <div className="py-5">
             <Link
-              to={`/dashboard/categories`}
+              to={`/dashboard/poster`}
               className="mr-3"
               style={linkStyle}
             >
@@ -132,7 +138,19 @@ export function CreateEducationCover() {
               <div className="w-7/12">
                 <label className="ml-3"> عنوان پوستر</label>
                 <input
-                  onChange={(e) => handleField(e)}
+                  onChange={(e) => setTitle(e)}
+                  // value={title}
+                  type="text"
+                  className="ml-3"
+                  name="name"
+                  style={inputStyle}
+                />
+              </div>
+              <div className="w-7/12">
+                <label className="ml-3"> توضیحات </label>
+                <input
+                  onChange={(e) => setDescription(e)}
+                  // value={description}
                   type="text"
                   className="ml-3"
                   name="name"
@@ -169,4 +187,4 @@ export function CreateEducationCover() {
   );
 }
 
-export default CreateEducationCover;
+export default CreatePoster;

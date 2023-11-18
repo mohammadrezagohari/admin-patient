@@ -15,27 +15,28 @@ import {
 
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import {
-  deleteCategory,
-  getCategory,
-  getCategorysList,
-} from "@/api/services/category";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
+import { getPoster,createPoster,deletePoster } from "@/api/services/poster";
 
-function EducationCovers() {
+function Poster() {
   const { userToken } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
-  const [icon, setIcon] = useState();
+
+  const [posters, setPosters] = useState();
+  const [posterImg, setPosterImg] = useState();
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
+
   const [imagePreview, setImagePreview] = useState();
   const navigate = useNavigate();
 
-  const getDatas = async () => {
-    const result = await getCategorysList()
+  const getPosters = async () => {
+    const result = await getPoster()
       .then(function (response) {
         console.log("response", response);
-        setCategories(response?.data);
+        setPoster(response?.data);
       })
       .catch(function (err) {
         console.log("error", err);
@@ -46,7 +47,7 @@ function EducationCovers() {
 
   useEffect(() => {
     setTimeout(() => {
-      getDatas();
+      getPosters();
     }, 3000);
   }, []);
 
@@ -69,12 +70,12 @@ function EducationCovers() {
     setImagePreview(file_url);
     setIcon(file_url);
   };
-  const deleteCategoryItem = async (id) => {
-    const deleteResult = await deleteCategory(id, userToken)
+  const deletePosters = async (id) => {
+    const deleteResult = await deletePoster(id, userToken)
       .then(function (response) {
         if (response.status) {
           toast.success("حذف با موفقیت انجام شد !");
-          setCategories(categories.filter((catgry) => catgry.id !== id));
+          setCategories(posters.filter((poster) => poster.id !== id));
         } else {
           toast.error("خطا !! مجددا تلاش نمایید");
         }
@@ -89,15 +90,6 @@ function EducationCovers() {
   return (
     <>
       <Card>
-        <div className="py-5">
-          {/* <Link
-            to={`/dashboard/category/create`}
-            className="mr-3"
-            style={linkStyle}
-          >
-            ثبت دسته بندی جدید
-          </Link> */}
-        </div>
         <CardHeader
           variant="gradient"
           color="blue"
@@ -107,7 +99,7 @@ function EducationCovers() {
             لیست پوستر ها
           </Typography>
           <Link
-            to={`/dashboard/educationCovers/create`}
+            to={`/dashboard/poster/create`}
             className="mr-3"
             style={linkStyle}
           >
@@ -150,9 +142,9 @@ function EducationCovers() {
                   </tr>
                 </thead>
                 <tbody>
-                  {categories?.map((catgry, key) => {
+                  {posters?.map((poster, key) => {
                     const className = `py-3 px-5 ${
-                      key === categories.length - 1
+                      key === posters.length - 1
                         ? ""
                         : "border-b border-blue-gray-50"
                     }`;
@@ -162,28 +154,28 @@ function EducationCovers() {
                         <td className={className}>
                           <div className="flex items-center gap-4">
                             {" "}
-                            {catgry?.id}
+                            {poster?.id}
                           </div>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {catgry?.name}
+                            {poster?.title}
                           </Typography>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {icon}
+                            {posterImg}
                           </Typography>
                         </td>
                         <td className={className}>
                           {/* <Link
-                            to={`/dashboard/category/show/${catgry.id}`}
+                            to={`/dashboard/poster/show/${poster.id}`}
                             style={linkStyle}
                           >
                             اصلاح
                           </Link> */}
                           <Button
-                            onClick={() => deleteCategoryItem(catgry.id)}
+                            onClick={() => deletePosters(poster.id)}
                             className="bg-red-700 text-white hover:bg-red-800 focus:outline-none"
                           >
                             حذف
@@ -194,7 +186,7 @@ function EducationCovers() {
                   })}
                 </tbody>
               </table>
-              {categories.length == 0 ? (
+              {5 == 0 ? (
                 <>
                   <div className="flex h-[80vh] w-full items-center justify-center">
                     <p className="">آیتمی وجود ندارد :(</p>
@@ -214,4 +206,4 @@ function EducationCovers() {
 
 
 
-  export default EducationCovers;
+  export default Poster;

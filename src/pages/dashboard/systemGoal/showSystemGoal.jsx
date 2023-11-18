@@ -97,7 +97,7 @@ export function ShowSystemGoals() {
               className="m-6 mb-4 flex flex-wrap"
             >
               <div className="w-7/12">
-                <label className="ml-3"> عنوان هدف </label>
+                <label className="ml-3"> عنوان  </label>
                 <input
                 type="text"
                   onChange={(e) => setTitles(e)}

@@ -9,15 +9,13 @@ import {
 } from "@/widgets/layout";
 import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
-import { useRef } from "react";
 import { useState } from "react";
-// import { AuthProvider } from "@/gard/context/AuthContext";
-// import { useLocalStorage } from "@/gard/storage/useLocalStorage";
+import { AuthProvider } from "@/gard/context/AuthContext";
+import { useLocalStorage } from "@/gard/storage/useLocalStorage";
 
 export function Dashboard({ children }) {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavType, openSidenav } = controller;
-  const hamergurMenuRef = useRef();
   const [isShow, setIsShow] = useState(false);
 
   const showMenuHandler = () => {
@@ -42,23 +40,23 @@ export function Dashboard({ children }) {
             <path
               d="M19.6797 18.9751L8 18.9981"
               stroke="#fff"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M19.6875 5.76758H12.9916"
               stroke="#fff"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M19.6797 12.2549H4.31969"
               stroke="#fff"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </div>
@@ -71,12 +69,12 @@ export function Dashboard({ children }) {
             viewBox="0 0 24 24"
             fill="#fff"
             aria-hidden="true"
-            class="h-5 w-5 text-inherit"
+            className="h-5 w-5 text-inherit"
           >
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm10.72 4.72a.75.75 0 011.06 0l3 3a.75.75 0 010 1.06l-3 3a.75.75 0 11-1.06-1.06l1.72-1.72H9a.75.75 0 010-1.5h10.94l-1.72-1.72a.75.75 0 010-1.06z"
-              clip-rule="evenodd"
+              clipRule="evenodd"
             ></path>
           </svg>
           خروج
@@ -86,7 +84,6 @@ export function Dashboard({ children }) {
         </div>
         <Sidenav
           isShow={isShow}
-          ref={hamergurMenuRef}
           routes={routes}
           brandImg={
             sidenavType === "dark"

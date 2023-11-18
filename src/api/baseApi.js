@@ -1,22 +1,26 @@
 import baseUrl from "@/configs/base-url";
 import React from "react";
 
-export function _apiClient(
+export async function _apiClient(
   endpoint,
-  method = "GET",
-  data = null,
-  token = null
+  method = "POST",
+  token = null,
+  data = null
 ) {
   try {
     const url = `${baseUrl}/api/${endpoint}`;
     let headers = token
       ? {
-          Accept: "application/json",
           "Content-Type": "multipart/form-data",
+          Accept: "application/json",
+          "Access-Control-Request-Method": "POST",
+          "Access-Control-Request-Headers": "Content-Type, Accept",
         }
       : {
-          Accept: "application/json",
           "Content-Type": "multipart/form-data",
+          Accept: "application/json",
+          "Access-Control-Request-Method": "POST",
+          "Access-Control-Request-Headers": "Content-Type, Accept",
           Authorization: `Bearer ${token}`,
         };
 
@@ -39,7 +43,7 @@ export function _apiClient(
       }
     }
     console.log("url", url);
-    return fetch(url, options).then((response) => {
+    return await fetch(url, options).then((response) => {
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`);
       }

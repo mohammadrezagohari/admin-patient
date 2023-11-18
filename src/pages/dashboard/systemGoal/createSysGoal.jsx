@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { getGoal,createGoal } from "@/api/services/goal";
+import { getGoal, createGoal } from "@/api/services/goal";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 
@@ -19,7 +19,6 @@ export function CreateSystemGoal() {
   const [loading, setLoading] = useState(true);
   const [titles, setTitles] = useState();
   const [descriptions, setDescriptions] = useState();
-
 
   const inputStyle = {
     border: "1px solid gray",
@@ -37,20 +36,20 @@ export function CreateSystemGoal() {
     borderRadius: "8px",
   };
 
-
-
   const storeSysGoal = async (e) => {
     e.preventDefault();
-    const createResult = await createGoal(values , userToken)
+    const createResult = await createSystemGoal(values , userToken)
       .then(function (response) {
-        console.log('dataresult', response)
+        console.log("dataresult", response);
         if (response.status) {
           toast.success(" دسته بندی با موفقیت افزوده شد !");
         } else {
           if (response?.success == false) {
             toast(
               `${
-                response?.values?.title != undefined ? response?.values?.title : ""
+                response?.values?.title != undefined
+                  ? response?.values?.title
+                  : ""
               } \n
                   ${
                     response?.values?.description ? response?.values?.description : ""
@@ -118,19 +117,20 @@ export function CreateSystemGoal() {
               <div className="w-7/12">
                 <label className="ml-3"> عنوان  </label>
                 <input
-                  type="text"
+             
                   onChange={(e) => setTitles(e)}
-                  autoComplete="off"
+                //   value={titles}
+                  type="text"
                   className="ml-3"
                   name="name"
                   style={inputStyle}
                 />
               </div>
               <div className="w-7/12">
-                <label className="ml-3"> توضیحات  </label>
+                <label className="ml-3"> توضیحات </label>
                 <textarea
                   onChange={(e) => setDescriptions(e)}
-                //   value={descriptions}
+                  //   value={descriptions}
                   type="text"
                   className="ml-3"
                   name="name"

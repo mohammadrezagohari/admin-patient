@@ -13,16 +13,18 @@ import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 
 import { getPoster,createPoster,deletePoster } from "@/api/services/poster";
+import CategoryDropdown from "@/components/category-dropdown/category-dropdown";
 
 export function CreatePoster() {
   const { userToken } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
-  const [posters ,setPosters] = useState();
-  const [posterImg, setPosterImg] = useState();
-  const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
-  const [imagePreview, setImagePreview] = useState();
+  const [poster ,setPoster] = useState(null);
+  const [title, setTitle] = useState(null);
+
+  const [imagePreview, setImagePreview] = useState(null);
+
+  const [category_id, setCategory_id] = useState(null);
 
   const inputStyle = {
     border: "1px solid gray",
@@ -48,47 +50,51 @@ export function CreatePoster() {
     console.log("file", file);
     console.log("file_url", file_url);
     console.log("image target", event.target.files[0]);
-    setPosterImg(event.target.files[0]);
+    setPoster(event.target.files[0]);
     setImagePreview(file_url);
   };
 
   const storePosters = async (e) => {
     e.preventDefault();
-    const createResult = await createPoster(title, description, userToken)
+    const createResult = await createPoster(
+      {
+        poster:poster,
+        title:title, 
+        category_id:category_id
+    }
+      , userToken
+      )
       .then(function (response) {
         console.log('dataresult', response)
         if (response.status) {
-          toast.success("پوستر با موفقیت افزئده شد!");
+          toast.success("پوستر با موفقیت افز,ده شد!");
         } else {
           if (response?.success == false) {
             toast(
               `${
+                response?.data?.poster != undefined
+                   ? response?.data?.poster
+                    : ""
+              }\n
+              ${
                 response?.data?.title != undefined ? response?.data?.title : ""
               } \n
                   ${
-                    response?.data?.description != undefined
-                      ? response?.data?.description
+                    response?.data?.category_id != undefined
+                      ? response?.data?.category_id
                       : ""
-                  } \n`
-                  // ${
-                  //   response?.data?.poster != undefined
-                  //     ? response?.data?.poster
-                  //     : ""
-                  // } \n`,
-              ,{
+                  } \n `,{
                 duration: 2000,
-              }
+              },
             );
           }
           toast.error("خطایی رخ داده است");
         }
         console.log(response);
-        // navigate(-1);
       })
       .catch(function (error) {
         toast.error("خطا !! مجددا تلاش نمایید");
         console.log("error :", error);
-        console.log(data);
       });
 
     return createResult;
@@ -132,31 +138,21 @@ export function CreatePoster() {
           <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
             <form
               method="post"
-              // onSubmit={storeCover}
+              onSubmit={storePosters}
               className="m-6 mb-4 flex flex-wrap"
             >
               <div className="w-7/12">
                 <label className="ml-3"> عنوان پوستر</label>
                 <input
-                  onChange={(e) => setTitle(e)}
-                  // value={title}
+                  onChange={(e) => setTitle(e.currentTarget.value)}
+                  value={title}
                   type="text"
                   className="ml-3"
                   name="name"
                   style={inputStyle}
                 />
               </div>
-              <div className="w-7/12">
-                <label className="ml-3"> توضیحات </label>
-                <input
-                  onChange={(e) => setDescription(e)}
-                  // value={description}
-                  type="text"
-                  className="ml-3"
-                  name="name"
-                  style={inputStyle}
-                />
-              </div>
+              
               <div className="w-7/12 mt-4">
                 <label className="ml-3 block">فایل پوستر:</label>
                 <div className="flex items-center gap-3">
@@ -175,6 +171,13 @@ export function CreatePoster() {
                     />
                   </div>
                 </div>
+              </div>
+              <div className="w-7/12">
+                <label className="ml-3">دسته بندی</label>
+                <CategoryDropdown
+                  category={category_id}
+                  setCategory={setCategory_id}
+                />
               </div>
               <div className="col-span-2 mt-4 w-6/12">
                 <Button type="submit">ذخیره</Button>

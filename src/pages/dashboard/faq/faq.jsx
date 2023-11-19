@@ -18,14 +18,17 @@ import { toast } from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 import { getFaq  ,deleteFaq} from "@/api/services/faq";
+import { data } from "autoprefixer";
 
 function Faq() {
   const { userToken } = useContext(AuthContext);
 
-  const [faqs, setFaqs] = useState([]);
+  const [faqs, setFaqs] = useState(null);
+
   const [loading, setLoading] = useState(true);
 
   
+
   const getFaqs = async () => {
     const result = await getFaq()
       .then(function (response) {
@@ -38,7 +41,6 @@ function Faq() {
     setLoading(false);
     return result;
   };
-
 
   useEffect(() => {
     setTimeout(() => {
@@ -130,7 +132,7 @@ function Faq() {
                 <tbody>
                   {faqs?.map((faq, key) => {
                     const className = `py-3 px-5 ${
-                      key === faq.length - 1
+                      key === faqs.length - 1
                         ? ""
                         : "border-b border-blue-gray-50"
                     }`;
@@ -139,18 +141,17 @@ function Faq() {
                       <tr key={key}>
                         <td className={className}>
                           <div className="flex items-center gap-4">
-                            {" "}
                             {faq?.id}
                           </div>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {faq?.question}
+                            { ` ${faq.question}` }
                           </Typography>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600 max-w-8">
-                            {faq?.description}
+                          { ` ${faq.description}` }
                           </Typography>
                         </td>
                         <td className={className}>
@@ -161,7 +162,7 @@ function Faq() {
                             اصلاح
                           </Link>
                           <Button
-                            onClick={() => deleteFaq(faq.id)}
+                            onClick={() => deleteFaqs(faq.id)}
                             className="bg-red-700 text-white hover:bg-red-800 focus:outline-none"
                           >
                             حذف

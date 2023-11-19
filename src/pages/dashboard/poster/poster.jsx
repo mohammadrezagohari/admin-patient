@@ -24,12 +24,10 @@ function Poster() {
 
   const [loading, setLoading] = useState(true);
 
-  const [posters, setPosters] = useState();
-  const [posterImg, setPosterImg] = useState();
-  const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
+  const [poster, setPoster] = useState();
 
-  const [imagePreview, setImagePreview] = useState();
+
+  
   const navigate = useNavigate();
 
   const getPosters = async () => {
@@ -58,24 +56,13 @@ function Poster() {
     padding: "0.5rem",
     borderRadius: "8px",
   };
-  
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    // setIcon(file)
-    const file_url = URL.createObjectURL(file);
-    console.log("file", file);
-    console.log("file_url", file_url);
-    console.log("image target", event.target.files[0]);
-    setIcon(event.target.files[0]);
-    setImagePreview(file_url);
-    setIcon(file_url);
-  };
+
   const deletePosters = async (id) => {
     const deleteResult = await deletePoster(id, userToken)
       .then(function (response) {
         if (response.status) {
           toast.success("حذف با موفقیت انجام شد !");
-          setCategories(posters.filter((poster) => poster.id !== id));
+          setPoster(poster.filter((ptr) => ptr.id !== id));
         } else {
           toast.error("خطا !! مجددا تلاش نمایید");
         }
@@ -126,7 +113,7 @@ function Poster() {
               <table className="w-full min-w-[640px] table-auto text-right">
                 <thead>
                   <tr>
-                    {["#", "عنوان","نمایش فایل  ", "تنظیمات", ].map((el) => (
+                    {["#", "عنوان", "تنظیمات", ].map((el) => (
                       <th
                         key={el}
                         className="place-items-center border-b 	 border-blue-gray-50 py-3 px-5 "
@@ -142,9 +129,9 @@ function Poster() {
                   </tr>
                 </thead>
                 <tbody>
-                  {posters?.map((poster, key) => {
+                  {poster?.map((posters, key) => {
                     const className = `py-3 px-5 ${
-                      key === posters.length - 1
+                      key === poster.length - 1
                         ? ""
                         : "border-b border-blue-gray-50"
                     }`;
@@ -154,28 +141,24 @@ function Poster() {
                         <td className={className}>
                           <div className="flex items-center gap-4">
                             {" "}
-                            {poster?.id}
+                            {posters?.id}
+                          
                           </div>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {poster?.title}
+                            {posters?.title}
                           </Typography>
                         </td>
                         <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {posterImg}
-                          </Typography>
-                        </td>
-                        <td className={className}>
-                          {/* <Link
+                          <Link
                             to={`/dashboard/poster/show/${poster.id}`}
                             style={linkStyle}
                           >
                             اصلاح
-                          </Link> */}
+                          </Link>
                           <Button
-                            onClick={() => deletePosters(poster.id)}
+                            onClick={() => deletePosters(posters.id)}
                             className="bg-red-700 text-white hover:bg-red-800 focus:outline-none"
                           >
                             حذف

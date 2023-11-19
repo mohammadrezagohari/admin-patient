@@ -15,10 +15,11 @@ const auth_header = {
     if (!response.status) {
       return null;
     }
-    return response?.data;
+    return response?.data; 
   };
   
   export const createGoal = async (values, userToken) => {
+    auth_header.Authorization = `Bearer ${userToken}`;
     const response = await apiClient.post(
       `goal/store`,
       {
@@ -36,7 +37,8 @@ const auth_header = {
     return response?.data;
   };
   
-  export const showGoal = async (id) => {
+  export const showGoal = async (id,userToken) => {
+    auth_header.Authorization = `Bearer ${userToken}`;
     const response = await apiClient.get(`goal/show/${id}`, {
       headers: auth_header,
     });
@@ -47,6 +49,7 @@ const auth_header = {
   };
   
   export const updateGoal= async (id, values, userToken) => {
+    auth_header.Authorization = `Bearer ${userToken}`;
     const response = await apiClient.patch(
       `goal/update/${id}`,
       {

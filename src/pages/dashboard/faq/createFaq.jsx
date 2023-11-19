@@ -9,14 +9,15 @@ import {
 import Select from "react-select";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { getFaq } from "@/api/services/faq";
+import { createFaq, getFaq } from "@/api/services/faq";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 
 export function CreateFaq() {
   const { userToken } = useContext(AuthContext);
-  const [question,setQuestion] = useState();
-  const [titlles,setTitles] = useState();
+  const [question,setQuestion] = useState([]);
+  const [description,setDescription] = useState([]);
+
 
 
   const [loading, setLoading] = useState(true);
@@ -38,7 +39,12 @@ export function CreateFaq() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const createResult = await createCategory(question,description, userToken)
+    const createResult = await createFaq(
+      {
+        question:question,
+        description:description,
+      },
+       userToken)
       .then(function (response) {
         console.log('dataresult', response)
         if (response.status) {
@@ -48,13 +54,12 @@ export function CreateFaq() {
             toast(
               `${
                 response?.data?.question != undefined ? response?.data?.question : ""
-              } \n`,
-              `${
+              } \n
+              ${
                 response?.data?.description != undefined ? response?.data?.description : ""
-              } \n`,
-              {
+              } \n`,{
                 duration: 2000,
-              }
+              },
             );
           }
           toast.error("خطایی رخ داده است");
@@ -114,11 +119,14 @@ export function CreateFaq() {
              <div className="w-full">
                 <label className="ml-3">  عنوان سوال </label>
                 <input
-                  onChange={(e) => setQuestion(e)}
+                  onChange={(e) => {
+                    setQuestion(e.currentTarget.value);
+                    console.log(e.currentTarget.value);
+                  }}
                   value={question}
                   type="text"
                   className="ml-3 p-4"
-                  name="name"
+                  name="question"
                   style={inputStyle}
                   autoComplete="off"
                 />
@@ -127,21 +135,26 @@ export function CreateFaq() {
               <div className="w-full h-full ">
                 <label className=""> توضیحات  </label>
                 <textarea
-                  onChange={(e) => setTitles(e)}
-                  // value={title}
+                  onChange={(e) => {
+                    setDescription(e.currentTarget.value);
+                    console.log(e.currentTarget.value);
+                  }}
+                  value={description}
                   type="text"
                   className="ml-3 p-4 h-full "
-                  name="name"
+                  name="description"
                   style={inputStyle}
                 >
                 </textarea>
               </div>
 
-              <div className="-mt-5">
+              {/* <div className="-mt-5">
                           <label htmlFor="isActive">وضعیت نمایش</label>
                           <Select
                             id="isActive"
                             className=""
+                            onChange={(e) => setIsActive(e)}
+                            defaultValue={is_active}
                             options={[
                               {
                                 value: true,
@@ -152,25 +165,18 @@ export function CreateFaq() {
                                 label: "غیرفعال",
                               },
                             ]}
-                            // defaultValue={{
-                            //   value: values.is_active,
-                            //   label: values.is_active == true ? "فعال" : "غیرفعال",
-                            // }}
                           />
-                    </div>
-                        {/* <div className="w-6/12">
-                        gfhg
-                      </div> */}
+                    </div> */}
                         <div className="col-span-2 mt-4 w-6/12">
                       <Button type="submit">ذخیره</Button>
                       </div>
             </form>
-            {/* )} */}
           </CardBody>
         </Card>
       )}
     </>
   );
+
 }
 
 export default CreateFaq;

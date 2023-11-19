@@ -3,6 +3,7 @@
   "private": true,
   "version": "2.0.1",
   "type": "module",
+  "proxy": "https://product.gandom.link/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -20,7 +21,7 @@
     "@mui/x-data-grid": "^6.12.1",
     "@tanstack/react-query": "^5.8.1",
     "@tinymce/tinymce-react": "^4.3.0",
-    "axios": "^1.4.0",
+    "axios": "^1.6.2",
     "formik": "^2.3.2",
     "jalali-moment": "^3.3.11",
     "prop-types": "15.8.1",

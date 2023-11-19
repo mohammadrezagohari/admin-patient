@@ -178,7 +178,6 @@ const Home = () => {
   const listRef = useRef(null);
   const [imagePreview, setImagePreview] = useState();
   const [isOpentDropDown, setIsOpentDropDown] = useState(null);
- 
 
   const catBoxStyle = {
     border: "1px solid #E9E9E9",
@@ -192,9 +191,9 @@ const Home = () => {
 
   const articleCount = async () => {
     const result = await getArticleCount(userToken)
-      .then(function (response) {
-        console.log("setArticleQuantity", response);
-        setArticleQuantity(response?.data);
+      .then((result) => {
+        console.log("setArticleQuantity", result);
+        setArticleQuantity(result?.data);
       })
       .catch(function (error) {
         console.log(error.message);
@@ -204,9 +203,9 @@ const Home = () => {
   };
   const userCount = async () => {
     const result = await getUserCount(userToken)
-      .then(function (response) {
-        console.log("setUserQuantity", response);
-        setUserQuantity(response?.data);
+      .then((result) => {
+        console.log("setUserQuantity", result);
+        setUserQuantity(result?.data);
       })
       .catch(function (error) {
         console.log(error.message);
@@ -259,7 +258,6 @@ const Home = () => {
     }, 3000);
   }, []);
 
-
   // const getDatas = async () => {
   //   const result = await fetchUsers(userToken)
   //     .then(function (response) {
@@ -287,7 +285,6 @@ const Home = () => {
     }
     console.log("isOpentDropDown : ", isOpentDropDown);
   };
-
 
   useEffect(() => {
     if (listRef.current) {
@@ -328,8 +325,6 @@ const Home = () => {
       getDatas();
     }, 3000);
   }, []);
-
-
 
   return (
     <>
@@ -520,30 +515,30 @@ const Home = () => {
                             : "border-b border-blue-gray-50"
                         }`;
                         // return (
-                          <tr key={key}>
-                            <td className={className}>
-                              <div className="flex items-center gap-4">
-                                {" "}
-                                {user?.id}
-                              </div>
-                            </td>
-                            <td className={className}>
-                              <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {user?.firts_name + " " + user?.last_name}
-                              </Typography>
-                            </td>
-                            <td className={className}>
-                              <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {user?.mobile}
-                              </Typography>
-                            </td>
-                            <td className={className}>{user?.workspace_id}</td>
-                            <td className={className}>
-                              <Link to="">
-                                <img src="../img/svgs/eye.svg" alt="" />
-                              </Link>
-                            </td>
-                          </tr>
+                        <tr key={key}>
+                          <td className={className}>
+                            <div className="flex items-center gap-4">
+                              {" "}
+                              {user?.id}
+                            </div>
+                          </td>
+                          <td className={className}>
+                            <Typography className="text-xs font-semibold text-blue-gray-600">
+                              {user?.firts_name + " " + user?.last_name}
+                            </Typography>
+                          </td>
+                          <td className={className}>
+                            <Typography className="text-xs font-semibold text-blue-gray-600">
+                              {user?.mobile}
+                            </Typography>
+                          </td>
+                          <td className={className}>{user?.workspace_id}</td>
+                          <td className={className}>
+                            <Link to="">
+                              <img src="../img/svgs/eye.svg" alt="" />
+                            </Link>
+                          </td>
+                        </tr>;
                         // );
                       })}
                     </tbody>

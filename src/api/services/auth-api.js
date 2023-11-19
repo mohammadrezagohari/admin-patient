@@ -1,26 +1,71 @@
 import apiClient from "@/api/apiClient";
+import baseUrl from "@/configs/base-url";
+import axios from "axios";
 import { useQueryClient, useQuery } from "react-query";
+// "Content-Type": "application/x-www-form-urlencoded",
 
 const auth_header = {
+  "Cache-Control": "no-cache",
   "Content-Type": "application/json",
   Accept: "application/json",
-  "Access-Control-Request-Method": "POST",
-  "Access-Control-Request-Headers": "Content-Type, Accept",
+  "Access-Control-Allow-Origin": "https://safe.gandom.link",
 };
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Accept", "application/json");
 
 export const signIn = async (mobile, password) => {
+  var raw = JSON.stringify({
+    mobile: mobile,
+    password: password,
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+  let mainResult = null;
+  await fetch(`${baseUrl}/api/auth/login`, requestOptions)
+    .then((response) => response.text())
+    .then((result) => {
+      mainResult = result;
+      console.log("result", result);
+    })
+    .catch((error) => console.log("error", error));
+  return JSON.parse(mainResult);
+  //   return await fetch(`${baseUrl}/api/auth/login`, {
+  //     method: "POST",
+  //     headers: myHeaders,
+  //     body: JSON.stringify({
+  //       mobile: mobile,
+  //       password: password,
+  //     }),
+  //   })
+  //     .then((response) => {
+  //       console.log("response20", response);
+  //     })
+  //     .then((result) => console.log("result", result))
+  //     .catch((error) => console.log("error", error));
 
-  const { data } = await apiClient.post(
-    "auth/login",
-    {
-      mobile: mobile,
-      password: password,
-    },
-    {
-      headers: auth_header,
-    }
-  );
-  return data;
+  //   console.log("response222", response);
+  //   return response;
+  // axios(
+  //   }).then(function (response) {
+  //     console.log("man kholam", response);
+  //   });
+
+  //   const { data } = await apiClient.post(
+  //     "auth/login",
+  //     {
+  //       mobile: mobile,
+  //       password: password,
+  //     },
+  //     {
+  //       headers: auth_header,
+  //     }
+  //   );
+  //   return data;
 };
 
 export const userRegister = async (name, mobile, password) => {
@@ -99,8 +144,8 @@ export const updateProfiles = async (id, values, userToken) => {
       mobile: values?.mobile,
       city_id: values?.city_id,
       sex: values?.sex,
-      workspace_id:values?.workspace_id,
-      password: values?.password
+      workspace_id: values?.workspace_id,
+      password: values?.password,
     },
     {
       headers: auth_header,
@@ -133,7 +178,6 @@ export const profileProvince = async (userToken) => {
   return data;
 };
 
-
 export const logOut = async (field, userToken) => {
   auth_header.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.post(
@@ -150,6 +194,3 @@ export const logOut = async (field, userToken) => {
   }
   return response?.data;
 };
-
-
-

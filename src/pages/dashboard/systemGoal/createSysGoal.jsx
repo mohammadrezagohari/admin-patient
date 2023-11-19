@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { getGoal, createSystemGoal } from "@/api/services/goal";
+import { getGoal, createGoal } from "@/api/services/goal";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 
@@ -38,7 +38,7 @@ export function CreateSystemGoal() {
 
   const storeSysGoal = async (e) => {
     e.preventDefault();
-    const createResult = await createSystemGoal(values, userToken)
+    const createResult = await createSystemGoal(values , userToken)
       .then(function (response) {
         console.log("dataresult", response);
         if (response.status) {
@@ -52,9 +52,7 @@ export function CreateSystemGoal() {
                   : ""
               } \n
                   ${
-                    response?.is_active != undefined
-                      ? response?.values?.description
-                      : ""
+                    response?.values?.description ? response?.values?.description : ""
                   } \n`,
               {
                 duration: 2000,
@@ -117,11 +115,12 @@ export function CreateSystemGoal() {
               className="m-6 mb-4 flex flex-wrap"
             >
               <div className="w-7/12">
-                <label className="ml-3"> عنوان فواید </label>
+                <label className="ml-3"> عنوان  </label>
                 <input
-                  type="text"
+             
                   onChange={(e) => setTitles(e)}
-                  //   value={titles}
+                //   value={titles}
+                  type="text"
                   className="ml-3"
                   name="name"
                   style={inputStyle}

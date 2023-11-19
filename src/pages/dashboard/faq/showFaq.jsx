@@ -1,24 +1,28 @@
-import { showFaq, updateFaq } from "@/api/services/faq";
-import { AuthContext } from "@/gard/context/AuthContext";
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import baseUrl from "@/configs/base-url";
-import { ThreeDots } from "react-loader-spinner";
+import { useContext, useEffect, useState } from "react";
 import {
-    Button,
   Card,
-  CardBody,
   CardHeader,
+  CardBody,
+  Button,
   Typography,
 } from "@material-tailwind/react";
-import { Formik } from "formik";
-import toast from "react-hot-toast";
+import Select from "react-select";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { showFaq, getFaq ,updateFaq} from "@/api/services/faq";
+import { ThreeDots } from "react-loader-spinner";
+import { AuthContext } from "@/gard/context/AuthContext";
 
-function ShowFaq() {
-  const { id } = useParams();
+export function ShowFaq() {
   const { userToken } = useContext(AuthContext);
+  const [faqs,setFaqs] = useState([]);
+  const [question,setQuestion] = useState([]);
+  const [description,setDescription] = useState([]);
+
+  const { id } = useParams();
+
+
   const [loading, setLoading] = useState(true);
-  const [faqs, setFaqs] = useState(null);
 
   const inputStyle = {
     border: "1px solid gray",
@@ -34,57 +38,64 @@ function ShowFaq() {
     padding: "0.5rem",
     borderRadius: "8px",
   };
-
-
-  const intitialValues = {
-    context: faqs?.context,
-  };
-
-  const showFaqsItem = async (id) => {
-    const showResult = await showFaq(id, userToken)
+  const showFaqs = async (id) => {
+    const showResult = await showFaq(id,question,description)
       .then(function (response) {
-        setFaqs(response?.data);
+        setQuestion(response?.data?.question);
+        setDescription(response?.data?.description);
       })
-      .catch(function (err) {
-        console.log("error", err);
+      .catch(function (error) {
+        console.log(error.message);
       });
-    setLoading(false);
     return showResult;
   };
   useEffect(() => {
+    showFaqs(id);
+  }, []);
+
+
+  const editFaqs = async (id, values) => {
+    console.log("values", values);
+    const editResult = await updateFaq(id, values)
+      .then(function (response) {
+        if (response.data.status == true) {
+          toast.success("تغییرات با موفقیت انجام گرفت");
+        }else {
+               if (response?.success == false) {
+                 toast(
+                  `${
+                  response?.data?.question != undefined ? response?.data?.question : ""
+                   } \n
+                   ${
+                   response?.data?.description != undefined
+                  ? response?.data?.description
+                  : ""
+                  } \n`,
+                  {
+                    duration: 2000,
+                  }
+                      );
+                    }
+                    toast.error("خطایی رخ داده است");
+                  }
+                  console.log(response);
+                })
+                .catch(function (err) {
+                  toast.error("خطا !! مجددا تلاش نمایید");
+                  console.log("error", err);
+                });
+              return editResult;
+            };
+          
+
+  useEffect(() => {
     setTimeout(() => {
-        showFaqsItem(id);
+      setLoading(false);
     }, 3000);
   }, []);
 
-  const editFaqItems = async (id, values) => {
-    console.log("values", values);
-    const editResult = await updateFaq(id, values, userToken)
-      .then(function (response) {
-        console.log("dataresult", response);
-        if (response.status) {
-          toast.success("تغییرات با موفقیت انجام گرفت");
-        } else {
-          if (response?.success == false) {
-            toast(
-              `${
-                response?.data?.context != undefined ? response?.data?.context : ""
-              } \n`,
-              {
-                duration: 2000,
-              }
-            );
-          }
-          toast.error("خطایی رخ داده است");
-        }
-        console.log(response);
-      })
-      .catch(function (err) {
-        toast.error("خطا !! مجددا تلاش نمایید");
-        console.log("error", err);
-      });
-    return editResult;
-  };
+
+
 
   return (
     <>
@@ -114,45 +125,58 @@ function ShowFaq() {
           </div>
           <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
             <Typography variant="h6" color="white">
-                 اصلاح سوال
+              ارسال سوال  
             </Typography>
           </CardHeader>
           <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
-            <Formik
-              initialValues={intitialValues}
-              enableReinitialize={true}
-              encType="multipart/form-data"
+            <form
+              method="post"
               onSubmit={(values) => {
-                editFaqItems(id, values);
+                editFaqs(id,values);
               }}
+              className="m-6 mt-0 mb-4  grid grid-cols-2 gap-x-6"
             >
-              {({ handleSubmit, handleChange, values, errors }) => (
-                <form
-                  onSubmit={handleSubmit}
-                  className="m-6 mb-4 flex flex-wrap"
+             <div className="w-full">
+                <label className="ml-3">  عنوان سوال </label>
+                <input
+                  onChange={(e) => {
+                    setQuestion(e.currentTarget.value);
+                    console.log(e.currentTarget.value);
+                  }}
+                  value={question}
+                  type="text"
+                  className="ml-3 p-4"
+                  name="question"
+                  style={inputStyle}
+                  autoComplete="off"
+                />
+                
+              </div>
+              <div className="w-full h-full ">
+                <label className=""> توضیحات  </label>
+                <textarea
+                  onChange={(e) => {
+                    setDescription(e.currentTarget.value);
+                    console.log(e.currentTarget.value);
+                  }}
+                  value={description}
+                  type="text"
+                  className="ml-3 p-4 h-full "
+                  name="description"
+                  style={inputStyle}
                 >
-                  <div className="w-7/12">
-                    <label className="ml-3">عنوان سوال</label>
-                    <textarea
-                      onChange={handleChange}
-                      type="text"
-                      className="ml-3"
-                      name="name"
-                      value={values?.context}
-                      style={inputStyle}
-                    ></textarea>
-                  </div>
-                  <div className="col-span-2 mt-4 w-6/12">
-                    <Button type="submit">ذخیره</Button>
-                  </div>
-                </form>
-              )}
-            </Formik>
+                </textarea>
+              </div>
+                        <div className="col-span-2 mt-4 w-6/12">
+                      <Button type="submit">ذخیره</Button>
+                      </div>
+            </form>
           </CardBody>
         </Card>
       )}
     </>
   );
+
 }
 
 export default ShowFaq;

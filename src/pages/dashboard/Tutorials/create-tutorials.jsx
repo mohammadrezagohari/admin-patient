@@ -59,13 +59,7 @@ export function CreateCategory() {
     setImage(event.target.files[0]);
     setImagePreview(file_url);
   };
-  //   main_title: values.main_title,
-  //   first_title: values.first_title,
-  //   first_context: values.first_context,
-  //   second_title: values.second_title,
-  //   second_context: values.second_context,
-  //   main_image: values.image,
-  //   category_id: values.category_id,
+
   const storeTutorial = async (e) => {
     e.preventDefault();
     const createResult = await createTutorials(
@@ -103,7 +97,6 @@ export function CreateCategory() {
           toast.error("خطایی رخ داده است");
         }
         console.log(response);
-        // navigate(-1);
       })
       .catch(function (error) {
         toast.error("خطا !! مجددا تلاش نمایید");

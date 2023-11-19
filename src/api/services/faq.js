@@ -14,11 +14,13 @@ const auth_header = {
     });
     if (!response.status) {
       return null;
-    }
+    } 
+    console.log('data',response?.data);
     return response?.data;
   };
   
   export const createFaq = async (values, userToken) => {
+    auth_header.Authorization = `Bearer ${userToken}`;
     const response = await apiClient.post(
       `faq/store`,
       {
@@ -35,7 +37,8 @@ const auth_header = {
     return response?.data;
   };
   
-  export const showFaq = async (id) => {
+  export const showFaq = async (id,userToken) => {
+    auth_header.Authorization = `Bearer ${userToken}`;
     const response = await apiClient.get(`faq/show/${id}`, {
       headers: auth_header,
     });
@@ -46,6 +49,7 @@ const auth_header = {
   };
   
   export const updateFaq = async (id, values, userToken) => {
+    auth_header.Authorization = `Bearer ${userToken}`;
     const response = await apiClient.patch(
       `faq/update/${id}`,
       {
@@ -53,7 +57,7 @@ const auth_header = {
         description:values.description,
       },
       {
-        headers: auth_header,
+        headers: auth_header, 
       }
     );
     if (!response.status) {
@@ -73,15 +77,5 @@ const auth_header = {
     return response?.data;
   };
 
-  export const   getFaqList = async () => {
-    const response = await apiClient.get("faq?count=999", {
-      headers: auth_header,
-    });
-    if (!response.status) {
-      return null;
-    }
-    return response?.data;
-  };
-  // -------------------------------------------------------------------
 
   

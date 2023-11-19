@@ -7,7 +7,7 @@ import ShowCities from "./pages/dashboard/province/showCities";
 import ShowCity from "./pages/dashboard/city/showCity";
 import CreateCity from "./pages/dashboard/city/createCity";
 import CreateCategory from "./pages/dashboard/category/createCategory";
-import ShowCategory from "./pages/dashboard/category/showCategory";
+// import ShowCategory from "./pages/dashboard/category/showCategory";
 
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
 import UserPanel from "./pages/dashboard/users/panel";
@@ -18,8 +18,8 @@ import { useContext } from "react";
 import CreateTutorials from "./pages/dashboard/tutorials/create-tutorials";
 import Category from "./pages/dashboard/category/category";
 import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
-import EducationCovers from "./pages/dashboard/educationCovers/educationCovers";
-import CreateEducationCover from "./pages/dashboard/educationCovers/createEducationCover";
+import EducationCovers from "./pages/dashboard/poster/poster";
+import CreateEducationCover, { CreatePoster } from "./pages/dashboard/poster/createPoster";
 import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
 import CreateSystemBenefit from "./pages/dashboard/systemBenefit/createSystemBenefit";
 import PatientContent from "./pages/dashboard/patientContent/patientContent";
@@ -32,6 +32,8 @@ import Home from "./pages/dashboard/home";
 import SystemGoal from "./pages/dashboard/systemGoal/sysGoal";
 import CreateSystemGoal from "./pages/dashboard/systemGoal/createSysGoal";
 import ShowSystemGoals from "./pages/dashboard/systemGoal/showSystemGoal";
+import Poster from "./pages/dashboard/poster/poster";
+// import ShowPoster from "./pages/dashboard/poster/showPoster";
 
 function App() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -62,10 +64,10 @@ function App() {
               path="/dashboard/category/create"
               element={<CreateCategory />}
             />
-            <Route
+            {/* <Route
               path="/dashboard/category/show/:id"
               element={<ShowCategory />}
-            />
+            /> */}
 
             <Route
               path="/dashboard/patientcontent"
@@ -104,24 +106,15 @@ function App() {
               path="/dashboard/tutorials/create"
               element={<CreateTutorials />}
             />
-            <Route
-              path="/dashboard/educationCovers"
-              element={<EducationCovers />}
+            <Route path="/dashboard/dashboard" element={<Home />} />
+
+            <Route path="/dashboard/poster" element={<Poster />} />
+            <Route path="/dashboard/poster/create" element={<CreatePoster />} />
+            {/* <Route path="/dashboard/poster/show/:id" element={<ShowPoster />} */}
             />
-            <Route
-              path="/dashboard/educationCovers/create"
-              element={<CreateEducationCover />}
-            />
-            <Route
-              path="/dashboard/systemBenefit"
-              element={<SystemBenefit />}
-            />
-            <Route
-              path="/dashboard/systemBenefit/create"
-              element={<CreateSystemBenefit />}
-            />
-            <Route path="/dashboard" element={<Home />} />
-            <Route path="/" element={<Home />} />
+            <Route path="/dashboard/systemBenefit" element={<SystemBenefit />} />
+            <Route path="/dashboard/systemBenefit/create" element={<CreateSystemBenefit />} />
+
           </Routes>
         </Dashboard>
       </>

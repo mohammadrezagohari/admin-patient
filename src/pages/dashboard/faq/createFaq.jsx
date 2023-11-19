@@ -6,16 +6,18 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import Select from "react-select";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { getFaq } from "@/api/services/faq";
+import { createFaq, getFaq } from "@/api/services/faq";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 
 export function CreateFaq() {
   const { userToken } = useContext(AuthContext);
-  const [question,setQuestion] = useState();
-  const [description,setDescription] = useState();
+  const [question,setQuestion] = useState([]);
+  const [description,setDescription] = useState([]);
+
 
 
   const [loading, setLoading] = useState(true);
@@ -35,9 +37,14 @@ export function CreateFaq() {
     borderRadius: "8px",
   };
 
-  const storeFaq = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const createResult = await createCategory(context, userToken)
+    const createResult = await createFaq(
+      {
+        question:question,
+        description:description,
+      },
+       userToken)
       .then(function (response) {
         console.log('dataresult', response)
         if (response.status) {
@@ -46,17 +53,18 @@ export function CreateFaq() {
           if (response?.success == false) {
             toast(
               `${
-                response?.data?.context != undefined ? response?.data?.context : ""
-              } \n`,
-              {
+                response?.data?.question != undefined ? response?.data?.question : ""
+              } \n
+              ${
+                response?.data?.description != undefined ? response?.data?.description : ""
+              } \n`,{
                 duration: 2000,
-              }
+              },
             );
           }
           toast.error("خطایی رخ داده است");
         }
         console.log(response);
-        // navigate(-1);
       })
       .catch(function (error) {
         toast.error("خطا !! مجددا تلاش نمایید");
@@ -105,44 +113,70 @@ export function CreateFaq() {
           <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
             <form
               method="post"
-              // onSubmit={storeCover}
-              className="m-6 mb-4 flex flex-wrap"
+              onSubmit={handleSubmit}
+              className="m-6 mt-0 mb-4  grid grid-cols-2 gap-x-6"
             >
-                   <div className="w-7/12">
+             <div className="w-full">
                 <label className="ml-3">  عنوان سوال </label>
                 <input
-                  onChange={(e) => setQuestion(e)}
+                  onChange={(e) => {
+                    setQuestion(e.currentTarget.value);
+                    console.log(e.currentTarget.value);
+                  }}
                   value={question}
                   type="text"
                   className="ml-3 p-4"
-                  name="name"
+                  name="question"
                   style={inputStyle}
                   autoComplete="off"
                 />
                 
               </div>
-              <div className="w-7/12  mt-4">
-                <label className="ml-3"> توضیحات  </label>
+              <div className="w-full h-full ">
+                <label className=""> توضیحات  </label>
                 <textarea
-                  onChange={(e) => setDescription(e)}
+                  onChange={(e) => {
+                    setDescription(e.currentTarget.value);
+                    console.log(e.currentTarget.value);
+                  }}
                   value={description}
                   type="text"
-                  className="ml-3 p-4"
-                  name="name"
+                  className="ml-3 p-4 h-full "
+                  name="description"
                   style={inputStyle}
                 >
                 </textarea>
               </div>
-         
-              <div className="col-span-2 mt-4 w-6/12">
-                <Button type="submit">ذخیره</Button>
-              </div>
+
+              {/* <div className="-mt-5">
+                          <label htmlFor="isActive">وضعیت نمایش</label>
+                          <Select
+                            id="isActive"
+                            className=""
+                            onChange={(e) => setIsActive(e)}
+                            defaultValue={is_active}
+                            options={[
+                              {
+                                value: true,
+                                label: "فعال",
+                              },
+                              {
+                                value: false,
+                                label: "غیرفعال",
+                              },
+                            ]}
+                          />
+                    </div> */}
+                        <div className="col-span-2 mt-4 w-6/12">
+                      <Button type="submit">ذخیره</Button>
+                      </div>
             </form>
           </CardBody>
         </Card>
       )}
     </>
   );
+
 }
 
 export default CreateFaq;

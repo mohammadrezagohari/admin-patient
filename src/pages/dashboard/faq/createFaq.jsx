@@ -132,7 +132,7 @@ export function CreateFaq() {
                 />
                 
               </div>
-              <div className="w-full h-full ">
+              <div className="w-full  ">
                 <label className=""> توضیحات  </label>
                 <textarea
                   onChange={(e) => {

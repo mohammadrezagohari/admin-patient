@@ -1,124 +1,3 @@
-// import React, { useContext } from "react";
-// import {
-//   Typography,
-//   Card,
-//   CardHeader,
-//   CardBody,
-//   IconButton,
-//   Menu,
-//   MenuHandler,
-//   MenuList,
-//   MenuItem,
-//   Avatar,
-//   Tooltip,
-//   Progress,
-// } from "@material-tailwind/react";
-// import {
-//   ClockIcon,
-//   CheckIcon,
-//   EllipsisVerticalIcon,
-//   ArrowUpIcon,
-// } from "@heroicons/react/24/outline";
-// import { StatisticsCard } from "@/widgets/cards";
-// import { StatisticsChart } from "@/widgets/charts";
-// import {
-//   statisticsCardsData,
-//   statisticsChartsData,
-//   projectsTableData,
-//   ordersOverviewData,
-// } from "@/data";
-// import { AuthContext } from "@/gard/context/AuthContext";
-
-// export function Home() {
-//   const { isLoggedIn, loginContext, setUserToken, userToken, logout } =
-//     useContext(AuthContext);
-
-//   return (
-//     <>
-//     <div className="mt-12 ">
-//       <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
-//         <Card className="overflow-hidden xl:col-span-2">
-//           <CardHeader
-//             floated={false}
-//             shadow={false}
-//             color="transparent"
-//             className="m-0 flex items-center justify-between p-6"
-//           >
-//             <div>
-//               <Typography variant="h6" color="blue-gray" className="mb-1">
-//                 Projects
-//               </Typography>
-//               <Typography
-//                 variant="small"
-//                 className="flex items-center gap-1 font-normal text-blue-gray-600"
-//               >
-//                 <CheckIcon strokeWidth={3} className="h-4 w-4 text-blue-500" />
-//                 <strong>30 done</strong> this month
-//               </Typography>
-//             </div>
-//           </CardHeader>
-//           <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
-//             <table className="w-full min-w-[640px] table-auto">
-//               <thead>
-//                  <tr>
-//                   {["companies", "members", "budget", "completion"].map(
-//                     (el) => (
-//                       <th
-//                         key={el}
-//                         className="border-b border-blue-gray-50 py-3 px-6 text-left"
-//                       >
-//                         <Typography
-//                           variant="small"
-//                           className="text-[11px] font-medium uppercase text-blue-gray-400"
-//                         >
-//                           {el}
-//                         </Typography>
-//                       </th>
-//                     )
-//                   )}
-//                 </tr>
-//               </thead>
-//               <tbody>
-
-//               </tbody>
-//             </table>
-//           </CardBody>
-//         </Card>
-//         <Card>
-//           <CardHeader
-//             floated={false}
-//             shadow={false}
-//             color="transparent"
-//             className="m-0 p-6"
-//           >
-//             <Typography variant="h6" color="blue-gray" className="mb-2">
-//               Orders Overview
-//             </Typography>
-//             <Typography
-//               variant="small"
-//               className="flex items-center gap-1 font-normal text-blue-gray-600"
-//             >
-//               <ArrowUpIcon
-//                 strokeWidth={3}
-//                 className="h-3.5 w-3.5 text-green-500"
-//               />
-//               <strong>24%</strong> this month
-//             </Typography>
-//           </CardHeader>
-//           <CardBody className="pt-0">
-//           </CardBody>
-//         </Card>
-//       </div>
-//     </div>
-//      {/* <Card className="rounded-4 h-full w-full bg-white">
-//       <CardBody className="h-full w-full p-0">
-//         <iframe src="https://visual.is/visualizations/LA1kX2s5PEd6b3SBWSCTw4is/embed" width="100%" height="100%" frameborder="0" style={{borderRadius:'8px'}}></iframe>
-//       </CardBody>
-//     </Card> */}
-//     </>
-//   );
-// }
-
 import {
   Card,
   CardBody,
@@ -168,7 +47,8 @@ import { fetchUsers } from "@/api/services/users";
 
 const Home = () => {
   const { userToken } = useContext(AuthContext);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [loadingUser, setLoadingUser] = useState(true);
   const [articleQuantity, setArticleQuantity] = useState(null);
   const [userQuantity, setUserQuantity] = useState(null);
   const [tutorialQuantity, setTutorialQuantity] = useState(null);
@@ -225,7 +105,6 @@ const Home = () => {
     setLoading(false);
     return result;
   };
-
   const categoryCount = async () => {
     const result = await getCategoryCount(userToken)
       .then(function (response) {
@@ -240,7 +119,7 @@ const Home = () => {
   };
 
   const getTutorial = async () => {
-    const result = await getTutorials()
+    const result = await getTutorials(3)
       .then(function (response) {
         console.log("response", response);
         setTutorials(response?.data);
@@ -257,25 +136,6 @@ const Home = () => {
       getTutorial();
     }, 3000);
   }, []);
-
-  // const getDatas = async () => {
-  //   const result = await fetchUsers(userToken)
-  //     .then(function (response) {
-  //       console.log("response", response);
-  //       setUsers(response?.data);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error.message);
-  //     });
-  //   setLoading(false);
-  //   return result;
-  // };
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     getDatas();
-  //     console.log("first");
-  //   }, 3000);
-  // }, []);
 
   const openDropDown = (id) => {
     if (isOpentDropDown === id) {
@@ -307,22 +167,21 @@ const Home = () => {
     categoryCount();
   }, []);
 
-  const getDatas = async () => {
+  const getUsers = async () => {
     const result = await fetchUsers(userToken)
       .then(function (response) {
-        console.log("response", response);
         setUsers(response?.data);
       })
       .catch(function (error) {
         console.log(error.message);
       });
-    setLoading(false);
+    setLoadingUser(false);
     return result;
   };
 
   useEffect(() => {
     setTimeout(() => {
-      getDatas();
+      getUsers();
     }, 3000);
   }, []);
 
@@ -357,9 +216,9 @@ const Home = () => {
           </label>
           <div className="tutorialLists h-46 mt-4 overflow-hidden rounded-xl border-2 border-gray-100">
             <section className="relative m-0 flex h-12 w-full  items-center bg-hrcolor pr-4 text-white ">
-              <Typography>لیست آموزش ها</Typography>
+              <Typography>لیست آخرین آموزش ها</Typography>
               <span className="absolute left-4  ">
-                <Link to="/dashboard/tutorials" className="flex justify-center">
+                <Link to="/dashboard/tutorials/create" className="flex justify-center">
                   <Typography>آموزش جدید</Typography>
                   <img src="../img/svgs/add2.svg" alt="" />
                 </Link>
@@ -448,7 +307,7 @@ const Home = () => {
                   {5 == 0 ? (
                     <>
                       <div className="flex h-[80vh] w-full items-center justify-center">
-                        <p className="">آیتمی وجود ندارد :(</p>
+                        <div className="">آیتمی وجود ندارد :( </div>
                       </div>
                     </>
                   ) : (
@@ -459,12 +318,20 @@ const Home = () => {
             )}
           </div>
 
-          {/* ////////////////////////////////////// */}
-          <div className="tutorialLists mt-4 h-20 overflow-hidden rounded-xl border-2 border-gray-100">
-            <section className="m-0 flex h-12 w-full items-center  bg-hrcolor pr-4 text-white ">
-              <Typography>لیست کاربران</Typography>
+          <div className="tutorialLists h-46 mt-4 overflow-hidden rounded-xl border-2 border-gray-100">
+            <section className="relative m-0 flex h-12 w-full  items-center bg-hrcolor pr-4 text-white ">
+              <Typography>لیست آخرین کاربران</Typography>
+              <span className="absolute left-4  ">
+                <Link
+                  to="/dashboard/user/create"
+                  className="flex justify-center"
+                >
+                  <Typography>کاربر جدید</Typography>
+                  <img src="../img/svgs/add2.svg" alt="" />
+                </Link>
+              </span>
             </section>
-            {loading ? (
+            {loadingUser ? (
               <div className="flex w-full  items-center justify-center py-60">
                 <ThreeDots
                   height="80"
@@ -479,7 +346,7 @@ const Home = () => {
               </div>
             ) : (
               <>
-                <CardBody className="min-h-screen  overflow-x-scroll px-0 pt-0 pb-2">
+                <CardBody className=" h-44 overflow-y-scroll px-0 pt-0 pb-2">
                   <table className="w-full min-w-[640px] table-auto text-right">
                     <thead>
                       <tr>
@@ -505,48 +372,93 @@ const Home = () => {
                       </tr>
                     </thead>
                     <tbody>
+                      {console.log("users", users)}
                       {users?.map((user, key) => {
-                        {
-                          console.log("user:", user);
-                        }
                         const className = `py-3 px-5 ${
                           key === user.length - 1
                             ? ""
                             : "border-b border-blue-gray-50"
                         }`;
-                        // return (
-                        <tr key={key}>
-                          <td className={className}>
-                            <div className="flex items-center gap-4">
-                              {" "}
-                              {user?.id}
-                            </div>
-                          </td>
-                          <td className={className}>
-                            <Typography className="text-xs font-semibold text-blue-gray-600">
-                              {user?.firts_name + " " + user?.last_name}
-                            </Typography>
-                          </td>
-                          <td className={className}>
-                            <Typography className="text-xs font-semibold text-blue-gray-600">
-                              {user?.mobile}
-                            </Typography>
-                          </td>
-                          <td className={className}>{user?.workspace_id}</td>
-                          <td className={className}>
-                            <Link to="">
-                              <img src="../img/svgs/eye.svg" alt="" />
-                            </Link>
-                          </td>
-                        </tr>;
-                        // );
+                        return (
+                          <tr key={key}>
+                            <td className={className}>
+                              <div className="flex items-center gap-4">
+                                {user?.id}
+                              </div>
+                            </td>
+                            <td className={className}>
+                              <Typography className="flex items-center justify-center text-xs font-semibold text-blue-gray-600">
+                                {user?.first_name + " " + user?.last_name}
+                              </Typography>
+                            </td>
+                            <td className={className}>
+                              <Typography className="flex items-center justify-center text-xs font-semibold text-blue-gray-600">
+                                {user?.mobile}
+                              </Typography>
+                            </td>
+                            <td className={className}>
+                              <Typography className="flex items-center justify-center text-xs font-semibold text-blue-gray-600">
+                                {user?.position.map((role) => {
+                                  switch (role) {
+                                    case "operator":
+                                      return <b>اپراتور </b>;
+                                      break;
+                                    case "admin":
+                                      return <b>مدیر سیستم </b>;
+                                      break;
+                                    case "super-admin":
+                                      return <b>سوپر ادمین </b>;
+                                      break;
+                                    case "it-hospital":
+                                      return <b>مسئول IT </b>;
+                                      break;
+                                    case "super-visor":
+                                      return <b>سوپروایزر </b>;
+                                      break;
+                                    case "operator-nurse":
+                                      return <b>اپراتور پرستاری </b>;
+                                      break;
+                                    case "operator-reception":
+                                      return <b>مسئول پذیرش </b>;
+                                      break;
+                                    default:
+                                      return <b>کاربر معمولی {role}</b>;
+                                      break;
+                                  }
+                                })}
+                              </Typography>
+                            </td>
+                            {/* <td className={className}>
+                              <Typography className="flex items-center justify-center text-xs font-semibold text-blue-gray-600">
+                                {tutorial?.main_image}
+                                <div className=" h-8 w-8 rounded-md border-2">
+                                  <img
+                                    className="h-full w-full rounded-md object-cover"
+                                    src={
+                                      imagePreview ?? "../images/no-image.svg"
+                                    }
+                                    alt="آپلود عکس"
+                                  />
+                                </div>
+                              </Typography>
+                            </td> */}
+                            <td className={className}>
+                              <Link
+                                to=""
+                                className="flex items-center justify-center"
+                              >
+                                <img src="../img/svgs/eye.svg" alt="" />
+                              </Link>
+                            </td>
+                          </tr>
+                        );
                       })}
                     </tbody>
                   </table>
                   {5 == 0 ? (
                     <>
                       <div className="flex h-[80vh] w-full items-center justify-center">
-                        <p className="">آیتمی وجود ندارد :(</p>
+                        <div className="">آیتمی وجود ندارد :( </div>
                       </div>
                     </>
                   ) : (

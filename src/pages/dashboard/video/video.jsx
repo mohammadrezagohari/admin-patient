@@ -17,20 +17,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
-import { getGoal,deleteGoal } from "@/api/services/goal";
+import { getVideo,deleteVideo } from "@/api/services/video";
 
-function SystemGoal() {
+function Video() {
   const { userToken } = useContext(AuthContext);
 
-  const [goals, setGoals] = useState([]);
+  const [fileName, setFileName] = useState();
+  const [title, setTitle] = useState();
   const [loading, setLoading] = useState(true);
+  const [videos,setVideos] = useState();
 
   
-  const getGoals = async () => {
-    const result = await getGoal()
+  const getVideos = async () => {
+    const result = await getVideo()
       .then(function (response) {
         console.log("response", response);
-        setGoals(response?.data);
+        setVideos(response?.data);
       })
       .catch(function (err) {
         console.log("error", err);
@@ -42,7 +44,7 @@ function SystemGoal() {
 
   useEffect(() => {
     setTimeout(() => {
-        getGoals();
+        getVideos();
     }, 3000);
   }, []);
 
@@ -54,12 +56,12 @@ function SystemGoal() {
     borderRadius: "8px",
   };
   
-  const deleteGoals = async (id) => {
-    const deleteResult = await deleteGoal(id, userToken)
+  const deleteVideos = async (id) => {
+    const deleteResult = await deleteVideo(id, userToken)
       .then(function (response) {
         if (response.status) {
           toast.success("حذف با موفقیت انجام شد !");
-          setGoals(goals.filter((goal) => goal.id !== id));
+          setVideos(videos.filter((video) => video.id !== id));
         } else {
           toast.error("خطا !! مجددا تلاش نمایید");
         }
@@ -89,14 +91,14 @@ function SystemGoal() {
           className="mb-8 mt-3 flex justify-between p-6"
         >
           <Typography variant="h6" color="white">
-                 اهداف سامانه آموزش به بیمار     
+                ارسال ویدئو آموزشی    
           </Typography>
           <Link
-            to={`/dashboard/systemgoal/create`}
+            to={`/dashboard/video/create`}
             className="mr-3"
             style={linkStyle}
           >
-            ایجاد اهداف  
+            ایجاد ویدئو  
           </Link>
         </CardHeader>
 
@@ -119,7 +121,7 @@ function SystemGoal() {
               <table className="w-full min-w-[640px] table-auto text-right">
                 <thead>
                   <tr>
-                    {["#"," عنوان",'توضیحات', "تنظیمات", ].map((el) => (
+                    {["#"," عنوان", "تنظیمات", ].map((el) => (
                       <th
                         key={el}
                         className="place-items-center border-b 	 border-blue-gray-50 py-3 px-5 "
@@ -135,9 +137,9 @@ function SystemGoal() {
                   </tr>
                 </thead>
                 <tbody>
-                  {goals?.map((goal, key) => {
+                  {videos?.map((video, key) => {
                     const className = `py-3 px-5 ${
-                      key === goal.length - 1
+                      key === videos.length - 1
                         ? ""
                         : "border-b border-blue-gray-50"
                     }`;
@@ -147,28 +149,28 @@ function SystemGoal() {
                         <td className={className}>
                           <div className="flex items-center gap-4">
                             {" "}
-                            {goal?.id}
+                            {video?.id}
                           </div>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                          { ` ${goal.title}` }
+                          { ` ${video.title}` }
                           </Typography>
                         </td>
-                        <td className={className}>
+                        {/* <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600 max-w-8">
-                          { ` ${goal.description}` }
+                          { ` ${video.file}` }
                           </Typography>
-                        </td>
+                        </td> */}
                         <td className={className}>
                           <Link
-                            to={`/dashboard/systemgoal/show/${goal.id}`}
+                            // to={`/dashboard/video/show/${video.id}`}
                             style={linkStyle}
                           >
                             اصلاح
                           </Link>
                           <Button
-                            onClick={() => deleteGoals(goal.id)}
+                            onClick={() => deleteVideos(video.id)}
                             className="bg-red-700 text-white hover:bg-red-800 focus:outline-none"
                           >
                             حذف
@@ -179,7 +181,7 @@ function SystemGoal() {
                   })}
                 </tbody>
               </table>
-              {goals.length == 0 ? (
+              {videos.length == 0 ? (
                 <>
                   <div className="flex h-[80vh] w-full items-center justify-center">
                     <p className="">آیتمی وجود ندارد :(</p>
@@ -199,4 +201,4 @@ function SystemGoal() {
 
 
 
-  export default SystemGoal;
+  export default Video;

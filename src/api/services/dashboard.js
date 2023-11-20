@@ -10,7 +10,7 @@ const header = {
 };
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append("Accept", "application/json");
+myHeaders.append("Accept", "application/json"); 
 
 export const getArticleCount = async (userToken) => {
   myHeaders.append("Authorization", `Bearer ${userToken}`);

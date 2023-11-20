@@ -76,7 +76,7 @@ export const updatePoster = async (id, values, userToken) => {
     },
     {
       headers: auth_header_files,
-    }
+    } 
   );
   if (!response.status) {
     return null;

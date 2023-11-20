@@ -25,6 +25,7 @@ import Faq from "./pages/dashboard/faq/faq";
 import Home from "./pages/dashboard/home";
 import SystemGoal from "./pages/dashboard/systemGoal/sysGoal";
 import Poster from "./pages/dashboard/poster/poster";
+import Video from "./pages/dashboard/video/video";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -99,12 +100,12 @@ export const routes = [
         path: "/systemgoal",
         element: <SystemGoal />,
       },
-    //   {
-    //     icon:<HiNewspaper/>,
-    //     name: "آخرین اخبار",
-    //     path: "/lastnews",
-    //     element: <Profile />,
-    //   }, 
+      {
+        icon:<BellIcon {...icon} />,
+        name: "ویدئوهای آموزشی ",
+        path: "/video",
+        element: <Video />,
+      }, 
       {
         icon: <BellIcon {...icon} />,
         name: "سوالات متداول",

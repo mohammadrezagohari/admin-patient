@@ -39,10 +39,11 @@ export function ShowFaq() {
     borderRadius: "8px",
   };
   const showFaqs = async (id) => {
-    const showResult = await showFaq(id,question,description)
-      .then(function (response) {
-        setQuestion(response?.data?.question);
-        setDescription(response?.data?.description);
+    const showResult = await showFaq(id)
+      .then((result) => {
+        console.log('result', result)
+        setQuestion(result?.data?.question);
+        setDescription(result?.data?.description);
       })
       .catch(function (error) {
         console.log(error.message);
@@ -132,6 +133,7 @@ export function ShowFaq() {
             <form
               method="post"
               onSubmit={(values) => {
+                console.log('values', values)
                 editFaqs(id,values);
               }}
               className="m-6 mt-0 mb-4  grid grid-cols-2 gap-x-6"

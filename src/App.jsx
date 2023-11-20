@@ -33,6 +33,8 @@ import SystemGoal from "./pages/dashboard/systemGoal/sysGoal";
 import CreateSystemGoal from "./pages/dashboard/systemGoal/createSysGoal";
 import ShowSystemGoals from "./pages/dashboard/systemGoal/showSystemGoal";
 import Poster from "./pages/dashboard/poster/poster";
+import Video from "./pages/dashboard/video/video";
+import CreateVideo from "./pages/dashboard/video/createVideo";
 // import ShowPoster from "./pages/dashboard/poster/showPoster";
 
 function App() {

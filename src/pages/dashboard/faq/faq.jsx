@@ -31,9 +31,9 @@ function Faq() {
 
   const getFaqs = async () => {
     const result = await getFaq()
-      .then(function (response) {
-        console.log("response", response);
-        setFaqs(response?.data);
+      .then(function (result) {
+        console.log("response", result);
+        setFaqs(result?.data);
       })
       .catch(function (err) {
         console.log("error", err);

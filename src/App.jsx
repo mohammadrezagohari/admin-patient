@@ -33,6 +33,8 @@ import SystemGoal from "./pages/dashboard/systemGoal/sysGoal";
 import CreateSystemGoal from "./pages/dashboard/systemGoal/createSysGoal";
 import ShowSystemGoals from "./pages/dashboard/systemGoal/showSystemGoal";
 import Poster from "./pages/dashboard/poster/poster";
+import Video from "./pages/dashboard/video/video";
+import CreateVideo from "./pages/dashboard/video/createVideo";
 // import ShowPoster from "./pages/dashboard/poster/showPoster";
 
 function App() {
@@ -111,10 +113,20 @@ function App() {
             <Route path="/dashboard/poster" element={<Poster />} />
             <Route path="/dashboard/poster/create" element={<CreatePoster />} />
             {/* <Route path="/dashboard/poster/show/:id" element={<ShowPoster />} */}
-            />
+            
             <Route path="/dashboard/systemBenefit" element={<SystemBenefit />} />
             <Route path="/dashboard/systemBenefit/create" element={<CreateSystemBenefit />} />
 
+
+            <Route
+              path="/dashboard/video"
+              element={<Video />}
+            />
+
+            <Route
+              path="/dashboard/video/create"
+              element={<CreateVideo />}
+            />
           </Routes>
         </Dashboard>
       </>

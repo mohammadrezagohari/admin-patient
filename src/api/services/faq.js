@@ -89,24 +89,6 @@ const auth_header = {
     .catch((error) => console.log("error", error));
   return JSON.parse(mainResult);
 
-
-
-
-    // auth_header.Authorization = `Bearer ${userToken}`;
-    // const response = await apiClient.patch(
-    //   `faq/update/${id}`,
-    //   {
-    //     question: values.question,
-    //     description:values.description,
-    //   },
-    //   {
-    //     headers: auth_header, 
-    //   }
-    // );
-    // if (!response.status) {
-    //   return null;
-    // }
-    // return response?.data;
   };
   
   export const deleteFaq = async (id,userToken) => {

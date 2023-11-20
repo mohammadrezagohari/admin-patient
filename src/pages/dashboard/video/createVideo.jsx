@@ -9,16 +9,24 @@ import {
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { getGoal, createGoal } from "@/api/services/goal";
+import { createVideo } from "@/api/services/video";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
+import CategoryDropdown from "@/components/category-dropdown/category-dropdown";
 
-export function CreateSystemGoal() {
+
+export function CreateVideo() {
   const { userToken } = useContext(AuthContext);
 
+  const [file_name, setFile_Name] = useState();
+  const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(true);
-  const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
+  const [videos,setVideos] = useState([]);
+  const [imagePreview, setImagePreview] = useState(null);
+
+
+  const [category_id, setCategory_id] = useState(null);
+
 
   const inputStyle = {
     border: "1px solid gray",
@@ -36,12 +44,26 @@ export function CreateSystemGoal() {
     borderRadius: "8px",
   };
 
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    // setIcon(file)
+    const file_url = URL.createObjectURL(file);
+    console.log("file", file);
+    console.log("file_url", file_url);
+    console.log("video target", event.target.files[0]);
+    setFile_Name(event.target.files[0]);
+    setImagePreview(file_url);
+  };
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const createResult = await createGoal(
+    const createResult = await createVideo(
       {
-        title:title,
-        description:description,
+          title:title,
+          file_name:file_name,
       },
        userToken)
       .then(function (response) {
@@ -55,7 +77,7 @@ export function CreateSystemGoal() {
                 response?.data?.title != undefined ? response?.data?.title : ""
               } \n
               ${
-                response?.data?.description != undefined ? response?.data?.description : ""
+                response?.data?.file_name != undefined ? response?.data?.file_name :""
               } \n`,{
                 duration: 2000,
               },
@@ -96,7 +118,7 @@ export function CreateSystemGoal() {
         <Card>
           <div className="py-5">
             <Link
-              to={`/dashboard/systemgoal`}
+              to={`/dashboard/video`}
               className="mr-3"
               style={linkStyle}
             >
@@ -125,17 +147,35 @@ export function CreateSystemGoal() {
                   style={inputStyle}
                 />
               </div>
-              <div className="w-7/12">
-                <label className="ml-3"> توضیحات </label>
-                <textarea
-                  onChange={(e) => setDescription(e.currentTarget.value)} 
-                  value={description}
-                  type="text"
-                  className="ml-3"
-                  name="name"
-                  style={inputStyle}
-                />
+
+              <div className="w-7/12 mt-4">
+                <label className="ml-3 block">فایل ویدئو:</label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="file"
+                    name="icon"
+                    accept=" video/mp4, video/3gpp, video/x-msvideo, video/quicktime"
+                    style={inputStyle}
+                    onChange={handleFileChange}
+                  />
+                  <div className=" h-20 w-36 rounded-md border-2 p-3">
+                    <img
+                      className="h-full w-full rounded-md object-cover"
+                      src={imagePreview ?? "../../images/no-image.svg"}
+                      alt="آپلود ویدئو"
+                    />
+                  </div>
+                </div>
               </div>
+              {/* <div className="w-7/12">
+                <label className="ml-3">دسته بندی</label>
+                <CategoryDropdown
+                  category={category_id}
+                  setCategory={setCategory_id}
+                />
+              </div> */}
+
+
               <div className="col-span-2 mt-4 w-6/12">
                 <Button type="submit">ذخیره</Button>
               </div>
@@ -147,4 +187,4 @@ export function CreateSystemGoal() {
   );
 }
 
-export default CreateSystemGoal;
+export default CreateVideo;

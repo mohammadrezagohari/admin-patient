@@ -106,12 +106,12 @@ function App() {
               path="/dashboard/province/:province_id/city/show/:city_id"
               element={<ShowCity />}
             />
-            <Route
+            {/* <Route
               path="/dashboard/tutorials/create"
               element={<CreateTutorialPage />}
-            />            
+            />             */}
             <Route
-              path="/dashboard/tutorials/create-wizard"
+              path="/dashboard/tutorials/create"
               element={<CreateTutorialsWizard />}
             />
             <Route path="/dashboard" element={<Home />} />

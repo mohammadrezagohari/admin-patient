@@ -17,7 +17,7 @@ import { createTutorials } from "@/api/services/tutorial";
 import CategoryDropdown from "@/components/category-dropdown/category-dropdown";
 import { Editor } from "@tinymce/tinymce-react";
 
-export function CreateCategory() {
+export function CreateTutorialPage() {
   const { userToken } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState(null);
@@ -177,15 +177,6 @@ export function CreateCategory() {
                 />
               </div>
 
-              {/* <div className="w-7/12">
-                <label className="ml-3"></label>
-                <Textarea
-                  size="lg"
-                  onChange={(e) => handleField(e)}
-                  name="first_context"
-                  label="توضیحات"
-                />
-              </div> */}
 
               <div className="w-7/12">
                 <label className="ml-3"></label>
@@ -198,16 +189,6 @@ export function CreateCategory() {
                   label="عنوان ثانویه اول (حین بستری)"
                 />
               </div>
-
-              {/* <div className="w-7/12">
-                <label className="ml-3"></label>
-                <Textarea
-                  size="lg"
-                  onChange={(e) => setFirstContext(e.target.value)}
-                  name="first_context"
-                  label="توضیحات"
-                />
-              </div> */}
               <div className="my-3 w-7/12">
                 <label className="ml-3">توضیحات</label>
                 <Editor
@@ -215,7 +196,10 @@ export function CreateCategory() {
                   onInit={(evt, editor) => (editorRef.current = editor)}
                   initialValue=""
                   name="first_context"
-                  onEditorChange={(content, editor) => setFirstContext(editor.getContent())}
+                  onEditorChange={(content, editor) =>
+                    setFirstContext(editor.getContent())
+                  }
+                  id="editor1"
                   init={{
                     height: 250,
                     menubar: false,
@@ -262,15 +246,6 @@ export function CreateCategory() {
                 />
               </div>
 
-              {/* <div className="w-7/12">
-                <label className="ml-3"></label>
-                <Textarea
-                  size="lg"
-                  onChange={(e) => setSecondContext(e.target.value)}
-                  name="second_context"
-                  label="توضیحات"
-                />
-              </div> */}
               <div className="my-3 w-7/12">
                 <label className="ml-3">توضیحات</label>
                 <Editor
@@ -278,7 +253,10 @@ export function CreateCategory() {
                   onInit={(evt, editor) => (editorRef.current = editor)}
                   initialValue=""
                   name="second_context"
-                  onEditorChange={(content, editor) => setSecondContext(editor.getContent())}
+                  id="editor2"
+                  onEditorChange={(content, editor) =>
+                    setSecondContext(editor.getContent())
+                  }
                   init={{
                     height: 250,
                     menubar: false,
@@ -343,4 +321,4 @@ export function CreateCategory() {
   );
 }
 
-export default CreateCategory;
+export default CreateTutorialPage;

@@ -10,7 +10,7 @@ const CategoryDropdown = ({ category, setCategory, selected_id = null }) => {
   const { userToken } = useContext(AuthContext);
   const { data, isLoading, isError } = useQuery(
     ["getCategoryCollection", userToken],
-    () => getCategory(userToken)
+    () => getCategory("50",userToken)
   );
   useEffect(
     function () {

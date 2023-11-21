@@ -15,7 +15,7 @@ import UserPanel from "./pages/dashboard/users/panel";
 import CreateAboutUs from "./pages/dashboard/about/createAbout";
 import { Profile, Users } from "./pages/dashboard";
 import { useContext } from "react";
-import CreateTutorials from "./pages/dashboard/tutorials/create-tutorials";
+import CreateTutorialPage from "./pages/dashboard/tutorials/create-tutorials";
 import Category from "./pages/dashboard/category/category";
 import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
 import EducationCovers from "./pages/dashboard/poster/poster";
@@ -35,6 +35,7 @@ import ShowSystemGoals from "./pages/dashboard/systemGoal/showSystemGoal";
 import Poster from "./pages/dashboard/poster/poster";
 import Video from "./pages/dashboard/video/video";
 import CreateVideo from "./pages/dashboard/video/createVideo";
+import CreateTutorialsWizard from "./pages/dashboard/tutorials/create-tutorials-wizard";
 // import ShowPoster from "./pages/dashboard/poster/showPoster";
 
 function App() {
@@ -106,16 +107,32 @@ function App() {
             />
             <Route
               path="/dashboard/tutorials/create"
-              element={<CreateTutorials />}
+              element={<CreateTutorialPage />}
+            />            
+            <Route
+              path="/dashboard/tutorials/create-wizard"
+              element={<CreateTutorialsWizard />}
             />
             <Route path="/dashboard" element={<Home />} />
 
             <Route path="/dashboard/poster" element={<Poster />} />
             <Route path="/dashboard/poster/create" element={<CreatePoster />} />
             {/* <Route path="/dashboard/poster/show/:id" element={<ShowPoster />} */}
+            
             <Route path="/dashboard/systemBenefit" element={<SystemBenefit />} />
             <Route path="/dashboard/systemBenefit/create" element={<CreateSystemBenefit />} />
             <Route path="/" element={<Home />} />
+
+
+            <Route
+              path="/dashboard/video"
+              element={<Video />}
+            />
+
+            <Route
+              path="/dashboard/video/create"
+              element={<CreateVideo />}
+            />
           </Routes>
         </Dashboard>
       </>

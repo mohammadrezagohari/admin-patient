@@ -26,8 +26,8 @@ export function CreatePoster() {
 
   const [category_id, setCategory_id] = useState(null);
 
-  const inputStyle = {
-    border: "1px solid gray",
+  const inputStyle = { 
+    border: "1px solid #CCC8AA",
     borderRadius: "5px",
     padding: "0.45rem",
     textAlign: "center",

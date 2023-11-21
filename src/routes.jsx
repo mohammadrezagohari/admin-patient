@@ -18,7 +18,7 @@ import About from "./pages/dashboard/about/about";
 import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
 import EducationCovers from "./pages/dashboard/poster/poster";
-// import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
+import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
 import PatientContent from "./pages/dashboard/patientContent/patientContent";
 import Questions from "./pages/dashboard/faq/faq";
 import Faq from "./pages/dashboard/faq/faq";
@@ -26,6 +26,7 @@ import Home from "./pages/dashboard/home";
 import SystemGoal from "./pages/dashboard/systemGoal/sysGoal";
 import Poster from "./pages/dashboard/poster/poster";
 import Video from "./pages/dashboard/video/video";
+import Article from "./pages/dashboard/articles/articles";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -66,7 +67,7 @@ export const routes = [
         icon: <BellIcon {...icon} />,
         name: "مقالات",
         path: "/articles",
-        element: <Home />,
+        element: <Article />,
       },
       {
         icon: <BellIcon {...icon} />,
@@ -87,12 +88,12 @@ export const routes = [
         element: <Poster />,
       },
      
-      // {
-      //   icon: <BellIcon {...icon} />,
-      //   name: "فواید سیستم الکترونیکی ",
-      //   path: "/benefit",
-      //   element: <SystemBenefit />,
-      // },
+      {
+        icon: <BellIcon {...icon} />,
+        name: "فواید سیستم الکترونیکی ",
+        path: "/benefit",
+        element: <SystemBenefit />,
+      },
    
       {
         icon: <BellIcon {...icon} />,
@@ -111,12 +112,6 @@ export const routes = [
         name: "سوالات متداول",
         path: "/faq",
         element: <Faq />,
-      },
-      {
-        icon: <BellIcon {...icon} />,
-        name: "پیشنهادات",
-        path: "/suggestions",
-        element: <Profile />,
       },
 
       {

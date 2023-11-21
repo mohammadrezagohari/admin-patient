@@ -18,13 +18,13 @@ import { useContext } from "react";
 import CreateTutorials from "./pages/dashboard/tutorials/create-tutorials";
 import Category from "./pages/dashboard/category/category";
 import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
-import EducationCovers from "./pages/dashboard/poster/poster";
+
 import CreateEducationCover, { CreatePoster } from "./pages/dashboard/poster/createPoster";
-// import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
-// import CreateSystemBenefit from "./pages/dashboard/systemBenefit/createSystemBenefit";
+import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
+import CreateSystemBenefit from "./pages/dashboard/systemBenefit/createSystemBenefit";
 import PatientContent from "./pages/dashboard/patientContent/patientContent";
 import CreatePatientContent from "./pages/dashboard/patientContent/createPatientContent";
-import Questions from "./pages/dashboard/faq/faq";
+
 import CreateQuestions, { CreateFaq } from "./pages/dashboard/faq/createFaq";
 import Faq from "./pages/dashboard/faq/faq";
 import ShowFaq from "./pages/dashboard/faq/showFaq";
@@ -35,6 +35,8 @@ import ShowSystemGoals from "./pages/dashboard/systemGoal/showSystemGoal";
 import Poster from "./pages/dashboard/poster/poster";
 import Video from "./pages/dashboard/video/video";
 import CreateVideo from "./pages/dashboard/video/createVideo";
+import Article from "./pages/dashboard/articles/articles";
+import CreateArticle from "./pages/dashboard/articles/createArticle";
 // import ShowPoster from "./pages/dashboard/poster/showPoster";
 
 function App() {
@@ -66,10 +68,9 @@ function App() {
               path="/dashboard/category/create"
               element={<CreateCategory />}
             />
-            {/* <Route
-              path="/dashboard/category/show/:id"
-              element={<ShowCategory />}
-            /> */}
+        
+            <Route path="/dashboard/articles" element={<Article />} />
+            <Route path="/dashboard/articles/create" element={<CreateArticle />} />
 
             <Route
               path="/dashboard/patientcontent"
@@ -113,10 +114,9 @@ function App() {
             <Route path="/dashboard/poster" element={<Poster />} />
             <Route path="/dashboard/poster/create" element={<CreatePoster />} />
             {/* <Route path="/dashboard/poster/show/:id" element={<ShowPoster />} */}
-<<<<<<< HEAD
             
-            {/* <Route path="/dashboard/benefit" element={<SystemBenefit />} />
-            <Route path="/dashboard/benefit/create" element={<CreateSystemBenefit />} /> */}
+            <Route path="/dashboard/benefit" element={<SystemBenefit />} />
+            <Route path="/dashboard/benefit/create" element={<CreateSystemBenefit />} />
 
 
             <Route
@@ -128,11 +128,6 @@ function App() {
               path="/dashboard/video/create"
               element={<CreateVideo />}
             />
-=======
-            <Route path="/dashboard/systemBenefit" element={<SystemBenefit />} />
-            <Route path="/dashboard/systemBenefit/create" element={<CreateSystemBenefit />} />
-            <Route path="/" element={<Home />} />
->>>>>>> 79e1982345cfdfa984a082212138e36b03ca9a62
           </Routes>
         </Dashboard>
       </>

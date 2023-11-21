@@ -8,37 +8,32 @@ import {
   Avatar,
   Chip,
   Tooltip,
-  Progress,
+  Progress, 
   Button,
   Alert,
 } from "@material-tailwind/react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { getSystemMode } from "@mui/system/cssVars/useCurrentColorScheme";
-// import {
-//     getSystemBenefitList,
-//     getSystemBenefit, 
-//     deleteSystemBenefit,
-//   } from "@/api/services/benefit";
-import { getBenefit,deleteBenefit} from "@/api/services/benefit";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
+import { getArticle ,deleteArticle} from "@/api/services/article";
+import { data } from "autoprefixer";
 
-function SystemBenefit() {
+function Article() {
   const { userToken } = useContext(AuthContext);
 
-  const [benefits, setBenefits] = useState([]);
+  const [articles, setArticles] = useState(null);
+
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
+  
 
-
-  const getBenefits = async () => {
-    const result = await getBenefit()
-      .then(function (response) {
-        console.log("response", response);
-        setBenefits(response?.data);
+  const getArticles = async () => {
+    const result = await getArticle()
+      .then(function (result) {
+        console.log("response", result);
+        setArticles(result?.data);
       })
       .catch(function (err) {
         console.log("error", err);
@@ -49,7 +44,7 @@ function SystemBenefit() {
 
   useEffect(() => {
     setTimeout(() => {
-      getBenefits();
+        getArticles();
     }, 3000);
   }, []);
 
@@ -60,13 +55,13 @@ function SystemBenefit() {
     padding: "0.5rem",
     borderRadius: "8px",
   };
-  const deleteSystemBenefits = async (id) => {
-    const deleteResult = await deleteBenefit(id, userToken)
+  
+  const deleteArticles = async (id) => {
+    const deleteResult = await deleteArticle(id, userToken)
       .then(function (response) {
-        console.log('delete res',response);
         if (response.status) {
           toast.success("حذف با موفقیت انجام شد !");
-          setSysBenefit(sysBenefit.filter((benefit) => benefit.id !== id));
+          setArticles(articles.filter((article) => article.id !== id));
         } else {
           toast.error("خطا !! مجددا تلاش نمایید");
         }
@@ -82,28 +77,21 @@ function SystemBenefit() {
     <>
       <Card>
         <div className="py-5">
-          {/* <Link
-            to={`/dashboard/category/create`}
-            className="mr-3"
-            style={linkStyle}
-          >
-            ثبت دسته بندی جدید
-          </Link> */}
         </div>
         <CardHeader
           variant="gradient"
           color="blue"
-          className="mb-8 mt-3 flex justify-between p-6 "
+          className="mb-8 mt-3 flex justify-between p-6"
         >
           <Typography variant="h6" color="white">
-            لیست عنوان های فواید سیستم
+                  مقالات    
           </Typography>
           <Link
-            to={`/dashboard/benefit/create`}
+            to={`/dashboard/articles/create`}
             className="mr-3"
             style={linkStyle}
           >
-            ثبت عنوان جدید
+              ایجاد مقاله جدید 
           </Link>
         </CardHeader>
 
@@ -126,7 +114,7 @@ function SystemBenefit() {
               <table className="w-full min-w-[640px] table-auto text-right">
                 <thead>
                   <tr>
-                    {["#","عنوان " ," وضعیت  ", "تنظیمات"].map((el) => (
+                    {["#"," عنوان",'توضیحات','دسته بندی', "تنظیمات", ].map((el) => (
                       <th
                         key={el}
                         className="place-items-center border-b 	 border-blue-gray-50 py-3 px-5 "
@@ -142,9 +130,9 @@ function SystemBenefit() {
                   </tr>
                 </thead>
                 <tbody>
-                  {benefits?.map((benefit, key) => {
+                  {articles?.map((article, key) => {
                     const className = `py-3 px-5 ${
-                      key === benefits.length - 1
+                      key === articles.length - 1
                         ? ""
                         : "border-b border-blue-gray-50"
                     }`;
@@ -153,29 +141,33 @@ function SystemBenefit() {
                       <tr key={key}>
                         <td className={className}>
                           <div className="flex items-center gap-4">
-                            {" "}
-                            {benefit?.id}
+                            {article?.id}
                           </div>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                          {`${benefit?.title}`}
+                            { ` ${article.title}` }
                           </Typography>
                         </td>
                         <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {`${benefit?.is_active}`}
+                          <Typography className="text-xs font-semibold text-blue-gray-600 max-w-8">
+                          { ` ${article.context}` }
                           </Typography>
                         </td>
                         <td className={className}>
-                          {/* <Link
-                            to={`/dashboard//show/${benefit.id}`}
+                          <Typography className="text-xs font-semibold text-blue-gray-600 max-w-8">
+                          { ` ${article.category_id}` }
+                          </Typography>
+                        </td>
+                        <td className={className}>
+                          <Link
+                            // to={`/dashboard/faq/show/${article.id}`}
                             style={linkStyle}
                           >
                             اصلاح
-                          </Link> */}
+                          </Link>
                           <Button
-                            onClick={() => deleteSystemBenefits(benefit.id)}
+                            onClick={() => deleteArticles(article.id)}
                             className="bg-red-700 text-white hover:bg-red-800 focus:outline-none"
                           >
                             حذف
@@ -186,15 +178,15 @@ function SystemBenefit() {
                   })}
                 </tbody>
               </table>
-              {benefits.length == 0 ? (
+              {articles.length == 0 ? (
                 <>
                   <div className="flex h-[80vh] w-full items-center justify-center">
                     <p className="">آیتمی وجود ندارد :(</p>
                   </div>
                 </>
-              ) : (
-                <></>
-              )}
+               ) : (
+                <></> 
+              )} 
             </CardBody>
           </>
         )}
@@ -203,4 +195,7 @@ function SystemBenefit() {
   );
 }
 
-export default SystemBenefit;
+
+
+
+  export default Article;

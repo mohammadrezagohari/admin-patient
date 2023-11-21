@@ -49,7 +49,7 @@ export const showArticle = async (id,userToken)=>{
 
 export const createArticle = async (values,userToken) => {
   myHeaders.append("Authorization", `Bearer ${userToken}`);
-    var raw = JSON.stringify({
+    const raw = JSON.stringify({
       title: values.title,
       context:values.context,
       category_id: values.category_id,
@@ -96,7 +96,7 @@ export const createArticle = async (values,userToken) => {
     };
 
 
-    export const deleteGoal = async (id,userToken) => {
+    export const deleteArticle= async (id,userToken) => {
       myHeaders.append("Authorization", `Bearer ${userToken}`);
         const requestOptions = {
           method: 'DELETE',

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-
+import baseUrl from "@/configs/base-url";
 import {
   Card,
   CardHeader,
@@ -21,7 +21,7 @@ export function CreateVideo() {
   const [file_name, setFile_Name] = useState();
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(true);
-  const [videos,setVideos] = useState([]);
+  const [videos,setVideos] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
 
@@ -45,7 +45,7 @@ export function CreateVideo() {
   };
 
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     // setIcon(file)
     const file_url = URL.createObjectURL(file);
@@ -55,6 +55,36 @@ export function CreateVideo() {
     setFile_Name(event.target.files[0]);
     setImagePreview(file_url);
   };
+
+//   const handleUpload = () => {
+//     // Assuming the API endpoint URL
+
+//     // Create a FormData object
+//     const formData = new FormData();
+
+//     // Append the file to the FormData object
+//     formData.append('file', file_name);
+
+//     // Using the Fetch API to send a POST request with the file in the body
+//     fetch(`${baseUrl/api/store}`, {
+//       method: 'POST',
+//       body: formData,
+//     })
+//       .then(response => {
+//         if (!response.ok) {
+//           throw new Error('Network response was not ok');
+//         }
+//         return response.json(); // Parse the JSON response
+//       })
+//       .then(data => {
+//         // Handle the data from the response
+//         console.log(data);
+//       })
+//       .catch(error => {
+//         // Handle errors
+//         console.error('There was a problem with the fetch operation:', error);
+//       });
+//   };
 
 
 
@@ -177,7 +207,7 @@ export function CreateVideo() {
 
 
               <div className="col-span-2 mt-4 w-6/12">
-                <Button type="submit">ذخیره</Button>
+                <Button type="submit" >ذخیره</Button>
               </div>
             </form>
           </CardBody>

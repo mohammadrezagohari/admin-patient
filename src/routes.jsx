@@ -18,7 +18,7 @@ import About from "./pages/dashboard/about/about";
 import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
 import DashboardBody from "./pages/dashboard/DashboardBody/DashboardBody";
 import EducationCovers from "./pages/dashboard/poster/poster";
-import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
+// import SystemBenefit from "./pages/dashboard/systemBenefit/systemBenefit";
 import PatientContent from "./pages/dashboard/patientContent/patientContent";
 import Questions from "./pages/dashboard/faq/faq";
 import Faq from "./pages/dashboard/faq/faq";
@@ -87,12 +87,12 @@ export const routes = [
         element: <Poster />,
       },
      
-      {
-        icon: <BellIcon {...icon} />,
-        name: "فواید سیستم الکترونیکی ",
-        path: "/systembenefit",
-        element: <SystemBenefit />,
-      },
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: "فواید سیستم الکترونیکی ",
+      //   path: "/benefit",
+      //   element: <SystemBenefit />,
+      // },
    
       {
         icon: <BellIcon {...icon} />,

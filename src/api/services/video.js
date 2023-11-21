@@ -226,10 +226,10 @@ export const showVideo = async (id,userToken)=>{
 
 export const createVideo = async (values,userToken) => {
   myHeaders.append("Authorization", `Bearer ${userToken}`);
-    var raw ={
+    var raw =JSON.stringify({
       title: values.title,
       file_name: values.file_name,
-    }
+    });
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,

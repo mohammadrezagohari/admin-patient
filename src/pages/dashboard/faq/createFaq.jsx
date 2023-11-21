@@ -6,7 +6,6 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import Select from "react-select";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { createFaq, getFaq } from "@/api/services/faq";
@@ -147,29 +146,9 @@ export function CreateFaq() {
                 >
                 </textarea>
               </div>
-
-              {/* <div className="-mt-5">
-                          <label htmlFor="isActive">وضعیت نمایش</label>
-                          <Select
-                            id="isActive"
-                            className=""
-                            onChange={(e) => setIsActive(e)}
-                            defaultValue={is_active}
-                            options={[
-                              {
-                                value: true,
-                                label: "فعال",
-                              },
-                              {
-                                value: false,
-                                label: "غیرفعال",
-                              },
-                            ]}
-                          />
-                    </div> */}
-                        <div className="col-span-2 mt-4 w-6/12">
-                      <Button type="submit">ذخیره</Button>
-                      </div>
+              <div className="col-span-2 mt-4 w-6/12">
+                <Button type="submit">ذخیره</Button>
+              </div>
             </form>
           </CardBody>
         </Card>

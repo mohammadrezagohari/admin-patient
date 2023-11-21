@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState ,useRef } from "react";
 import {
   Card,
   CardHeader,
@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
-
+import { Editor } from "@tinymce/tinymce-react";
 import CategoryDropdown from "@/components/category-dropdown/category-dropdown";
 import { getArticle,createArticle } from "@/api/services/article";
 
@@ -19,7 +19,7 @@ export function CreateArticle() {
   const [title,setTitle] = useState([]);
   const [context,setContext] = useState([]);
   const [category_id,setCategory_id] = useState([]);
-
+  const editorRef = useRef(null);
   const [loading, setLoading] = useState(true);
 
   const inputStyle = {
@@ -118,7 +118,7 @@ export function CreateArticle() {
             <form
               method="post"
               onSubmit={handleSubmit}
-              className="m-6 mt-0 mb-4 flex flex-col w-1/2 h-full gap-6"
+              className=" mt-0  flex flex-col lg:w-1/2 md:w-1/2 w-full h-full gap-6 p-6" 
             >
              <div className="w-full">
                 <label className="ml-3">  عنوان مقاله </label>
@@ -136,20 +136,47 @@ export function CreateArticle() {
                 />
                 
               </div>
-              <div className="w-full  ">
-                <label className=""> توضیحات  </label>
-                <textarea
-                  onChange={(e) => {
-                    setContext(e.currentTarget.value);
-                    console.log(e.currentTarget.value);
+              <div className="my-3 w-full">
+                <label className="ml-3">توضیحات</label>
+                <Editor
+                style={{textAlign: 'right',fontFamily:'Verdana, sans-serif'}}
+                  apiKey="gl63rdyllvfa1swq1l7dd9hvyw785dci9mmmyf2eqchka051"
+                  onInit={(evt, editor) => (editorRef.current = editor)}
+                  initialValue=""
+                  name="first_context"
+                  onEditorChange={(content, editor) => setContext(editor.getContent())}
+                  init={{
+                    height: 250,
+                    menubar: false,
+                    plugins: [
+                      "advlist",
+                      "autolink",
+                      "lists",
+                      "link",
+                      "image",
+                      "charmap",
+                      "preview",
+                      "anchor",
+                      "searchreplace",
+                      "visualblocks",
+                      "code",
+                      "fullscreen",
+                      "insertdatetime",
+                      "media",
+                      "table",
+                      "code",
+                      //   "help",
+                      "wordcount",
+                    ],
+                    toolbar:
+                      "undo redo | blocks | " +
+                      "bold italic forecolor | alignleft aligncenter " +
+                      "alignright alignjustify | bullist numlist outdent indent | " +
+                      "removeformat ",
+                    content_style:
+                      "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                   }}
-                  value={context}
-                  type="text"
-                  className="ml-3 p-4 h-full "
-                  name="description"
-                  style={inputStyle}
-                >
-                </textarea>
+                />
               </div>
               <div className="w-full">
                 <label className="ml-3">دسته بندی</label>

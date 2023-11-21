@@ -37,6 +37,7 @@ import Video from "./pages/dashboard/video/video";
 import CreateVideo from "./pages/dashboard/video/createVideo";
 import Article from "./pages/dashboard/articles/articles";
 import CreateArticle from "./pages/dashboard/articles/createArticle";
+import Workspace from "./pages/dashboard/workspace/workspace";
 // import ShowPoster from "./pages/dashboard/poster/showPoster";
 
 function App() {
@@ -128,6 +129,9 @@ function App() {
               path="/dashboard/video/create"
               element={<CreateVideo />}
             />
+
+          <Route path="/dashboard/workspace" element={<Workspace />} />
+
           </Routes>
         </Dashboard>
       </>

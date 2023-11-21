@@ -23,7 +23,7 @@ export const getBenefit = async (userToken)=>{
   .catch((error) => console.log("error", error));
   return JSON.parse(mainResult);
 
-}
+} 
 
 
 
@@ -46,7 +46,6 @@ export const showBenefit = async (id,userToken)=>{
   return JSON.parse(mainResult);
 
 }
-
 
 
 export const createBenefit = async (values,userToken) => {

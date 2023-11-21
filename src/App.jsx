@@ -15,7 +15,7 @@ import UserPanel from "./pages/dashboard/users/panel";
 import CreateAboutUs from "./pages/dashboard/about/createAbout";
 import { Profile, Users } from "./pages/dashboard";
 import { useContext } from "react";
-import CreateTutorials from "./pages/dashboard/tutorials/create-tutorials";
+import CreateTutorialPage from "./pages/dashboard/tutorials/create-tutorials";
 import Category from "./pages/dashboard/category/category";
 import Tutorials from "./pages/dashboard/Tutorials/Tutorials";
 
@@ -39,6 +39,7 @@ import Article from "./pages/dashboard/articles/articles";
 import CreateArticle from "./pages/dashboard/articles/createArticle";
 import Workspace from "./pages/dashboard/workspace/workspace";
 // import ShowPoster from "./pages/dashboard/poster/showPoster";
+import CreateTutorialsWizard from "./pages/dashboard/tutorials/create-tutorials-wizard";
 
 function App() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -108,7 +109,11 @@ function App() {
             />
             <Route
               path="/dashboard/tutorials/create"
-              element={<CreateTutorials />}
+              element={<CreateTutorialPage />}
+            />            
+            <Route
+              path="/dashboard/tutorials/create-wizard"
+              element={<CreateTutorialsWizard />}
             />
             <Route path="/dashboard" element={<Home />} />
 

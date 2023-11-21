@@ -108,11 +108,12 @@ function App() {
               path="/dashboard/tutorials/create"
               element={<CreateTutorials />}
             />
-            <Route path="/dashboard/dashboard" element={<Home />} />
+            <Route path="/dashboard" element={<Home />} />
 
             <Route path="/dashboard/poster" element={<Poster />} />
             <Route path="/dashboard/poster/create" element={<CreatePoster />} />
             {/* <Route path="/dashboard/poster/show/:id" element={<ShowPoster />} */}
+<<<<<<< HEAD
             
             {/* <Route path="/dashboard/benefit" element={<SystemBenefit />} />
             <Route path="/dashboard/benefit/create" element={<CreateSystemBenefit />} /> */}
@@ -127,6 +128,11 @@ function App() {
               path="/dashboard/video/create"
               element={<CreateVideo />}
             />
+=======
+            <Route path="/dashboard/systemBenefit" element={<SystemBenefit />} />
+            <Route path="/dashboard/systemBenefit/create" element={<CreateSystemBenefit />} />
+            <Route path="/" element={<Home />} />
+>>>>>>> 79e1982345cfdfa984a082212138e36b03ca9a62
           </Routes>
         </Dashboard>
       </>

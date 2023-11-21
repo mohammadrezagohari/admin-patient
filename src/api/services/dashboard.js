@@ -28,7 +28,6 @@ export const getArticleCount = async (userToken) => {
     .then((response) => response.text())
     .then((result) => {
       mainResult = result;
-      console.log("article", result);
     })
     .catch((error) => console.log("error", error));
   return JSON.parse(mainResult);

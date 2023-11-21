@@ -27,6 +27,7 @@ import SystemGoal from "./pages/dashboard/systemGoal/sysGoal";
 import Poster from "./pages/dashboard/poster/poster";
 import Video from "./pages/dashboard/video/video";
 import Article from "./pages/dashboard/articles/articles";
+import Workspace from "./pages/dashboard/workspace/workspace";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -107,6 +108,12 @@ export const routes = [
         path: "/video",
         element: <Video />,
       }, 
+      {
+        icon: <BellIcon {...icon} />,
+        name: "  محل خدمت",
+        path: "/workspace",
+        element: <Workspace />,
+      },
       {
         icon: <BellIcon {...icon} />,
         name: "سوالات متداول",

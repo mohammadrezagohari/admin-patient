@@ -23,8 +23,8 @@ export function CreateSystemBenefit() {
   const [selected, setSelected] = useState(null);
 
   const handleChange = (selectedOption) => {
-    setSelected(selectedOption);
-    console.log(`Option selected:`, selectedOption);
+    setIs_active(selectedOption.value);
+    console.log(`Option selected:`, selectedOption.value);
   };
 
   const inputStyle = {
@@ -38,7 +38,7 @@ export function CreateSystemBenefit() {
     color: "white",
     marginLeft: "1rem",
     padding: "0.5rem",
-    borderRadius: "8px",
+    borderRadius: "8px", 
   };
 
 
@@ -58,11 +58,11 @@ export function CreateSystemBenefit() {
           if (response?.success == false) {
             toast(
               `${
-                response?.title != undefined ? response?.title : ""
+                response?.data?.title != undefined ? response?.data?.title : ""
               } \n
                   ${
-                    response?.is_active != undefined
-                      ? response?.is_active
+                    response?.data?.is_active != undefined
+                      ? response?.data?.is_active
                       : ""
                   } \n`,
               {
@@ -107,7 +107,7 @@ export function CreateSystemBenefit() {
         <Card style={{height:'570px'}}>
           <div className="py-5">
             <Link
-              to={`/dashboard/categories`}
+              to={`/dashboard/benefit`}
               className="mr-3"
               style={linkStyle}
             >
@@ -122,13 +122,17 @@ export function CreateSystemBenefit() {
           <CardBody className="w-full px-0 pt-0 pb-2">
             <form
               method="post"
-              // onSubmit={storeCategory}
+              onSubmit={storeSysBenefit}
               className="m-6 mb-4 flex flex-wrap flex-col gap-7"
             >
               <div className="w-7/12 flex flex-col">
                 <label className="ml-2"> عنوان فواید </label>
                 <textarea
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={(e) =>{
+                    setTitle(e.target.value)
+                    console.log(title);
+                    console.log(e.target.value)
+                  } }
                   value={title}
                   type="text"
                   className="mt-4 outline-none "
@@ -143,7 +147,7 @@ export function CreateSystemBenefit() {
                             id="isActive"
                             className="lg:w-7/12 md:w-7/12 w-full mt-2"
                             onChange={handleChange} autoFocus={true}
-                            defaultValue={is_active}
+                            value={is_active}
                             options={[
                               {
                                 value: true,

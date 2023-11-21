@@ -1,87 +1,115 @@
 import { useQuery } from "react-query";
 import apiClient from "../apiClient";
+import baseUrl from "@/configs/base-url";
 
-const auth_header = {
-  "Content-Type": "application/json",
-  Accept: "application/json",
-  "Access-Control-Request-Method": "POST",
-  "Access-Control-Request-Headers": "Content-Type, Accept",
-  // Authorization: `Bearer ${localStorage.getItem("_token_admin")}`,
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Accept", "application/json");
+
+export const getArticle = async (userToken)=>{
+myHeaders.append("Authorization", `Bearer ${userToken}`);
+
+const requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
 };
+let mainResult = null;
+await fetch(`${baseUrl}/api/article`, requestOptions)
+.then(response => response.text())
+.then(result => {
+  mainResult = result;
+  console.log("article", result);
+})
+.catch((error) => console.log("error", error));
+return JSON.parse(mainResult);
+}
 
-export const getArticle = async () => {
-  const response = await apiClient.get("/article?count=100", {
-    headers: auth_header,
-  });
-  if (response.status !== 200) {
-    return null;
-  }
-  return response?.data;
-};
 
-export const showArticle = async (id, userToken) => {
-  auth_header.Authorization = `Bearer ${userToken}`;
 
-  const response = await apiClient.get(`/article/show/${id}`, {
-    headers: auth_header,
-  });
-  console.log("status", response);
-  if (response.status !== 200) {
-    return null;
-  }
-  return response?.data;
-};
 
-export const createArticle = async (context, title, category_id) => {
-  const response = await apiClient.post(
-    `/article/store`,
-    {
-      context: context,
-      title: title,
-      category_id: category_id,
-    },
-    {
-      headers: auth_header,
-    }
-  );
-  if (response.status !== 200) {
-    return null;
-  }
-  return response?.data;
-};
+export const showArticle = async (id,userToken)=>{
+  myHeaders.append("Authorization", `Bearer ${userToken}`);
 
-// ----------------------------------------------------------------------------
+  const requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+  let mainResult = null;
+  await fetch(`${baseUrl}/api/article/show/${id}`, requestOptions)
+  .then(response => response.text())
+  .then(result => {
+    mainResult = result;
+    console.log("article", result);
+  })
+  .catch((error) => console.log("error", error));
+  return JSON.parse(mainResult);
+}
 
-export const updateArticle = async (values, id) => {
-  // auth_header_files.Authorization = `Bearer ${userToken}`;
+export const createArticle = async (values,userToken) => {
+  myHeaders.append("Authorization", `Bearer ${userToken}`);
+    const raw = JSON.stringify({
+      title: values.title,
+      context:values.context,
+      category_id: values.category_id,
+    })
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    let mainResult = null;
+    await fetch(`${baseUrl}/api/article/store`, requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        mainResult = result;
+        console.log("create article", result);
+      })
+      .catch((error) => console.log("error", error));
+    return JSON.parse(mainResult);
+  };
 
-  const response = await apiClient.patch(
-    `/article/update/${id}`,
+  export const updateArticle = async (id,values,userToken) => {
+    myHeaders.append("Authorization", `Bearer ${userToken}`);
+      var raw = JSON.stringify({
+        title: values.title,
+        context:values.context,
+        category_id: values.category_id,
+      })
+      const requestOptions = {
+        method: 'PATCH',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+      let mainResult = null;
+      await fetch(`${baseUrl}/api/article/update/${id}`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+          mainResult = result;
+          console.log("update article", result);
+        })
+        .catch((error) => console.log("error", error));
+      return JSON.parse(mainResult);
+    };
 
-    {
-      headers: auth_header,
-    },
-    {
-      title: values?.title,
-      context: values?.context,
-      category_id: values?.category_id,
-    }
-  );
-  console.log("status", response);
-  if (response.status !== 200) {
-    return null;
-  }
-  return response?.data;
-};
 
-export const deleteArticle = async (id) => {
-  // auth_header_files.Authorization = `Bearer ${userToken}`;
-  const response = await apiClient.delete(`/article/delete/${id}`, {
-    headers: auth_header,
-  });
-  console.log("status", response);
-  if (response.status !== 200) {
-    return null;
-  }
-  return response?.data;
-};
+    export const deleteArticle= async (id,userToken) => {
+      myHeaders.append("Authorization", `Bearer ${userToken}`);
+        const requestOptions = {
+          method: 'DELETE',
+          headers: myHeaders,
+          redirect: 'follow'
+        };
+        let mainResult = null;
+        await fetch(`${baseUrl}/api/article/delete/${id}`, requestOptions)
+          .then((response) => response.text())
+          .then((result) => {
+            mainResult = result;
+            console.log("delete article", result);
+          })
+          .catch((error) => console.log("error", error));
+        return JSON.parse(mainResult);
+      };

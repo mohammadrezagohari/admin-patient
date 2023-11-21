@@ -42,7 +42,7 @@ export function ShowSystemGoals() {
     const showResult = await showGoal(id, userToken)
       .then(function (response) {
         setTitles(response?.title);
-        setDescriptions(`${response?.description}`);
+        setDescriptions(response?.description);
       })
       .catch(function (err) {
         console.log("error", err);
@@ -51,7 +51,7 @@ export function ShowSystemGoals() {
     return showResult;
   };
   useEffect(() => {
-    setTimeout(() => {
+    setTimeout((id) => {
         showSysGoals(id);
     }, 3000);
   }, []);

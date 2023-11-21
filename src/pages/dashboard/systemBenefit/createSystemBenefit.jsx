@@ -9,9 +9,10 @@ import {
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { getBenefit,createSystemBenefit } from "@/api/services/benefit";
+import { getBenefit,createBenefit } from "@/api/services/benefit";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
+import Select from "react-select";
 
 export function CreateSystemBenefit() {
   const { userToken } = useContext(AuthContext);
@@ -19,14 +20,17 @@ export function CreateSystemBenefit() {
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState();
   const [is_active, setIs_active] = useState();
+  const [selected, setSelected] = useState(null);
 
+  const handleChange = (selectedOption) => {
+    setSelected(selectedOption);
+    console.log(`Option selected:`, selectedOption);
+  };
 
   const inputStyle = {
-    border: "1px solid gray",
+    border: "1px solid #CCC8AA",
     borderRadius: "5px",
     padding: "0.45rem",
-    textAlign: "center",
-    width: "100%",
     marginTop: "1rem",
   };
   const linkStyle = {
@@ -41,7 +45,11 @@ export function CreateSystemBenefit() {
 
   const storeSysBenefit = async (e) => {
     e.preventDefault();
-    const createResult = await createSystemBenefit(title, is_active, userToken)
+    const createResult = await createBenefit(
+      {
+      title:title,
+      is_active:is_active
+    }, userToken)
       .then(function (response) {
         console.log('dataresult', response)
         if (response.status) {
@@ -96,7 +104,7 @@ export function CreateSystemBenefit() {
           />
         </div>
       ) : (
-        <Card>
+        <Card style={{height:'570px'}}>
           <div className="py-5">
             <Link
               to={`/dashboard/categories`}
@@ -111,25 +119,45 @@ export function CreateSystemBenefit() {
               ساخت عنوان جدید
             </Typography>
           </CardHeader>
-          <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+          <CardBody className="w-full px-0 pt-0 pb-2">
             <form
               method="post"
               // onSubmit={storeCategory}
-              className="m-6 mb-4 flex flex-wrap"
+              className="m-6 mb-4 flex flex-wrap flex-col gap-7"
             >
-              <div className="w-7/12">
-                <label className="ml-3"> عنوان فواید </label>
+              <div className="w-7/12 flex flex-col">
+                <label className="ml-2"> عنوان فواید </label>
                 <textarea
-                  onChange={(e) => setTitle(e)}
+                  onChange={(e) => setTitle(e.target.value)}
                   value={title}
                   type="text"
-                  className="ml-3"
+                  className="mt-4 outline-none "
                   name="name"
                   style={inputStyle}
-                />
+                /> 
               </div>
-              <div className="col-span-2 mt-4 w-6/12">
-                <Button type="submit">ذخیره</Button>
+
+                 <div className="">
+                          <label htmlFor="isActive">وضعیت نمایش</label>
+                          <Select
+                            id="isActive"
+                            className="lg:w-7/12 md:w-7/12 w-full mt-2"
+                            onChange={handleChange} autoFocus={true}
+                            defaultValue={is_active}
+                            options={[
+                              {
+                                value: true,
+                                label: "فعال",
+                              },
+                              {
+                                value: false,
+                                label: "غیرفعال",
+                              },
+                            ]}
+                          />
+                    </div>
+              <div className="col-span-2 mt-4 w-7/12">
+                <Button type="submit" className="w-1/2">ذخیره</Button>
               </div>
             </form>
           </CardBody>

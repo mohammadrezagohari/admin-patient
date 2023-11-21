@@ -26,6 +26,7 @@ import Home from "./pages/dashboard/home";
 import SystemGoal from "./pages/dashboard/systemGoal/sysGoal";
 import Poster from "./pages/dashboard/poster/poster";
 import Video from "./pages/dashboard/video/video";
+import Article from "./pages/dashboard/articles/articles";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -66,7 +67,7 @@ export const routes = [
         icon: <BellIcon {...icon} />,
         name: "مقالات",
         path: "/articles",
-        element: <Home />,
+        element: <Article />,
       },
       {
         icon: <BellIcon {...icon} />,
@@ -90,7 +91,7 @@ export const routes = [
       {
         icon: <BellIcon {...icon} />,
         name: "فواید سیستم الکترونیکی ",
-        path: "/systembenefit",
+        path: "/benefit",
         element: <SystemBenefit />,
       },
    
@@ -111,12 +112,6 @@ export const routes = [
         name: "سوالات متداول",
         path: "/faq",
         element: <Faq />,
-      },
-      {
-        icon: <BellIcon {...icon} />,
-        name: "پیشنهادات",
-        path: "/suggestions",
-        element: <Profile />,
       },
 
       {

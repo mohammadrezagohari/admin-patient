@@ -30,16 +30,3 @@ export const fetchUsers = async (userToken) => {
     return JSON.parse(mainResult);
 };
 
-
-
-
-
-// const fetchUser = async (userId) => {
-//   const response = await apiClient.get("/profile/me"); // Replace with your API endpoint
-
-//   if (response.status !== 200) {
-//     throw new Error("Failed to fetch data");
-//   }
-
-//   return response.data;
-// };

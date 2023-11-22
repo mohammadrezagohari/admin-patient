@@ -3,9 +3,9 @@ import { Dashboard, Auth } from "@/layouts";
 import { AuthContext, AuthProvider } from "./gard/context/AuthContext";
 import { SignIn } from "./pages/auth";
 import EditUser from "./pages/dashboard/users/editUser";
-import ShowCities from "./pages/dashboard/province/showCities";
-import ShowCity from "./pages/dashboard/city/showCity";
-import CreateCity from "./pages/dashboard/city/createCity";
+// import ShowCities from "./pages/dashboard/province/showCities";
+// import ShowCity from "./pages/dashboard/city/showCity";
+// import CreateCity from "./pages/dashboard/city/createCity";
 import CreateCategory from "./pages/dashboard/category/createCategory";
 // import ShowCategory from "./pages/dashboard/category/showCategory";
 
@@ -103,7 +103,7 @@ function App() {
             <Route path="/dashboard/faq/show/:id" element={<ShowFaq />} />
             {/* <Route path="/dashboard/home" element={<Home />} /> */}
 
-            <Route
+            {/* <Route
               path="/dashboard/province/:id/cities/show"
               element={<ShowCities />}
             />
@@ -111,7 +111,7 @@ function App() {
             <Route
               path="/dashboard/province/:province_id/city/show/:city_id"
               element={<ShowCity />}
-            />
+            /> */}
             {/* <Route
               path="/dashboard/tutorials/create"
               element={<CreateTutorialPage />}

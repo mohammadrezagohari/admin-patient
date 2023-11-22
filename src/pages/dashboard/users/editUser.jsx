@@ -20,7 +20,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 // import ProvinceDropdown from "@/components/provinces/ProvinceDropdown";
 import { showProfile, updateProfiles } from "@/api/services/auth-api";
-import CityDropdown from "@/components/cities/CityDropdown";
+import CitiesDropdown from "@/components/citiesDropDown/citiesDropDown";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 export function EditUser() {
@@ -233,10 +233,10 @@ export function EditUser() {
                         </div> */}
 
                         <div className="">
-                          <CityDropdown
+                          <CitiesDropdown
                             city_id={city_id}
                             setCity_id={setCity_id}
-                            province_id={province_id}
+                            // province_id={province_id}
                           />
                         </div>
                      

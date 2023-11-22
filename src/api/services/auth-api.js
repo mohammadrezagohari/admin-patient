@@ -6,31 +6,14 @@ import { useQueryClient, useQuery } from "react-query";
 const auth_header = {
   "Content-Type": "application/json",
   Accept: "application/json",
+  "Access-Control-Request-Method": "POST",
+  "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 myHeaders.append("Accept", "application/json");
 
 export const signIn = async (mobile, password) => {
-  //   var raw = JSON.stringify({
-  //     mobile: mobile,
-  //     password: password,
-  //   });
-  //   var requestOptions = {
-  //     method: "POST",
-  //     headers: myHeaders,
-  //     body: raw,
-  //     redirect: "follow",
-  //   };
-  //   let mainResult = null;
-  //   await fetch(`${baseUrl}/api/auth/login`, requestOptions)
-  //     .then((response) => response.text())
-  //     .then((result) => {
-  //       mainResult = result;
-  //       console.log("result", result);
-  //     })
-  //     .catch((error) => console.log("error", error));
-  //   return JSON.parse(mainResult);
 
   const { data } = await apiClient.post(
     "auth/login",
@@ -61,7 +44,7 @@ export const userRegister = async (name, mobile, password) => {
 };
 
 export const profile = async (userToken) => {
-  //   auth_header.Authorization = `Bearer ${userToken}`;
+    auth_header.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.get("/profile", {
     headers: auth_header,
   });
@@ -74,7 +57,7 @@ export const profile = async (userToken) => {
 
 export const showProfile = async (id, userToken) => {
   auth_header.Authorization = `Bearer ${userToken}`;
-  const response = await apiClient.get(`/profile/show/${id}`, {
+  const response = await apiClient.get(`/profile/show/${id}..`, {
     headers: auth_header,
   });
   if (response.status !== 200) {
@@ -93,27 +76,11 @@ export const getProfileMe = async (userToken) => {
   // return data;
 };
 
-export const createProfile = async (field, userToken) => {
-  auth_header.Authorization = `Bearer ${userToken}`;
-  const response = await apiClient.post(
-    `/field/store`,
-    {
-      name: field,
-    },
-    {
-      headers: auth_header,
-    }
-  );
-  if (response.status !== 200) {
-    return null;
-  }
-  return response?.data;
-};
 
 export const updateProfiles = async (id, values, userToken) => {
   auth_header.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.patch(
-    `/profile/update/${id}`,
+    `/profile/update_account`,
     {
       avatar: values?.avatar,
       first_name: values?.first_name,

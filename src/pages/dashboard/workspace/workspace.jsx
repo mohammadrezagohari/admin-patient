@@ -17,23 +17,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
-import { getFaq  ,deleteFaq} from "@/api/services/faq";
+import { getWorkspace,deleteWorkspace } from "@/api/services/workspace";
 import { data } from "autoprefixer";
 
 function Workspace() {
   const { userToken } = useContext(AuthContext);
 
-  const [faqs, setFaqs] = useState(null);
+  const [workspace, setWorkspace] = useState(null);
 
   const [loading, setLoading] = useState(true);
 
   
 
-  const getFaqs = async () => {
-    const result = await getFaq()
+  const getDatas = async () => {
+    const result = await getWorkspace(userToken)
       .then(function (result) {
-        console.log("response", result);
-        setFaqs(result?.data);
+        console.log("response", result?.data);
+        setWorkspace(result?.data);
       })
       .catch(function (err) {
         console.log("error", err);
@@ -44,7 +44,7 @@ function Workspace() {
 
   useEffect(() => {
     setTimeout(() => {
-      getFaqs();
+        getDatas();
     }, 3000);
   }, []);
 
@@ -56,12 +56,12 @@ function Workspace() {
     borderRadius: "8px",
   };
   
-  const deleteFaqs = async (id) => {
-    const deleteResult = await deleteFaq(id, userToken)
+  const deleteWorkspaces = async (id) => {
+    const deleteResult = await deleteWorkspace(id, userToken)
       .then(function (response) {
         if (response.status) {
           toast.success("حذف با موفقیت انجام شد !");
-          setFaqs(faqs.filter((faq) => faq.id !== id));
+          setWorkspace(workspace.filter((wspc) => wspc.id !== id));
         } else {
           toast.error("خطا !! مجددا تلاش نمایید");
         }
@@ -84,14 +84,14 @@ function Workspace() {
           className="mb-8 mt-3 flex justify-between p-6"
         >
           <Typography variant="h6" color="white">
-                 سوالات متداول    
+                  لیست محل خدمت    
           </Typography>
           <Link
-            to={`/dashboard/faq/create`}
+            to={`/dashboard/workspace/create`}
             className="mr-3"
             style={linkStyle}
           >
-              ایجاد سوال 
+               محل خدمت جدید
           </Link>
         </CardHeader>
 
@@ -114,7 +114,7 @@ function Workspace() {
               <table className="w-full min-w-[640px] table-auto text-right">
                 <thead>
                   <tr>
-                    {["#"," سوال",'توضیحات', "تنظیمات", ].map((el) => (
+                    {["#"," نام شهر ",'ID', "تنظیمات", ].map((el) => (
                       <th
                         key={el}
                         className="place-items-center border-b 	 border-blue-gray-50 py-3 px-5 "
@@ -130,9 +130,9 @@ function Workspace() {
                   </tr>
                 </thead>
                 <tbody>
-                  {faqs?.map((faq, key) => {
+                  {workspace?.map((wspc, key) => {
                     const className = `py-3 px-5 ${
-                      key === faqs.length - 1
+                      key === 10 - 1
                         ? ""
                         : "border-b border-blue-gray-50"
                     }`;
@@ -141,28 +141,28 @@ function Workspace() {
                       <tr key={key}>
                         <td className={className}>
                           <div className="flex items-center gap-4">
-                            {faq?.id}
+                            {wspc?.id}
                           </div>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            { ` ${faq.question}` }
+                            { ` ${wspc.title}` }
                           </Typography>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600 max-w-8">
-                          { ` ${faq.description}` }
+                          { ` ${wspc.city_id}` }
                           </Typography>
                         </td>
                         <td className={className}>
                           <Link
-                            to={`/dashboard/faq/show/${faq.id}`}
+                            // to={`/dashboard/workspace/show/${wspc.id}`}
                             style={linkStyle}
                           >
                             اصلاح
                           </Link>
                           <Button
-                            onClick={() => deleteFaqs(faq.id)}
+                            onClick={() => deleteWorkspaces(wspc.id)}
                             className="bg-red-700 text-white hover:bg-red-800 focus:outline-none"
                           >
                             حذف
@@ -173,7 +173,7 @@ function Workspace() {
                   })}
                 </tbody>
               </table>
-              {faqs.length == 0 ? (
+              {10 == 0 ? (
                 <>
                   <div className="flex h-[80vh] w-full items-center justify-center">
                     <p className="">آیتمی وجود ندارد :(</p>

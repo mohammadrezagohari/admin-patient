@@ -40,6 +40,11 @@ import CreateArticle from "./pages/dashboard/articles/createArticle";
 import Workspace from "./pages/dashboard/workspace/workspace";
 // import ShowPoster from "./pages/dashboard/poster/showPoster";
 import CreateTutorialsWizard from "./pages/dashboard/tutorials/create-tutorials-wizard";
+import CreateWorkspace from "./pages/dashboard/workspace/createWorkspace";
+import CustomMessage from "./pages/dashboard/customMessage/customMessage";
+import CreateCustomMessage from "./pages/dashboard/customMessage/createCustomMessage";
+import Notif from "./pages/dashboard/notification/notification";
+import CreateNotif from "./pages/dashboard/notification/createNotif";
 
 function App() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -136,6 +141,15 @@ function App() {
             />
 
           <Route path="/dashboard/workspace" element={<Workspace />} />
+          <Route path="/dashboard/workspace/create" element={<CreateWorkspace />} />
+
+
+          <Route path="/dashboard/custom-message" element={<CustomMessage />} />
+          <Route path="/dashboard/custom-message/create" element={<CreateCustomMessage />} />
+
+
+          <Route path="/dashboard/notification" element={<Notif />} />
+          <Route path="/dashboard/notification/create" element={<CreateNotif />} />
 
           </Routes>
         </Dashboard>

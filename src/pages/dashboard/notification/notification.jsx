@@ -8,37 +8,32 @@ import {
   Avatar,
   Chip,
   Tooltip,
-  Progress,
+  Progress, 
   Button,
   Alert,
 } from "@material-tailwind/react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { getSystemMode } from "@mui/system/cssVars/useCurrentColorScheme";
-// import {
-//     getSystemBenefitList,
-//     getSystemBenefit, 
-//     deleteSystemBenefit,
-//   } from "@/api/services/benefit";
-import { getBenefit,deleteBenefit} from "@/api/services/benefit";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
+import { getNotification,deleteNotification } from "@/api/services/notification";
+import { data } from "autoprefixer";
 
-function SystemBenefit() {
+function Notif() {
   const { userToken } = useContext(AuthContext);
 
-  const [benefits, setBenefits] = useState([]);
+  const [notif, setNotif] = useState(null);
+
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
+  
 
-
-  const getBenefits = async () => {
-    const result = await getBenefit(userToken)
-      .then(function (response) {
-        console.log("response", response);
-        setBenefits(response?.data);
+  const getDatas = async () => {
+    const result = await getNotification(userToken)
+      .then(function (result) {
+        console.log("response", result);
+        setNotif(result?.data);
       })
       .catch(function (err) {
         console.log("error", err);
@@ -49,24 +44,24 @@ function SystemBenefit() {
 
   useEffect(() => {
     setTimeout(() => {
-      getBenefits();
+      getDatas();
     }, 3000);
   }, []);
 
   const linkStyle = {
-    backgroundColor: "purple",
+    backgroundColor: "#183087",
     color: "white",
     marginLeft: "1rem",
     padding: "0.5rem",
     borderRadius: "8px",
   };
-  const deleteSystemBenefits = async (id) => {
-    const deleteResult = await deleteBenefit(id, userToken)
+  
+  const deleteDatas = async (id) => {
+    const deleteResult = await deleteNotification(id, userToken)
       .then(function (response) {
-        console.log('delete res',response);
         if (response.status) {
           toast.success("حذف با موفقیت انجام شد !");
-          setSysBenefit(sysBenefit.filter((benefit) => benefit.id !== id));
+          setNotif(notif.filter((notification) => notification.id !== id));
         } else {
           toast.error("خطا !! مجددا تلاش نمایید");
         }
@@ -82,28 +77,21 @@ function SystemBenefit() {
     <>
       <Card>
         <div className="py-5">
-          {/* <Link
-            to={`/dashboard/category/create`}
-            className="mr-3"
-            style={linkStyle}
-          >
-            ثبت دسته بندی جدید
-          </Link> */}
         </div>
         <CardHeader
           variant="gradient"
           color="blue"
-          className="mb-8 mt-3 flex justify-between p-6 "
+          className="mb-8 mt-3 flex justify-between p-6"
         >
           <Typography variant="h6" color="white">
-            لیست عنوان های فواید سیستم
+                ارسال اعلانات به کاربر   
           </Typography>
           <Link
-            to={`/dashboard/benefit/create`}
+            to={`/dashboard/notification/create`}
             className="mr-3"
             style={linkStyle}
           >
-            ثبت عنوان جدید
+              ارسال اعلان   
           </Link>
         </CardHeader>
 
@@ -126,7 +114,7 @@ function SystemBenefit() {
               <table className="w-full min-w-[640px] table-auto text-right">
                 <thead>
                   <tr>
-                    {["#","عنوان " ," وضعیت  ", "تنظیمات"].map((el) => (
+                    {["#"," موضوع",'محتوا ','وضعیت ',"تنظیمات", ].map((el) => (
                       <th
                         key={el}
                         className="place-items-center border-b 	 border-blue-gray-50 py-3 px-5 "
@@ -142,9 +130,9 @@ function SystemBenefit() {
                   </tr>
                 </thead>
                 <tbody>
-                  {benefits?.map((benefit, key) => {
+                  {notif?.map((notification, key) => {
                     const className = `py-3 px-5 ${
-                      key === benefits.length - 1
+                      key === notif.length - 1
                         ? ""
                         : "border-b border-blue-gray-50"
                     }`;
@@ -153,29 +141,33 @@ function SystemBenefit() {
                       <tr key={key}>
                         <td className={className}>
                           <div className="flex items-center gap-4">
-                            {" "}
-                            {benefit?.id}
+                            {notification?.id}
                           </div>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                          {`${benefit?.title}`}
+                            { ` ${notification.subject}` }
                           </Typography>
                         </td>
                         <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {`${benefit?.is_active}`}
+                          <Typography className="text-xs font-semibold text-blue-gray-600 max-w-8">
+                          { ` ${notification.status}` }
                           </Typography>
                         </td>
                         <td className={className}>
-                          {/* <Link
-                            to={`/dashboard//show/${benefit.id}`}
+                          <Typography className="text-xs font-semibold text-blue-gray-600 max-w-8">
+                          { ` ${notification.status}` }
+                          </Typography>
+                        </td>
+                        <td className={className}>
+                          <Link
+                            // to={`/dashboard/notification/show/${notification.id}`}
                             style={linkStyle}
                           >
                             اصلاح
-                          </Link> */}
+                          </Link>
                           <Button
-                            onClick={() => deleteSystemBenefits(benefit.id)}
+                            onClick={() => deleteDatas(notification.id)}
                             className="bg-red-700 text-white hover:bg-red-800 focus:outline-none"
                           >
                             حذف
@@ -186,15 +178,15 @@ function SystemBenefit() {
                   })}
                 </tbody>
               </table>
-              {benefits.length == 0 ? (
+              {notif.length == 0 ? (
                 <>
                   <div className="flex h-[80vh] w-full items-center justify-center">
                     <p className="">آیتمی وجود ندارد :(</p>
                   </div>
                 </>
-              ) : (
-                <></>
-              )}
+               ) : (
+                <></> 
+              )} 
             </CardBody>
           </>
         )}
@@ -203,4 +195,7 @@ function SystemBenefit() {
   );
 }
 
-export default SystemBenefit;
+
+
+
+  export default Notif;

@@ -22,7 +22,7 @@ myHeaders.append("Accept", "application/json");
 
 // export const getTutorials = async (page, userToken = null) => {
 export const getTutorials = async (count = 10, userToken = null) => {
-  auth_header.Authorization = `Bearer ${userToken}`;
+  auth_header_files.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.get(`/tutorial?count=${count}`, {
     headers: header,
   });
@@ -33,7 +33,7 @@ export const getTutorials = async (count = 10, userToken = null) => {
 };
 
 export const showTutorials = async (id, userToken) => {
-  auth_header.Authorization = `Bearer ${userToken}`;
+  auth_header_files.Authorization = `Bearer ${userToken}`;
 
   const response = await apiClient.get(`/tutorial/show/${id}`, {
     headers: header,
@@ -188,7 +188,7 @@ export const updateTutorials = async (values, id, userToken) => {
 };
 
 export const deleteTutorilas = async (id, userToken) => {
-  auth_header.Authorization = `Bearer ${userToken}`;
+  auth_header_files.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.delete(`/tutorial/delete/${id}`, {
     headers: header,
   });

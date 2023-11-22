@@ -1,30 +1,27 @@
  import baseUrl from "@/configs/base-url";
-  
+ import apiClient from "../apiClient"; 
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 myHeaders.append("Accept", "application/json");
 
+const auth_header = {
+  "Content-Type": "application/json",
+  Accept: "application/json",
+  "Access-Control-Request-Method": "POST",
+  "Access-Control-Request-Headers": "Content-Type, Accept",
+}; 
 
-export const getBenefit = async (userToken)=>{
-  myHeaders.append("Authorization", `Bearer ${userToken}`);
-
-  const requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
-  };
-  let mainResult = null;
-  await fetch(`${baseUrl}/api/benefit`, requestOptions)
-  .then(response => response.text())
-  .then(result => {
-    mainResult = result;
-    console.log("benefffjjjjjjjjjj", result);
-  })
-  .catch((error) => console.log("error", error));
-  return JSON.parse(mainResult);
-
-} 
-
+export const getBenefit = async (count=10,userToken=null) => {
+  auth_header.Authorization = `Bearer ${userToken}`;
+  const response = await apiClient.get(`/benefit?count=${count}`, {
+    headers: auth_header,
+  });
+  console.log('resp',response)
+  if (response.status !== 200) {
+    return null;
+  }
+  return response?.data;
+};
 
 
 export const showBenefit = async (id,userToken)=>{

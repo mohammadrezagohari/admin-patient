@@ -28,6 +28,8 @@ import Poster from "./pages/dashboard/poster/poster";
 import Video from "./pages/dashboard/video/video";
 import Article from "./pages/dashboard/articles/articles";
 import Workspace from "./pages/dashboard/workspace/workspace";
+import CustomMessage from "./pages/dashboard/customMessage/customMessage";
+import Notif from "./pages/dashboard/notification/notification";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -88,7 +90,12 @@ export const routes = [
         path: "/poster",
         element: <Poster />,
       },
-     
+      {
+        icon: <BellIcon {...icon} />,
+        name: "ارسال پیام به کاربر  ",
+        path: "/custom-message",
+        element: <CustomMessage />,
+      },
       {
         icon: <BellIcon {...icon} />,
         name: "فواید سیستم الکترونیکی ",
@@ -120,7 +127,12 @@ export const routes = [
         path: "/faq",
         element: <Faq />,
       },
-
+      {
+        icon: <BellIcon {...icon} />,
+        name: "ارسال اعلانات",
+        path: "/notification",
+        element: <Notif />,
+      },
       {
         icon: <BellIcon {...icon} />,
         name: " درباره ما ",

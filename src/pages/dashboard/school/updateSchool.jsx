@@ -24,23 +24,6 @@ export function UpdateSchool() {
   const intitialValues = {
     name: school?.name,
   };
-  // useEffect(() => {
-  //   const { data } = axios
-  //     .get(`https://testato.ir/api/school/show/${id}`, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Accept: "application/json",
-  //         Authorization: `Bearer ${localStorage.getItem("_token_testato")}`,
-  //       },
-  //     })
-  //     .then(function (response) {
-  //       setSchool(response?.data?.data);
-  //       console.log(school);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error.message);
-  //     });
-  // }, []);
 
   const showInfoSchool = async (id) => {
     const showResult = await showSchools(id)

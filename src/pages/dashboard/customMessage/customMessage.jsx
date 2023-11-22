@@ -8,37 +8,32 @@ import {
   Avatar,
   Chip,
   Tooltip,
-  Progress,
+  Progress, 
   Button,
   Alert,
 } from "@material-tailwind/react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { getSystemMode } from "@mui/system/cssVars/useCurrentColorScheme";
-// import {
-//     getSystemBenefitList,
-//     getSystemBenefit, 
-//     deleteSystemBenefit,
-//   } from "@/api/services/benefit";
-import { getBenefit,deleteBenefit} from "@/api/services/benefit";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
+import { getCustomMessage,deleteCustomMessage } from "@/api/services/customMessage";
+import { data } from "autoprefixer";
 
-function SystemBenefit() {
+function CustomMessage() {
   const { userToken } = useContext(AuthContext);
 
-  const [benefits, setBenefits] = useState([]);
+  const [customMessage, setCustomMessage] = useState(null);
+
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
+  
 
-
-  const getBenefits = async () => {
-    const result = await getBenefit(userToken)
-      .then(function (response) {
-        console.log("response", response);
-        setBenefits(response?.data);
+  const getDatas = async () => {
+    const result = await getCustomMessage(userToken)
+      .then(function (result) {
+        console.log("response", result);
+        setCustomMessage(result?.data);
       })
       .catch(function (err) {
         console.log("error", err);
@@ -49,7 +44,7 @@ function SystemBenefit() {
 
   useEffect(() => {
     setTimeout(() => {
-      getBenefits();
+      getDatas();
     }, 3000);
   }, []);
 
@@ -60,13 +55,13 @@ function SystemBenefit() {
     padding: "0.5rem",
     borderRadius: "8px",
   };
-  const deleteSystemBenefits = async (id) => {
-    const deleteResult = await deleteBenefit(id, userToken)
+  
+  const deleteDatas = async (id) => {
+    const deleteResult = await deleteCustomMessage(id, userToken)
       .then(function (response) {
-        console.log('delete res',response);
         if (response.status) {
           toast.success("حذف با موفقیت انجام شد !");
-          setSysBenefit(sysBenefit.filter((benefit) => benefit.id !== id));
+          setCustomMessage(customMessage.filter((cm) => cm.id !== id));
         } else {
           toast.error("خطا !! مجددا تلاش نمایید");
         }
@@ -82,28 +77,21 @@ function SystemBenefit() {
     <>
       <Card>
         <div className="py-5">
-          {/* <Link
-            to={`/dashboard/category/create`}
-            className="mr-3"
-            style={linkStyle}
-          >
-            ثبت دسته بندی جدید
-          </Link> */}
         </div>
         <CardHeader
           variant="gradient"
           color="blue"
-          className="mb-8 mt-3 flex justify-between p-6 "
+          className="mb-8 mt-3 flex justify-between p-6"
         >
           <Typography variant="h6" color="white">
-            لیست عنوان های فواید سیستم
+                ارسال پیام به کاربر   
           </Typography>
           <Link
-            to={`/dashboard/benefit/create`}
+            to={`/dashboard/custom-message/create`}
             className="mr-3"
             style={linkStyle}
           >
-            ثبت عنوان جدید
+              ارسال پیام  
           </Link>
         </CardHeader>
 
@@ -126,7 +114,7 @@ function SystemBenefit() {
               <table className="w-full min-w-[640px] table-auto text-right">
                 <thead>
                   <tr>
-                    {["#","عنوان " ," وضعیت  ", "تنظیمات"].map((el) => (
+                    {["#"," عنوان",'محتوای پیام','شماره همراه',"تنظیمات", ].map((el) => (
                       <th
                         key={el}
                         className="place-items-center border-b 	 border-blue-gray-50 py-3 px-5 "
@@ -142,9 +130,9 @@ function SystemBenefit() {
                   </tr>
                 </thead>
                 <tbody>
-                  {benefits?.map((benefit, key) => {
+                  {customMessage?.map((cm, key) => {
                     const className = `py-3 px-5 ${
-                      key === benefits.length - 1
+                      key === customMessage.length - 1
                         ? ""
                         : "border-b border-blue-gray-50"
                     }`;
@@ -153,29 +141,33 @@ function SystemBenefit() {
                       <tr key={key}>
                         <td className={className}>
                           <div className="flex items-center gap-4">
-                            {" "}
-                            {benefit?.id}
+                            {cm?.id}
                           </div>
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                          {`${benefit?.title}`}
+                            { ` ${cm.title}` }
                           </Typography>
                         </td>
                         <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {`${benefit?.is_active}`}
+                          <Typography className="text-xs font-semibold text-blue-gray-600 max-w-8">
+                          { ` ${cm.mobile}` }
                           </Typography>
                         </td>
                         <td className={className}>
-                          {/* <Link
-                            to={`/dashboard//show/${benefit.id}`}
+                          <Typography className="text-xs font-semibold text-blue-gray-600 max-w-8">
+                          { ` ${cm.context}` }
+                          </Typography>
+                        </td>
+                        <td className={className}>
+                          <Link
+                            // to={`/dashboard/custom-message/show/${cm.id}`}
                             style={linkStyle}
                           >
                             اصلاح
-                          </Link> */}
+                          </Link>
                           <Button
-                            onClick={() => deleteSystemBenefits(benefit.id)}
+                            onClick={() => deleteDatas(cm.id)}
                             className="bg-red-700 text-white hover:bg-red-800 focus:outline-none"
                           >
                             حذف
@@ -186,15 +178,15 @@ function SystemBenefit() {
                   })}
                 </tbody>
               </table>
-              {benefits.length == 0 ? (
+              {customMessage.length == 0 ? (
                 <>
                   <div className="flex h-[80vh] w-full items-center justify-center">
                     <p className="">آیتمی وجود ندارد :(</p>
                   </div>
                 </>
-              ) : (
-                <></>
-              )}
+               ) : (
+                <></> 
+              )} 
             </CardBody>
           </>
         )}
@@ -203,4 +195,7 @@ function SystemBenefit() {
   );
 }
 
-export default SystemBenefit;
+
+
+
+  export default CustomMessage;

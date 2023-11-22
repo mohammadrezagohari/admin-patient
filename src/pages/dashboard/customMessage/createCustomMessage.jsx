@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState ,useRef } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -8,27 +8,27 @@ import {
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { createCustomMessage } from "@/api/services/customMessage";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
-import { Editor } from "@tinymce/tinymce-react";
-import CategoryDropdown from "@/components/category-dropdown/category-dropdown";
-import { getArticle,createArticle } from "@/api/services/article";
 
-export function CreateArticle() {
+export function CreateCustomMessage() {
   const { userToken } = useContext(AuthContext);
   const [title,setTitle] = useState([]);
+  const [mobile,setMobile] = useState([]);
   const [context,setContext] = useState([]);
-  const [category_id,setCategory_id] = useState([]);
-  const editorRef = useRef(null);
+
+
+
+
   const [loading, setLoading] = useState(true);
 
   const inputStyle = {
     border: "1px solid #CCC8AA",
-    outlineColor:"#0174BE",
     borderRadius: "5px",
     padding: "0.45rem",
     width: "100%",
-    marginTop: ".8rem",
+    marginTop: "1rem",
   };
   const linkStyle = {
     backgroundColor: "purple",
@@ -40,17 +40,17 @@ export function CreateArticle() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const createResult = await createArticle(
+    const createResult = await createCustomMessage(
       {
         title:title,
+        mobile:mobile,
         context:context,
-        category_id:category_id,
       },
        userToken)
       .then(function (response) {
         console.log('dataresult', response)
         if (response.status) {
-          toast.success(" سوال با موفقیت درج شد!   !");
+          toast.success(" پیام با موفقیت ارسال شد !");
         } else {
           if (response?.success == false) {
             toast(
@@ -58,10 +58,10 @@ export function CreateArticle() {
                 response?.data?.title != undefined ? response?.data?.title : ""
               } \n
               ${
-                response?.data?.context != undefined ? response?.data?.context : ""
+                response?.data?.mobile != undefined ? response?.data?.mobile : ""
               } \n
-              ${
-                response?.data?.category_id != undefined ? response?.data?.category_id : ""
+              {
+                response?.data?.context != undefined ? response?.data?.context : ""
               } \n`,{
                 duration: 2000,
               },
@@ -100,10 +100,10 @@ export function CreateArticle() {
           />
         </div>
       ) : (
-        <Card>
+        <Card style={{height:"570px"}}>
           <div className="py-5">
             <Link
-              to={`/dashboard/articles`}
+              to={`/dashboard/custom-message`}
               className="mr-3"
               style={linkStyle}
             >
@@ -112,17 +112,17 @@ export function CreateArticle() {
           </div>
           <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
             <Typography variant="h6" color="white">
-               ایجاد مقاله  
+              ارسال پیام   
             </Typography>
           </CardHeader>
           <CardBody className="h-full px-0 pt-0 pb-2">
             <form
               method="post"
               onSubmit={handleSubmit}
-              className=" mt-0  flex flex-col lg:w-1/2 md:w-1/2 w-full h-full gap-6 p-6" 
+              className="px-4 lg:pr-8 md:pr-8 flex flex-col lg:w-1/2 md:w-1/2 w-full gap-4"
             >
              <div className="w-full">
-                <label className="ml-3">  عنوان مقاله </label>
+                <label className="ml-3">  عنوان  </label>
                 <input
                   onChange={(e) => {
                     setTitle(e.currentTarget.value);
@@ -137,57 +137,39 @@ export function CreateArticle() {
                 />
                 
               </div>
-              <div className="my-3 w-full">
-                <label className="ml-3">توضیحات</label>
-                <Editor
-                style={{textAlign: 'right',fontFamily:'Verdana, sans-serif'}}
-                  apiKey="gl63rdyllvfa1swq1l7dd9hvyw785dci9mmmyf2eqchka051"
-                  onInit={(evt, editor) => (editorRef.current = editor)}
-                  initialValue=""
-                  name="first_context"
-                  onEditorChange={(content, editor) => setContext(editor.getContent())}
-                  init={{
-                    height: 250,
-                    menubar: false,
-                    plugins: [
-                      "advlist",
-                      "autolink",
-                      "lists",
-                      "link",
-                      "image",
-                      "charmap",
-                      "preview",
-                      "anchor",
-                      "searchreplace",
-                      "visualblocks",
-                      "code",
-                      "fullscreen",
-                      "insertdatetime",
-                      "media",
-                      "table",
-                      "code",
-                      //   "help",
-                      "wordcount",
-                    ],
-                    toolbar:
-                      "undo redo | blocks | " +
-                      "bold italic forecolor | alignleft aligncenter " +
-                      "alignright alignjustify | bullist numlist outdent indent | " +
-                      "removeformat ",
-                    content_style:
-                      "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                  }}
-                />
-              </div>
               <div className="w-full">
-                <label className="ml-3">دسته بندی</label>
-                <CategoryDropdown
-                  category={category_id}
-                  setCategory={setCategory_id}
+                <label className="ml-3">  شماره تماس  </label>
+                <input
+                  onChange={(e) => {
+                    setMobile(e.currentTarget.value);
+                    console.log(e.currentTarget.value);
+                  }}
+                  value={mobile}
+                  type="text"
+                  className="ml-3 p-4"
+                  name="question"
+                  style={inputStyle}
+                  autoComplete="off"
                 />
+                
               </div>
-              <div className="mt-6 w-6/12">
-                <Button type="submit" className="w-2/3">ذخیره</Button>
+              <div className="w-full  ">
+                <label className=""> توضیحات  </label>
+                <textarea
+                  onChange={(e) => {
+                    setContext(e.currentTarget.value);
+                    console.log(e.currentTarget.value);
+                  }}
+                  value={context}
+                  type="text"
+                  className="ml-3 p-4 h-full "
+                  name="description"
+                  style={inputStyle}
+                >
+                </textarea>
+              </div>
+              <div className="col-span-2 mt-2 w-max">
+                <Button type="submit" className="w-4/12" style={{width:'150px'}}>ذخیره</Button>
               </div>
             </form>
           </CardBody>
@@ -198,4 +180,4 @@ export function CreateArticle() {
 
 }
 
-export default CreateArticle;
+export default CreateCustomMessage;

@@ -9,21 +9,20 @@ import {
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { createTutorials } from "@/api/services/tutorial";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
-import TutorialDropdown from "@/components/tutorial-dropdown/tutorial-dropdown";
+import { createWorkspace } from "@/api/services/workspace";
 
-export function CreatePatientContent() {
+
+export function CreateWorkspace() {
   const { userToken } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
-  const [mobile, setMobile] = useState(null);
-  const [tutorial_id,setTutorial_id] = useState(null);
-  const [imagePreview, setImagePreview] = useState();
+  const [title ,setTitle] = useState(null);
+  const [city_id, setCity_id] = useState(null);
 
-  const inputStyle = {
-    border: "1px solid gray",
+  const inputStyle = { 
+    border: "1px solid #CCC8AA",
     borderRadius: "5px",
     padding: "0.45rem",
     textAlign: "center",
@@ -38,36 +37,39 @@ export function CreatePatientContent() {
     borderRadius: "8px",
   };
 
-  const storeMessage = async (e) => {
+
+
+  const storeWorkspace = async (e) => {
     e.preventDefault();
-    const createResult = await createTutorials(
-      { mobile: mobile, tutorial_id: tutorial_id},
-      userToken
-    )
+    const createResult = await createWorkspace(
+      {
+        title:title, 
+        city_id:city_id,
+    }
+      , userToken
+      )
       .then(function (response) {
-        console.log("dataresult", response);
+        console.log('dataresult', response)
         if (response.status) {
-          toast.success(" محتوا با موفقیت ارسال شده است!");
+          toast.success("محل خدمت با موفقیت افز,ده شد!");
         } else {
           if (response?.success == false) {
             toast(
               `${
-                response?.data?.mobile != undefined ? response?.data?.mobile : ""
+                response?.title != undefined ? response?.title : ""
               } \n
                   ${
-                    response?.data?.tutorial_id != undefined
-                      ? response?.data?.tutorial_id
+                    response?.city_id != undefined
+                      ? response?.city_id
                       : ""
-                  } \n`,
-              {
+                  } \n `,{
                 duration: 2000,
-              }
+              },
             );
           }
           toast.error("خطایی رخ داده است");
         }
         console.log(response);
-        // navigate(-1);
       })
       .catch(function (error) {
         toast.error("خطا !! مجددا تلاش نمایید");
@@ -100,7 +102,7 @@ export function CreatePatientContent() {
         <Card>
           <div className="py-5">
             <Link
-              to={`/dashboard/patientcontent`}
+              to={`/dashboard/workspace`}
               className="mr-3"
               style={linkStyle}
             >
@@ -109,26 +111,32 @@ export function CreatePatientContent() {
           </div>
           <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
             <Typography variant="h6" color="white">
-              ارسال محتوا
+              ایجاد محل خدمت  
             </Typography>
           </CardHeader>
           <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
             <form
               method="post"
-              onSubmit={storeMessage}
+              onSubmit={storeWorkspace}
               className="m-6 mb-4 flex flex-wrap"
             >
               <div className="w-7/12">
-                <label className="ml-3"> عنوان محتوا</label>
-                <TutorialDropdown
-                  tutorial={tutorial_id}
-                  setTutorial={setTutorial_id}
+                <label className="ml-3">  نام شهر</label>
+                <input
+                  onChange={(e) => setTitle(e.currentTarget.value)}
+                  value={title}
+                  type="text"
+                  className="ml-3"
+                  name="name"
+                  style={inputStyle}
                 />
               </div>
-              <div className="w-7/12">
-                <label className="ml-3"> شماره موبایل </label>
+              
+              <div className="w-7/12 mt-4">
+                <label className="ml-3 block"> آیدی شهر</label>
                 <input
-                  onChange={(e) => setMobile(e.target.value)}
+                  onChange={(e) => setCity_id(e.currentTarget.value)}
+                  value={city_id}
                   type="text"
                   className="ml-3"
                   name="name"
@@ -136,7 +144,7 @@ export function CreatePatientContent() {
                 />
               </div>
               <div className="col-span-2 mt-4 w-6/12">
-                <Button type="submit">ارسال</Button>
+                <Button type="submit">ذخیره</Button>
               </div>
             </form>
           </CardBody>
@@ -146,4 +154,4 @@ export function CreatePatientContent() {
   );
 }
 
-export default CreatePatientContent;
+export default CreateWorkspace;

@@ -90,7 +90,7 @@ export const createCategory = async (name,icon, userToken) => {
     )
     .then((response) => {
       if (response.status !== 200) {
-        return null;
+        return null; 
       }
       return response;
     });

@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-
 import {
   Card,
   CardHeader,
@@ -9,76 +8,81 @@ import {
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { getBenefit,createBenefit } from "@/api/services/benefit";
+import { createNotification } from "@/api/services/notification";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 import Select from "react-select";
+import e from "cors";
 
-export function CreateSystemBenefit() {
+
+export function CreateNotif() {
   const { userToken } = useContext(AuthContext);
+  const [subject,setSubject] = useState([]);
+  const [context,setContext] = useState([]);
+  const [status,setStatus] = useState(null);
 
   const [loading, setLoading] = useState(true);
-  const [title, setTitle] = useState();
-  const [is_active, setIs_active] = useState();
-  const [selected, setSelected] = useState(null);
+  
 
   const handleChange = (selectedOption) => {
-    setIs_active(selectedOption.value);
+    setStatus(selectedOption.value);
     console.log(`Option selected:`, selectedOption.value);
   };
 
+
   const inputStyle = {
-    border: "1px solid #CCC8AA",
+    border: "1px solid #CCC8AA", 
+    outlineColor:"#0174BE",
     borderRadius: "5px",
     padding: "0.45rem",
+    width: "100%",
     marginTop: "1rem",
   };
   const linkStyle = {
-    backgroundColor: "purple",
+    backgroundColor: "#183087",
     color: "white",
     marginLeft: "1rem",
     padding: "0.5rem",
-    borderRadius: "8px", 
+    borderRadius: "8px",
   };
 
-
-
-  const storeSysBenefit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const createResult = await createBenefit(
+    const createResult = await createNotification(
       {
-      title:title,
-      is_active:is_active
-    }, userToken)
+        subject: subject,
+        context:context,
+        status:status,
+      },
+       userToken)
       .then(function (response) {
         console.log('dataresult', response)
         if (response.status) {
-          toast.success(" دسته بندی با موفقیت افزوده شد !");
+          toast.success("هشدار با موفقیت ارسال شد !");
         } else {
           if (response?.success == false) {
             toast(
               `${
-                response?.data?.title != undefined ? response?.data?.title : ""
+                response?.data?.subject != undefined ? response?.data?.subject : ""
               } \n
-                  ${
-                    response?.data?.is_active != undefined
-                      ? response?.data?.is_active
-                      : ""
-                  } \n`,
-              {
+              ${
+                response?.data?.context != undefined ? response?.data?.context : ""
+              } \n
+              ${
+                response?.data?.status != undefined ? response?.data?.status : ""
+              } \n`,{
                 duration: 2000,
-              }
+              },
             );
           }
           toast.error("خطایی رخ داده است");
         }
         console.log(response);
-        // navigate(-1);
       })
       .catch(function (error) {
         toast.error("خطا !! مجددا تلاش نمایید");
         console.log("error :", error);
-        // console.log(data);
+        console.log(data);
       });
 
     return createResult;
@@ -104,10 +108,10 @@ export function CreateSystemBenefit() {
           />
         </div>
       ) : (
-        <Card style={{height:'570px'}}>
+        <Card style={{height:"570px"}}>
           <div className="py-5">
             <Link
-              to={`/dashboard/benefit`}
+              to={`/dashboard/notification`}
               className="mr-3"
               style={linkStyle}
             >
@@ -116,38 +120,53 @@ export function CreateSystemBenefit() {
           </div>
           <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
             <Typography variant="h6" color="white">
-              ساخت عنوان جدید
+              ارسال اعلان   
             </Typography>
           </CardHeader>
-          <CardBody className="w-full px-0 pt-0 pb-2">
+          <CardBody className="h-full px-0 pt-0 pb-2">
             <form
               method="post"
-              onSubmit={storeSysBenefit}
-              className="m-6 mb-4 flex flex-wrap flex-col gap-7"
+              onSubmit={handleSubmit}
+              className="px-4 lg:pr-8 md:pr-8 flex flex-col lg:w-1/2 md:w-1/2 w-full gap-4"
             >
-              <div className="w-7/12 flex flex-col">
-                <label className="ml-2"> عنوان فواید </label>
-                <textarea
-                  onChange={(e) =>{
-                    setTitle(e.target.value)
-                    console.log(title);
-                    console.log(e.target.value)
-                  } }
-                  value={title}
+             <div className="w-full">
+                <label className="ml-3">  عنوان اعلان  </label>
+                <input
+                  onChange={(e) => {
+                    setSubject(e.currentTarget.value);
+                    console.log(e.currentTarget.value);
+                  }}
+                  value={subject}
                   type="text"
-                  className="mt-4 outline-none "
-                  name="name"
+                  className="ml-3 p-4"
+                  name="subject"
                   style={inputStyle}
-                /> 
+                  autoComplete="off"
+                />
               </div>
-
-                 <div className="">
-                          <label htmlFor="isActive">وضعیت نمایش</label>
+              <div className="w-full  ">
+                <label className=""> توضیحات  </label>
+                <textarea
+                  onChange={(e) => {
+                    setContext(e.currentTarget.value);
+                    console.log(e.currentTarget.value);
+                  }}
+                  value={context}
+                  type="text"
+                  className="ml-3 p-4 h-full "
+                  name="context"
+                  style={inputStyle}
+                >
+                </textarea>
+              </div>
+              <div className="">
+                          <label htmlFor="statusSelect">وضعیت </label>
                           <Select
-                            id="isActive"
-                            className="lg:w-7/12 md:w-7/12 w-full mt-2"
+                            id="statusSelect"
+                            className="w-full mt-2"
                             onChange={handleChange} autoFocus={true}
-                            value={is_active}
+                            value={status}
+                            defaultValue={status ? status : null}
                             options={[
                               {
                                 value: true,
@@ -160,7 +179,7 @@ export function CreateSystemBenefit() {
                             ]}
                           />
                     </div>
-              <div className="col-span-2 mt-4 w-max">
+              <div className="col-span-2 mt-2 w-max">
                 <Button type="submit" className="w-4/12" style={{width:'150px'}}>ذخیره</Button>
               </div>
             </form>
@@ -169,6 +188,7 @@ export function CreateSystemBenefit() {
       )}
     </>
   );
+
 }
 
-export default CreateSystemBenefit;
+export default CreateNotif;

@@ -14,19 +14,16 @@ import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 import CategoryDropdown from "@/components/category-dropdown/category-dropdown";
 
-
 export function CreateVideo() {
   const { userToken } = useContext(AuthContext);
 
   const [file_name, setFile_Name] = useState();
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(true);
-  const [videos,setVideos] = useState(null);
+  const [videos, setVideos] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
-
   const [category_id, setCategory_id] = useState(null);
-
 
   const inputStyle = {
     border: "1px solid gray",
@@ -44,7 +41,6 @@ export function CreateVideo() {
     borderRadius: "8px",
   };
 
-
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     // setIcon(file)
@@ -56,48 +52,47 @@ export function CreateVideo() {
     setImagePreview(file_url);
   };
 
-//   const handleUpload = () => {
-//     // Assuming the API endpoint URL
+  //   const handleUpload = () => {
+  //     // Assuming the API endpoint URL
 
-//     // Create a FormData object
-//     const formData = new FormData();
+  //     // Create a FormData object
+  //     const formData = new FormData();
 
-//     // Append the file to the FormData object
-//     formData.append('file', file_name);
+  //     // Append the file to the FormData object
+  //     formData.append('file', file_name);
 
-//     // Using the Fetch API to send a POST request with the file in the body
-//     fetch(`${baseUrl/api/store}`, {
-//       method: 'POST',
-//       body: formData,
-//     })
-//       .then(response => {
-//         if (!response.ok) {
-//           throw new Error('Network response was not ok');
-//         }
-//         return response.json(); // Parse the JSON response
-//       })
-//       .then(data => {
-//         // Handle the data from the response
-//         console.log(data);
-//       })
-//       .catch(error => {
-//         // Handle errors
-//         console.error('There was a problem with the fetch operation:', error);
-//       });
-//   };
-
-
+  //     // Using the Fetch API to send a POST request with the file in the body
+  //     fetch(`${baseUrl/api/store}`, {
+  //       method: 'POST',
+  //       body: formData,
+  //     })
+  //       .then(response => {
+  //         if (!response.ok) {
+  //           throw new Error('Network response was not ok');
+  //         }
+  //         return response.json(); // Parse the JSON response
+  //       })
+  //       .then(data => {
+  //         // Handle the data from the response
+  //         console.log(data);
+  //       })
+  //       .catch(error => {
+  //         // Handle errors
+  //         console.error('There was a problem with the fetch operation:', error);
+  //       });
+  //   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const createResult = await createVideo(
       {
-          title:title,
-          file_name:file_name,
+        title: title,
+        file_name: file_name,
       },
-       userToken)
+      userToken
+    )
       .then(function (response) {
-        console.log('dataresult', response)
+        console.log("dataresult", response);
         if (response.status) {
           toast.success("عنوان با موفقیت درج شد");
         } else {
@@ -107,10 +102,13 @@ export function CreateVideo() {
                 response?.data?.title != undefined ? response?.data?.title : ""
               } \n
               ${
-                response?.data?.file_name != undefined ? response?.data?.file_name :""
-              } \n`,{
+                response?.data?.file_name != undefined
+                  ? response?.data?.file_name
+                  : ""
+              } \n`,
+              {
                 duration: 2000,
-              },
+              }
             );
           }
           toast.error("خطایی رخ داده است");
@@ -147,11 +145,7 @@ export function CreateVideo() {
       ) : (
         <Card>
           <div className="py-5">
-            <Link
-              to={`/dashboard/video`}
-              className="mr-3"
-              style={linkStyle}
-            >
+            <Link to={`/dashboard/video`} className="mr-3" style={linkStyle}>
               بازگشت
             </Link>
           </div>
@@ -167,9 +161,9 @@ export function CreateVideo() {
               className="m-6 mb-4 flex flex-wrap"
             >
               <div className="w-7/12">
-                <label className="ml-3"> عنوان  </label>
+                <label className="ml-3"> عنوان </label>
                 <input
-                 onChange={(e) => setTitle(e.currentTarget.value)}
+                  onChange={(e) => setTitle(e.currentTarget.value)}
                   value={title}
                   type="text"
                   className="ml-3"
@@ -178,7 +172,7 @@ export function CreateVideo() {
                 />
               </div>
 
-              <div className="w-7/12 mt-4">
+              <div className="mt-4 w-7/12">
                 <label className="ml-3 block">فایل ویدئو:</label>
                 <div className="flex items-center gap-3">
                   <input
@@ -189,11 +183,25 @@ export function CreateVideo() {
                     onChange={handleFileChange}
                   />
                   <div className=" h-20 w-36 rounded-md border-2 p-3">
-                    <img
+                    <video width="400" controls>
+                      <source
+                        src={imagePreview ?? "../../images/no-image.svg"}
+                        type="video/mp4"
+                      />
+                    </video>
+                    {/* <img
                       className="h-full w-full rounded-md object-cover"
                       src={imagePreview ?? "../../images/no-image.svg"}
                       alt="آپلود ویدئو"
-                    />
+                    /> */}
+                  </div>
+                  <div>
+                    <video width="400" controls>
+                      <source
+                        src={imagePreview ?? "../../images/no-image.svg"}
+                        type="video/mp4"
+                      />
+                    </video>
                   </div>
                 </div>
               </div>
@@ -205,9 +213,8 @@ export function CreateVideo() {
                 />
               </div> */}
 
-
               <div className="col-span-2 mt-4 w-6/12">
-                <Button type="submit" >ذخیره</Button>
+                <Button type="submit">ذخیره</Button>
               </div>
             </form>
           </CardBody>

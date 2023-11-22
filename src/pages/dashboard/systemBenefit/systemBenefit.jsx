@@ -35,9 +35,8 @@ function SystemBenefit() {
 
 
   const getBenefits = async () => {
-    const result = await getBenefit(userToken)
+    const result = await getBenefit()
       .then(function (response) {
-        console.log("response", response);
         setBenefits(response?.data);
       })
       .catch(function (err) {
@@ -63,7 +62,6 @@ function SystemBenefit() {
   const deleteSystemBenefits = async (id) => {
     const deleteResult = await deleteBenefit(id, userToken)
       .then(function (response) {
-        console.log('delete res',response);
         if (response.status) {
           toast.success("حذف با موفقیت انجام شد !");
           setSysBenefit(sysBenefit.filter((benefit) => benefit.id !== id));

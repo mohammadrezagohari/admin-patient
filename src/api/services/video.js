@@ -1,12 +1,9 @@
 import { useQuery } from "react-query";
 import apiClient from "../apiClient";
 
-
 const auth_header_files = {
   "Content-Type": "multipart/form-data",
   Accept: "application/json",
-  "Access-Control-Request-Method": "POST",
-  "Access-Control-Request-Headers": "content-type,x-xsrf-token",
 };
 
 export const getVideo = async () => {
@@ -21,24 +18,24 @@ export const getVideo = async () => {
 
 export const createVideo = async (values, userToken) => {
   auth_header_files.Authorization = `Bearer ${userToken}`;
-//   const { data, error, isLoading } = useData("video/store");
+  //   const { data, error, isLoading } = useData("video/store");
   const response = await apiClient.post(
     `video/store`,
     {
-     file_name: values.file_name,
-     title: values.title,
+      file_name: values.file_name,
+      title: values.title,
     },
     {
       headers: auth_header_files,
     }
   );
-  if (!response.status) { 
+  if (!response.status) {
     return null;
   }
   return response?.data;
 };
 
-export const showVideo = async (id,userToken) => {
+export const showVideo = async (id, userToken) => {
   auth_header_files.Authorization = `Bearer ${userToken}`;
   const response = await apiClient.get(`video/show/${id}`, {
     headers: auth_header_files,
@@ -54,9 +51,9 @@ export const updateVideo = async (id, values, userToken) => {
   const response = await apiClient.patch(
     `video/update/${id}`,
     {
-     file_name: values.file_name,
-     title: values.title,
-     description: values.description,
+      file_name: values.file_name,
+      title: values.title,
+      description: values.description,
     },
     {
       headers: auth_header_files,
@@ -79,7 +76,6 @@ export const deleteVideo = async (id, userToken) => {
   return response?.data;
 };
 
-
 // import baseUrl from "@/configs/base-url";
 // import apiClient from "../apiClient";
 
@@ -98,7 +94,7 @@ export const deleteVideo = async (id, userToken) => {
 //   "Access-Control-Request-Method": "POST",
 //   "Access-Control-Request-Headers": "Content-Type, Accept",
 // };
-  
+
 //   export const getGoal = async () => {
 //     const response = await apiClient.get("/goal?count=100", {
 //       headers: auth_header,
@@ -106,9 +102,9 @@ export const deleteVideo = async (id, userToken) => {
 //     if (!response.status) {
 //       return null;
 //     }
-//     return response?.data; 
+//     return response?.data;
 //   };
-  
+
 //   export const createGoal = async (values, userToken) => {
 //     auth_header.Authorization = `Bearer ${userToken}`;
 //     const response = await apiClient.post(
@@ -129,7 +125,7 @@ export const deleteVideo = async (id, userToken) => {
 //     });
 //   return response;
 // };
-  
+
 //   export const showGoal = async (id,userToken) => {
 //     auth_header.Authorization = `Bearer ${userToken}`;
 //     const response = await apiClient.get(`goal/show/${id}`, {
@@ -140,7 +136,7 @@ export const deleteVideo = async (id, userToken) => {
 //     }
 //     return response?.data;
 //   };
-  
+
 //   export const updateGoal= async (id, values, userToken) => {
 //     auth_header.Authorization = `Bearer ${userToken}`;
 //     const response = await apiClient.patch(
@@ -158,7 +154,7 @@ export const deleteVideo = async (id, userToken) => {
 //     }
 //     return response?.data;
 //   };
-  
+
 //   export const deleteGoal = async (id,userToken) => {
 //     auth_header.Authorization = `Bearer ${userToken}`;
 //     const response = await apiClient.delete(`goal/delete/${id}`, {
@@ -169,16 +165,15 @@ export const deleteVideo = async (id, userToken) => {
 //     }
 //     return response?.data;
 //   };
-  
-  // -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
 //   import { useQuery } from "react-query";
 //   import apiClient from "../apiClient";
 //   import baseUrl from "@/configs/base-url";
-  
+
 // var myHeaders = new Headers();
 // myHeaders.append("Content-Type", "application/json");
 // myHeaders.append("Accept", "application/json");
-
 
 // export const getVideo = async (userToken)=>{
 //   myHeaders.append("Authorization", `Bearer ${userToken}`);
@@ -200,8 +195,6 @@ export const deleteVideo = async (id, userToken) => {
 
 // }
 
-
-
 // export const showVideo = async (id,userToken)=>{
 //   myHeaders.append("Authorization", `Bearer ${userToken}`);
 
@@ -221,7 +214,6 @@ export const deleteVideo = async (id, userToken) => {
 //   return JSON.parse(mainResult);
 
 // }
-
 
 // export const createVideo = async (values,userToken) => {
 //   myHeaders.append("Authorization", `Bearer ${userToken}`);
@@ -246,8 +238,6 @@ export const deleteVideo = async (id, userToken) => {
 //     return JSON.parse(mainResult);
 //   };
 
-
-
 //   export const updateVideo = async (id,values,userToken) => {
 //     myHeaders.append("Authorization", `Bearer ${userToken}`);
 //       var raw = JSON.stringify({
@@ -270,7 +260,6 @@ export const deleteVideo = async (id, userToken) => {
 //         .catch((error) => console.log("error", error));
 //       return JSON.parse(mainResult);
 //     };
-  
 
 //     export const deleteVideo = async (id,userToken) => {
 //       myHeaders.append("Authorization", `Bearer ${userToken}`);
@@ -289,5 +278,3 @@ export const deleteVideo = async (id, userToken) => {
 //           .catch((error) => console.log("error", error));
 //         return JSON.parse(mainResult);
 //       };
-  
-

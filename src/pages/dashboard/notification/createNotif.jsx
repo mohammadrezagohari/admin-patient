@@ -12,7 +12,6 @@ import { createNotification } from "@/api/services/notification";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 import Select from "react-select";
-import e from "cors";
 
 
 export function CreateNotif() {

@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { getBenefit,createBenefit } from "@/api/services/benefit";
+import { getBenefit, createBenefit } from "@/api/services/benefit";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 import Select from "react-select";
@@ -24,7 +24,6 @@ export function CreateSystemBenefit() {
 
   const handleChange = (selectedOption) => {
     setIs_active(selectedOption.value);
-    console.log(`Option selected:`, selectedOption.value);
   };
 
   const inputStyle = {
@@ -38,20 +37,19 @@ export function CreateSystemBenefit() {
     color: "white",
     marginLeft: "1rem",
     padding: "0.5rem",
-    borderRadius: "8px", 
+    borderRadius: "8px",
   };
-
-
 
   const storeSysBenefit = async (e) => {
     e.preventDefault();
     const createResult = await createBenefit(
       {
-      title:title,
-      is_active:is_active
-    }, userToken)
+        title: title,
+        is_active: is_active,
+      },
+      userToken
+    )
       .then(function (response) {
-        console.log('dataresult', response)
         if (response.status) {
           toast.success(" دسته بندی با موفقیت افزوده شد !");
         } else {
@@ -72,13 +70,10 @@ export function CreateSystemBenefit() {
           }
           toast.error("خطایی رخ داده است");
         }
-        console.log(response);
         // navigate(-1);
       })
       .catch(function (error) {
         toast.error("خطا !! مجددا تلاش نمایید");
-        console.log("error :", error);
-        // console.log(data);
       });
 
     return createResult;
@@ -104,13 +99,9 @@ export function CreateSystemBenefit() {
           />
         </div>
       ) : (
-        <Card style={{height:'570px'}}>
+        <Card style={{ height: "570px" }}>
           <div className="py-5">
-            <Link
-              to={`/dashboard/benefit`}
-              className="mr-3"
-              style={linkStyle}
-            >
+            <Link to={`/dashboard/benefit`} className="mr-3" style={linkStyle}>
               بازگشت
             </Link>
           </div>
@@ -123,45 +114,50 @@ export function CreateSystemBenefit() {
             <form
               method="post"
               onSubmit={storeSysBenefit}
-              className="m-6 mb-4 flex flex-wrap flex-col gap-7"
+              className="m-6 mb-4 flex flex-col flex-wrap gap-7"
             >
-              <div className="w-7/12 flex flex-col">
+              <div className="flex w-7/12 flex-col">
                 <label className="ml-2"> عنوان فواید </label>
                 <textarea
-                  onChange={(e) =>{
-                    setTitle(e.target.value)
-                    console.log(title);
-                    console.log(e.target.value)
-                  } }
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                  }}
                   value={title}
                   type="text"
                   className="mt-4 outline-none "
                   name="name"
                   style={inputStyle}
-                /> 
+                />
               </div>
 
-                 <div className="">
-                          <label htmlFor="isActive">وضعیت نمایش</label>
-                          <Select
-                            id="isActive"
-                            className="lg:w-7/12 md:w-7/12 w-full mt-2"
-                            onChange={handleChange} autoFocus={true}
-                            value={is_active}
-                            options={[
-                              {
-                                value: true,
-                                label: "فعال",
-                              },
-                              {
-                                value: false,
-                                label: "غیرفعال",
-                              },
-                            ]}
-                          />
-                    </div>
+              <div className="">
+                <label htmlFor="isActive">وضعیت نمایش</label>
+                <Select
+                  id="isActive"
+                  className="mt-2 w-full md:w-7/12 lg:w-7/12"
+                  onChange={handleChange}
+                  autoFocus={true}
+                  // value={is_active}
+                  options={[
+                    {
+                      value: true,
+                      label: "فعال",
+                    },
+                    {
+                      value: false,
+                      label: "غیرفعال",
+                    },
+                  ]}
+                />
+              </div>
               <div className="col-span-2 mt-4 w-max">
-                <Button type="submit" className="w-4/12" style={{width:'150px'}}>ذخیره</Button>
+                <Button
+                  type="submit"
+                  className="w-4/12"
+                  style={{ width: "150px" }}
+                >
+                  ذخیره
+                </Button>
               </div>
             </form>
           </CardBody>

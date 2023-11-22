@@ -23,6 +23,7 @@ import { showProfile, updateProfiles } from "@/api/services/auth-api";
 import CityDropdown from "@/components/cities/CityDropdown";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
+import { showUser } from "@/api/services/users";
 export function EditUser() {
   const { userToken } = useContext(AuthContext);
   const { id } = useParams();
@@ -50,9 +51,8 @@ export function EditUser() {
   };
 
   const showUserProfileInfo = async (id) => {
-    const showResult = await showProfile(id, userToken)
+    const showResult = await showUser(id, userToken)
       .then(function (response) {
-        console.log('user info',response?.data);
         setUserInfo(response?.data);
       })
       .catch(function (err) {
@@ -161,16 +161,29 @@ export function EditUser() {
                         className="m-6 mb-4 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2"
                       >
                         <div className="">
-                          <label htmlFor="full_name">نام ونام خانوادگی:</label>
+                          <label htmlFor="first_name">نام :</label>
                           <Input
                             component="input"
                             onChange={handleChange}
                             type="text"
                             className="ml-3"
                             // style={inputStyle}
-                            name="full_name"
-                            value={values?.full_name}
-                            label="نام ونام خانوادگی"
+                            name="first_name"
+                            value={values?.first_name}
+                            label="نام "
+                          />
+                        </div>
+                        <div className="">
+                          <label htmlFor="last_name">نام خانوادگی:</label>
+                          <Input
+                            component="input"
+                            onChange={handleChange}
+                            type="text"
+                            className="ml-3"
+                            // style={inputStyle}
+                            name="last_name"
+                            value={values?.last_name}
+                            label="نام خانوادگی"
                           />
                         </div>
 
@@ -193,7 +206,7 @@ export function EditUser() {
                           <label htmlFor="sex">جنسیت</label>
                           <Select
                             id="sex"
-                            className=""
+                            className="mt-4"
                             options={[
                               {
                                 value: "men",
@@ -210,39 +223,14 @@ export function EditUser() {
                             }}
                           />
                         </div>
-                        <br />
-                      
-                        <div className="">
-                          <Input
-                            component="input"
-                            onChange={handleChange}
-                            type="text"
-                            className="ml-3"
-                            // style={inputStyle}
-                            name="is_student"
-                            value={values?.is_student == "true" ? "بله" : "خیر"}
-                            label="آیا کاربر دانش آموز است"
-                          />
-                        </div>
-
-                        {/* <div className="">
-                          <ProvinceDropdown
-                            province_id={province_id}
-                            setProvince_id={setProvince_id}
-                          />
-                        </div> */}
 
                         <div className="">
                           <CityDropdown
                             city_id={city_id}
                             setCity_id={setCity_id}
-                            province_id={province_id}
                           />
                         </div>
                      
-                     
-                      
-
                         <div className="col-span-2">
                           <Button className="mt-4" type="submit" size="md">
                             ذخیره

@@ -20,31 +20,27 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 // import ProvinceDropdown from "@/components/provinces/ProvinceDropdown";
 import { showProfile, updateProfiles } from "@/api/services/auth-api";
-import CitiesDropdown from "@/components/citiesDropDown/citiesDropDown";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 import { showUser } from "@/api/services/users";
+import CitiesDropdown from "@/components/citiesDropDown/citiesDropDown";
+import WorkspaceDropdown from "@/components/workspace-dropdown/workspace-dropdown";
 export function EditUser() {
   const { userToken } = useContext(AuthContext);
   const { id } = useParams();
-  const [familiar_id, setFamiliar_id] = useState([]);
-  const [field_id, setField_id] = useState([]);
-  const [school_id, setSchool_id] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
-  const [grade_id, setGrade] = useState([]);
   const [city_id, setCity_id] = useState([]);
-  const [province_id, setProvince_id] = useState(null);
   const [sex, setSex] = useState("");
   const [loading, setLoading] = useState(true);
+  const [workspace, setWorkspace] = useState(nulll);
+
   const initialValues = {
     avatar: userInfo?.avatar,
-    full_name: userInfo?.full_name,
+    first_name: userInfo?.first_name,
+    last_name: userInfo?.last_name,
     mobile: userInfo?.mobile,
-    is_student: userInfo?.is_student,
-    field_id: userInfo?.field_id,
-    grade_id: userInfo?.grade_id,
-    school_id: userInfo?.school_id,
-    familiar_id: userInfo?.familiar_id,
+    is_enable: userInfo?.is_enable,
+    workspace: userInfo?.workspace,
     city_id: userInfo?.city_id,
     province_id: userInfo?.province_id,
     sex: userInfo?.sex,
@@ -225,12 +221,46 @@ export function EditUser() {
                         </div>
 
                         <div className="">
+                          <label htmlFor="is_enable">وضعیت حساب</label>
+                          <Select
+                            id="is_enable"
+                            className="mt-4"
+                            options={[
+                              {
+                                value: "0",
+                                label: "غیرفعال",
+                              },
+                              {
+                                value: "1",
+                                label: "فعال",
+                              },
+                            ]}
+                            defaultValue={{
+                              value: values?.is_enable,
+                              label:
+                                values?.is_enable == "1" ? "فعال" : "غیرفعال",
+                            }}
+                          />
+                        </div>
+
+                        <div className="">
+                          <label htmlFor="is_enable">شهر</label>
+
                           <CitiesDropdown
                             city_id={city_id}
                             setCity_id={setCity_id}
                           />
                         </div>
-                     
+
+                        <div className="">
+                          <label htmlFor="workspace_id">شهر</label>
+
+                          <WorkspaceDropdown
+                            workspace={city_id}
+                            setWorkspace={setCity_id}
+                          />
+                        </div>
+
                         <div className="col-span-2">
                           <Button className="mt-4" type="submit" size="md">
                             ذخیره

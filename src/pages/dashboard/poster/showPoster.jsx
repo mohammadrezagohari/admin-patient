@@ -13,9 +13,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
-import { getPoster,updatePoster,showPoster } from "@/api/services/poster";
+import { updatePoster,showPoster } from "@/api/services/poster";
 import CategoryDropdown from "@/components/category-dropdown/category-dropdown";
-
+import { Formik } from "formik";
 
 export function ShowPoster() {
   const { userToken } = useContext(AuthContext);
@@ -24,11 +24,24 @@ export function ShowPoster() {
   const [loading, setLoading] = useState(true);
   const [poster ,setPoster] = useState(null);
   const [title, setTitle] = useState(null); 
-  const [posterData,setPosterData] = useState()
-
+  const [posterData ,setPosterData] = useState(null);
+  const [category_id, setCategory_id] = useState(null); 
   const [imagePreview, setImagePreview] = useState(null);
 
-  const [category_id, setCategory_id] = useState(null);
+  // const [values,setValues] = useState({
+  //   title:'',
+  //   poster:null,
+  //   category_id:'',
+  // })
+
+
+  const initialValues={
+    poster:poster,
+    title:title,
+    category_id:category_id,
+  }
+
+
 
   const inputStyle = {
     border: "1px solid gray",
@@ -55,6 +68,7 @@ export function ShowPoster() {
     console.log("file_url", file_url);
     console.log("image target", event.target.files[0]);
     setPoster(event.target.files[0]);
+    // setValues({...values,poster: e.target.files[0]})
     setImagePreview(file_url);
   };
 
@@ -62,7 +76,8 @@ export function ShowPoster() {
     const showResult = await showPoster(id,userToken)
       .then(function (response) {
         setPosterData(response?.data);
-        console.log(data);
+        // setValues({...values,title:response.data?.title,poster:response.data?.poster,category_id:response.data?.category_id})
+        console.log(response?.data?.category_id);
       })
       .catch(function (error) {
         console.log(error.message);
@@ -74,20 +89,13 @@ export function ShowPoster() {
   }, []); 
 
   const editPoster= async (id, values) => {
-    const editResult = await updateSchool(id, 
-      {
-        poster:poster,
-        title:title, 
-        category_id:category_id
-    }
-      , userToken
-      )
+    const editResult = await updatePoster(id, values, userToken)
       .then(function (response) {
         if (response.data.status == true) {
           toast.success("تغییرات با موفقیت انجام گرفت");
         }
         console.log(response.data.message);
-        navigate("/dashboard/poster");
+        // navigate(`dashboard/poster/update/${id}`);
       })
       .catch(function (error) {
         toast.error("خطا !! مجددا تلاش نمایید");
@@ -132,17 +140,37 @@ export function ShowPoster() {
           </div>
           <CardHeader variant="gradient" color="blue" className="mb-8 mt-3 p-6">
             <Typography variant="h6" color="white">
-              ساخت پوستر جدید
+              ویرایش پوستر جدید
             </Typography>
           </CardHeader>
-          <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+          <CardBody className="px-0 pt-0 pb-2 h-max">
+            <Formik
+              initialValues={initialValues}
+              enableReinitialize={true}
+              encType="multipart/form/data"
+              onSubmit={(values)=>{
+                editPoster(id,values);
+              }}
+              >
+            {({handleSubmit,handleChange,values,errors})=>(
             <form
               method="post"
-              onSubmit={editPoster}
+              onSubmit={handleSubmit}
               className="m-6 mb-4 flex flex-wrap"
             >
-       
-              
+              <div className="w-7/12">
+                <label className="ml-3"> عنوان پوستر</label>
+                <input
+                  // onChange={(e) => setValues({...values,title: e.currentTarget.value})}
+                  onChange={(e)=> setTitle(e.target.value)}
+                  value={values?.title}
+                  defaultValue={values.title}
+                  type="text"
+                  className="ml-3"
+                  name="title"
+                  style={inputStyle}
+                />
+              </div>
               <div className="w-7/12 mt-4">
                 <label className="ml-3 block">فایل پوستر:</label>
                 <div className="flex items-center gap-3">
@@ -156,34 +184,32 @@ export function ShowPoster() {
                   <div className=" h-20 w-36 rounded-md border-2 p-3">
                     <img
                       className="h-full w-full rounded-md object-cover"
-                      src={imagePreview ?? "../../images/no-image.svg"}
+                      src={imagePreview ?? "../../../images/no-image.svg"}
                       alt="آپلود عکس"
                     />
                   </div>
                 </div>
               </div>
               <div className="w-7/12">
-                <label className="ml-3"> عنوان پوستر</label>
-                <input
-                  onChange={(e) => setTitle(e.currentTarget.value)}
-                  value={title}
-                  type="text"
-                  className="ml-3"
-                  name="title"
-                  style={inputStyle}
-                />
-              </div>
-              <div className="w-7/12">
                 <label className="ml-3">دسته بندی</label>
                 <CategoryDropdown
                   category={category_id}
                   setCategory={setCategory_id}
+                  selected_id={posterData?.id}
                 />
               </div>
               <div className="col-span-2 mt-4 w-6/12">
                 <Button type="submit">ذخیره</Button>
               </div>
-            </form>
+              {
+                errors.name &&(
+                  <div style={{color:'red'}}>{errors.name}</div>
+                )
+              } 
+
+              </form>
+      )}
+            </Formik>
           </CardBody>
         </Card>
       )}

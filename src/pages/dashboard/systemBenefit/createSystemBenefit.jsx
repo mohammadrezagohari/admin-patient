@@ -51,7 +51,7 @@ export function CreateSystemBenefit() {
     )
       .then(function (response) {
         if (response.status) {
-          toast.success(" دسته بندی با موفقیت افزوده شد !");
+          toast.success("  عنوان با موفقیت افزوده شد !");
         } else {
           if (response?.success == false) {
             toast(

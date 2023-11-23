@@ -27,6 +27,7 @@ function Poster() {
   const [poster, setPoster] = useState();
 
 
+
   
   const navigate = useNavigate();
 
@@ -152,7 +153,7 @@ function Poster() {
                         </td>
                         <td className={className}>
                           <Link
-                            to={`/dashboard/poster/show/${poster.id}`}
+                            to={`/dashboard/poster/show/${posters.id}`}
                             style={linkStyle}
                           >
                             اصلاح
@@ -189,4 +190,4 @@ function Poster() {
 
 
 
-  export default Poster;
+  export default Poster; 

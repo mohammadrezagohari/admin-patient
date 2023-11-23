@@ -38,7 +38,7 @@ import CreateVideo from "./pages/dashboard/video/createVideo";
 import Article from "./pages/dashboard/articles/articles";
 import CreateArticle from "./pages/dashboard/articles/createArticle";
 import Workspace from "./pages/dashboard/workspace/workspace";
-// import ShowPoster from "./pages/dashboard/poster/showPoster";
+import ShowPoster from "./pages/dashboard/poster/showPoster";
 import CreateTutorialsWizard from "./pages/dashboard/tutorials/create-tutorials-wizard";
 import CreateWorkspace from "./pages/dashboard/workspace/createWorkspace";
 import CustomMessage from "./pages/dashboard/customMessage/customMessage";
@@ -124,7 +124,7 @@ function App() {
 
             <Route path="/dashboard/poster" element={<Poster />} />
             <Route path="/dashboard/poster/create" element={<CreatePoster />} />
-            {/* <Route path="/dashboard/poster/show/:id" element={<ShowPoster />} */}
+            <Route path="/dashboard/poster/show/:id" element={<ShowPoster />}/>
             
             <Route path="/dashboard/benefit" element={<SystemBenefit />} />
             <Route path="/dashboard/benefit/create" element={<CreateSystemBenefit />} />

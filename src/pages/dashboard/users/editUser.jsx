@@ -29,10 +29,10 @@ export function EditUser() {
   const { userToken } = useContext(AuthContext);
   const { id } = useParams();
   const [userInfo, setUserInfo] = useState([]);
-  const [city_id, setCity_id] = useState([]);
+  const [city_id, setCity_id] = useState(null);
   const [sex, setSex] = useState("");
   const [loading, setLoading] = useState(true);
-  const [workspace, setWorkspace] = useState(nulll);
+  const [workspace, setWorkspace] = useState(null);
 
   const initialValues = {
     avatar: userInfo?.avatar,
@@ -42,8 +42,8 @@ export function EditUser() {
     is_enable: userInfo?.is_enable,
     workspace: userInfo?.workspace,
     city_id: userInfo?.city_id,
-    province_id: userInfo?.province_id,
     sex: userInfo?.sex,
+    password: userInfo?.password,
   };
 
   const showUserProfileInfo = async (id) => {
@@ -199,6 +199,21 @@ export function EditUser() {
                         </div>
 
                         <div className="">
+                          <label htmlFor="password">گذرواژه :</label>
+                          <Input
+                            component="input"
+                            onChange={handleChange}
+                            type="password"
+                            className="ml-3"
+                            // style={inputStyle}
+                            name="password"
+                            id="password"
+                            value={values?.password}
+                            label="گذرواژه"
+                          />
+                        </div>
+
+                        <div className="">
                           <label htmlFor="sex">جنسیت</label>
                           <Select
                             id="sex"
@@ -244,21 +259,26 @@ export function EditUser() {
                         </div>
 
                         <div className="">
-                          <label htmlFor="is_enable">شهر</label>
-
+                          <label htmlFor="city_id">شهر</label>
                           <CitiesDropdown
-                            city_id={city_id}
-                            setCity_id={setCity_id}
+                            //    selected_id={}
+                            id="city_id"
+                            cities={city_id}
+                            setCities={setCity_id}
                           />
                         </div>
 
                         <div className="">
-                          <label htmlFor="workspace_id">شهر</label>
-
-                          <WorkspaceDropdown
-                            workspace={city_id}
-                            setWorkspace={setCity_id}
-                          />
+                          <label htmlFor="workspace_id">محل خدمت</label>
+                          {city_id ? (
+                            <WorkspaceDropdown
+                              city_id={city_id}
+                              workspace={workspace}
+                              setWorkspace={setWorkspace}
+                            />
+                          ) : (
+                            <div>در انتظار انتخاب شهر</div>
+                          )}
                         </div>
 
                         <div className="col-span-2">

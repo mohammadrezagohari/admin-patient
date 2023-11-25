@@ -130,7 +130,7 @@ function Workspace() {
                   </tr>
                 </thead>
                 <tbody>
-                  {workspace?.map((wspc, key) => {
+                  {workspace?.data?.map((wspc, key) => {
                     const className = `py-3 px-5 ${
                       key === 10 - 1
                         ? ""
@@ -146,7 +146,7 @@ function Workspace() {
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            { ` ${wspc.title}` }
+                            { ` ${wspc.name}` }
                           </Typography>
                         </td>
                         <td className={className}>

@@ -51,7 +51,7 @@ const CitiesDropdown = ({ cities, setCities, selected_id = null }) => {
         defaultValue={selected ? selected : null}
         placeholder="شهر مورد نظر را انتخاب کنید"
         onChange={(e) => {
-          setCities(e.value);
+            setCities(e.value);
         }}
       />
     </div>

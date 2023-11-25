@@ -16,6 +16,7 @@ import { AuthContext } from "@/gard/context/AuthContext";
 import { updatePoster,showPoster } from "@/api/services/poster";
 import CategoryDropdown from "@/components/category-dropdown/category-dropdown";
 import { Formik } from "formik";
+import { object } from "prop-types";
 
 export function ShowPoster() {
   const { userToken } = useContext(AuthContext);
@@ -35,11 +36,11 @@ export function ShowPoster() {
   // })
 
 
-  const initialValues={
-    poster:poster,
-    title:title,
-    category_id:category_id,
-  }
+  // const initialValues={
+  //   poster:poster,
+  //   title:title,
+  //   category_id:category_id,
+  // }
 
 
 
@@ -76,8 +77,11 @@ export function ShowPoster() {
     const showResult = await showPoster(id,userToken)
       .then(function (response) {
         setPosterData(response?.data);
+        setTitle(response.data.title);
+        setPoster(response.data.poster);
+        setCategory_id(response.data.category_id);
         // setValues({...values,title:response.data?.title,poster:response.data?.poster,category_id:response.data?.category_id})
-        console.log(response?.data?.category_id);
+        console.log(response?.data);
       })
       .catch(function (error) {
         console.log(error.message);
@@ -88,14 +92,14 @@ export function ShowPoster() {
     showPosters(id);
   }, []); 
 
-  const editPoster= async (id, values) => {
-    const editResult = await updatePoster(id, values, userToken)
+  const editPoster= async (id, initialValues) => {
+    const editResult = await updatePoster(id, initialValues, userToken)
       .then(function (response) {
+        console.log(initialValues);
+        console.log("sssssssss", JSON.stringify(response.data));
         if (response.data.status == true) {
           toast.success("تغییرات با موفقیت انجام گرفت");
         }
-        console.log(response.data.message);
-        // navigate(`dashboard/poster/update/${id}`);
       })
       .catch(function (error) {
         toast.error("خطا !! مجددا تلاش نمایید");
@@ -144,27 +148,17 @@ export function ShowPoster() {
             </Typography>
           </CardHeader>
           <CardBody className="px-0 pt-0 pb-2 h-max">
-            <Formik
-              initialValues={initialValues}
-              enableReinitialize={true}
-              encType="multipart/form/data"
-              onSubmit={(values)=>{
-                editPoster(id,values);
-              }}
-              >
-            {({handleSubmit,handleChange,values,errors})=>(
             <form
               method="post"
-              onSubmit={handleSubmit}
+              onSubmit={editPoster}
               className="m-6 mb-4 flex flex-wrap"
             >
               <div className="w-7/12">
                 <label className="ml-3"> عنوان پوستر</label>
                 <input
-                  // onChange={(e) => setValues({...values,title: e.currentTarget.value})}
                   onChange={(e)=> setTitle(e.target.value)}
-                  value={values?.title}
-                  defaultValue={values.title}
+                  value={title}
+                  defaultValue={title}
                   type="text"
                   className="ml-3"
                   name="title"
@@ -195,21 +189,13 @@ export function ShowPoster() {
                 <CategoryDropdown
                   category={category_id}
                   setCategory={setCategory_id}
-                  selected_id={posterData?.id}
+                  selected_id={posterData?.category_id}
                 />
               </div>
               <div className="col-span-2 mt-4 w-6/12">
                 <Button type="submit">ذخیره</Button>
               </div>
-              {
-                errors.name &&(
-                  <div style={{color:'red'}}>{errors.name}</div>
-                )
-              } 
-
               </form>
-      )}
-            </Formik>
           </CardBody>
         </Card>
       )}

@@ -45,7 +45,7 @@ const CategoryDropdown = ({ category, setCategory, selected_id = null }) => {
   return (
     <div className="relative h-10 w-full min-w-[200px]">
       <Select
-        name="field_id"
+        name="categoty_id"
         isSearchable={true}
         options={data?.data?.map((field) => ({
           value: field.id,

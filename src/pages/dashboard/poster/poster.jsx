@@ -114,7 +114,7 @@ function Poster() {
               <table className="w-full min-w-[640px] table-auto text-right">
                 <thead>
                   <tr>
-                    {["#", "عنوان", "تنظیمات", ].map((el) => (
+                    {["#", "عنوان","شماره دسته بندی" ,"تنظیمات", ].map((el) => (
                       <th
                         key={el}
                         className="place-items-center border-b 	 border-blue-gray-50 py-3 px-5 "
@@ -149,6 +149,15 @@ function Poster() {
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
                             {posters?.title}
+                          </Typography>
+                        </td>
+                        <td className={className}>
+                          <Typography className="text-xs font-semibold text-blue-gray-600">
+                            {
+                            `${posters?.category_id}
+                            ${console.log(poster.category_is)}`
+                            }
+
                           </Typography>
                         </td>
                         <td className={className}>

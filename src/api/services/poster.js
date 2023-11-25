@@ -1,19 +1,14 @@
 import { useQuery } from "react-query";
 import apiClient from "../apiClient"; 
 
-;
 
 const auth_header_files = {
   "Content-Type": "multipart/form-data",
   "Accept": "application/json",
-  "Access-Control-Request-Method": "POST",
-  "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 const auth_header = {
   "Content-Type": "multipart/form-data",
   "Accept": "application/json",
-  "Access-Control-Request-Method": "GET",
-  "Access-Control-Request-Headers": "Content-Type, Accept",
 };
 
 export const getPoster = async () => {
@@ -29,7 +24,6 @@ export const getPoster = async () => {
 
 export const createPoster = (values, userToken) => {
   auth_header_files.Authorization = `Bearer ${userToken}`;
-  // auth_header.Authorization = `Bearer ${userToken}`;
 
   const response = apiClient
     .post(

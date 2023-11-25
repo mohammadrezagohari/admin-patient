@@ -72,7 +72,7 @@ export function CreatePoster() {
           if (response?.success == false) {
             toast(
               `${
-                response?.data?.poster != undefined
+                response?.data?.poster != undefined 
                    ? response?.data?.poster
                     : ""
               }\n
@@ -177,6 +177,9 @@ export function CreatePoster() {
                 <CategoryDropdown
                   category={category_id}
                   setCategory={setCategory_id}
+                  onChange={(event) =>
+                    console.log("result event", event.target.value)
+                  }
                 />
               </div>
               <div className="col-span-2 mt-4 w-6/12">

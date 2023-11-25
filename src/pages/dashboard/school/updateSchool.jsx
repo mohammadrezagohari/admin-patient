@@ -38,7 +38,7 @@ export function UpdateSchool() {
   };
   useEffect(() => {
     showInfoSchool(id);
-  }, []);
+  }, []); 
 
   const inputStyle = {
     border: "1px solid gray",
@@ -61,7 +61,7 @@ export function UpdateSchool() {
           toast.success("تغییرات با موفقیت انجام گرفت");
         }
         console.log(response.data.message);
-        // navigate("/dashboard/schools");
+        navigate("/dashboard/poster");
       })
       .catch(function (error) {
         toast.error("خطا !! مجددا تلاش نمایید");

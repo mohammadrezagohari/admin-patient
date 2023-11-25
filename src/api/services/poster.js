@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import apiClient from "../apiClient";
+import apiClient from "../apiClient"; 
 
 ;
 
@@ -169,4 +169,4 @@ export const deletePoster = async (id, userToken) => {
 //   .then(response => response.text())
 //   .then(result => console.log(result))
 //   .catch(error => console.log('error', error));
-// }
+// } 

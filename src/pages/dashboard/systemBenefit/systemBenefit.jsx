@@ -64,7 +64,7 @@ function SystemBenefit() {
       .then(function (response) {
         if (response.status) {
           toast.success("حذف با موفقیت انجام شد !");
-          setSysBenefit(sysBenefit.filter((benefit) => benefit.id !== id));
+          setBenefits(benefits.filter((benefit) => benefit.id !== id));
         } else {
           toast.error("خطا !! مجددا تلاش نمایید");
         }

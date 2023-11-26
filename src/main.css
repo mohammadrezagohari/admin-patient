@@ -16,3 +16,20 @@ h6 {
 th{
     text-align: center;
 }
+body {
+    direction: rtl;
+}
+
+tr td.py-3.px-5,
+tr td.py-3.px-5 div {
+    text-align: center;
+    justify-content: center;
+}
+
+.br0 {
+    border-radius: 0 !important;
+}
+
+.psss {
+    height: 100px;
+}

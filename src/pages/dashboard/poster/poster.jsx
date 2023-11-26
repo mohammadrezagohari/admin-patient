@@ -153,10 +153,7 @@ function Poster() {
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {
-                            `${posters?.category_id}
-                            ${console.log(poster.category_is)}`
-                            }
+                            {posters?.category?.name}
 
                           </Typography>
                         </td>

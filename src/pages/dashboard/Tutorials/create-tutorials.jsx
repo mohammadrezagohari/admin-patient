@@ -15,7 +15,15 @@ import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
 import { createTutorials } from "@/api/services/tutorial";
 import CategoryDropdown from "@/components/category-dropdown/category-dropdown";
-import { Editor } from "@tinymce/tinymce-react";
+// import { Editor } from "@tinymce/tinymce-react";
+// import {  CKEditorContext } from "@ckeditor/ckeditor5-react";
+// import CKEditor from '@ckeditor/ckeditor5-react';
+// import { ClassicEditor } from "@ckeditor/ckeditor5-editor-classic";
+// import { Context } from "@ckeditor/ckeditor5-core";
+// import { Bold, Italic } from "@ckeditor/ckeditor5-basic-styles";
+// import { Essentials } from "@ckeditor/ckeditor5-essentials";
+// import { Paragraph } from "@ckeditor/ckeditor5-paragraph";
+import CKEditorText from "@/components/base/ckeditor/ckeditor";
 
 export function CreateTutorialPage() {
   const { userToken } = useContext(AuthContext);
@@ -111,13 +119,6 @@ export function CreateTutorialPage() {
       setTimeout(() => {
         setLoading(false);
       }, 3000);
-
-      setTimeout(() => {
-        const boxes = document.getElementsByClassName(
-          "tox-statusbar__branding"
-        );
-        boxes[0].remove();
-      }, 5000);
     }
   }, []);
   return (
@@ -157,6 +158,7 @@ export function CreateTutorialPage() {
               onSubmit={storeTutorial}
               className="m-6 mb-4 flex flex-wrap"
             >
+              {/* <CKEditorContext context={Context}> */}
               <div className="w-7/12">
                 <label className="ml-3">دسته بندی</label>
                 <CategoryDropdown
@@ -177,7 +179,6 @@ export function CreateTutorialPage() {
                 />
               </div>
 
-
               <div className="w-7/12">
                 <label className="ml-3"></label>
                 <Input
@@ -191,7 +192,32 @@ export function CreateTutorialPage() {
               </div>
               <div className="my-3 w-7/12">
                 <label className="ml-3">توضیحات</label>
-                <Editor
+                <CKEditorText
+                  id="first_context"
+                  setContext={setFirstContext}
+                  context={firstContext}
+                />
+                {/* 
+                  <CKEditor
+                    editor={ClassicEditor}
+                    data="<p>Hello from CKEditor&nbsp;5!</p>"
+                    onReady={(editor) => {
+                      // You can store the "editor" and use when it is needed.
+                      console.log("Editor is ready to use!", editor);
+                    }}
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      console.log({ event, editor, data });
+                    }}
+                    onBlur={(event, editor) => {
+                      console.log("Blur.", editor);
+                    }}
+                    onFocus={(event, editor) => {
+                      console.log("Focus.", editor);
+                    }}
+                  /> */}
+
+                {/* <Editor
                   apiKey="gl63rdyllvfa1swq1l7dd9hvyw785dci9mmmyf2eqchka051"
                   onInit={(evt, editor) => (editorRef.current = editor)}
                   initialValue=""
@@ -231,7 +257,7 @@ export function CreateTutorialPage() {
                     content_style:
                       "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                   }}
-                />
+                /> */}
               </div>
 
               <div className="w-7/12">
@@ -248,47 +274,64 @@ export function CreateTutorialPage() {
 
               <div className="my-3 w-7/12">
                 <label className="ml-3">توضیحات</label>
-                <Editor
-                  apiKey="gl63rdyllvfa1swq1l7dd9hvyw785dci9mmmyf2eqchka051"
-                  onInit={(evt, editor) => (editorRef.current = editor)}
-                  initialValue=""
-                  name="second_context"
-                  id="editor2"
-                  onEditorChange={(content, editor) =>
-                    setSecondContext(editor.getContent())
-                  }
-                  init={{
-                    height: 250,
-                    menubar: false,
-                    plugins: [
-                      "advlist",
-                      "autolink",
-                      "lists",
-                      "link",
-                      "image",
-                      "charmap",
-                      "preview",
-                      "anchor",
-                      "searchreplace",
-                      "visualblocks",
-                      "code",
-                      "fullscreen",
-                      "insertdatetime",
-                      "media",
-                      "table",
-                      "code",
-                      //   "help",
-                      "wordcount",
-                    ],
-                    toolbar:
-                      "undo redo | blocks | " +
-                      "bold italic forecolor | alignleft aligncenter " +
-                      "alignright alignjustify | bullist numlist outdent indent | " +
-                      "removeformat ",
-                    content_style:
-                      "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                  }}
+                <CKEditorText
+                  id="second_context"
+                  setContext={setSecondContext}
+                  context={secondContext}
                 />
+                {/* <CKEditor
+                        editor={ ClassicEditor }
+                        config={ {
+                            plugins: [ Paragraph, Bold, Italic, Essentials ],
+                            toolbar: [ 'bold', 'italic' ]
+                        } }
+                        data="<p>Hello from the second editor working with the context!</p>"
+                        onReady={ editor => {
+                            // You can store the "editor" and use when it is needed.
+                            console.log( 'Editor2 is ready to use!', editor );
+                        } }
+                    /> */}
+                {/* <Editor
+                    apiKey="gl63rdyllvfa1swq1l7dd9hvyw785dci9mmmyf2eqchka051"
+                    onInit={(evt, editor) => (editorRef.current = editor)}
+                    initialValue=""
+                    name="second_context"
+                    id="editor2"
+                    onEditorChange={(content, editor) =>
+                      setSecondContext(editor.getContent())
+                    }
+                    init={{
+                      height: 250,
+                      menubar: false,
+                      plugins: [
+                        "advlist",
+                        "autolink",
+                        "lists",
+                        "link",
+                        "image",
+                        "charmap",
+                        "preview",
+                        "anchor",
+                        "searchreplace",
+                        "visualblocks",
+                        "code",
+                        "fullscreen",
+                        "insertdatetime",
+                        "media",
+                        "table",
+                        "code",
+                        //   "help",
+                        "wordcount",
+                      ],
+                      toolbar:
+                        "undo redo | blocks | " +
+                        "bold italic forecolor | alignleft aligncenter " +
+                        "alignright alignjustify | bullist numlist outdent indent | " +
+                        "removeformat ",
+                      content_style:
+                        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                    }}
+                  /> */}
               </div>
 
               <div className="mt-4 w-7/12">
@@ -313,6 +356,7 @@ export function CreateTutorialPage() {
               <div className="col-span-2 mt-4 w-6/12">
                 <Button type="submit">ذخیره</Button>
               </div>
+              {/* </CKEditorContext> */}
             </form>
           </CardBody>
         </Card>

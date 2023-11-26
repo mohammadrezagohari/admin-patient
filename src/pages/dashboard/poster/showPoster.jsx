@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "@/gard/context/AuthContext";
-import { updatePoster,showPoster } from "@/api/services/poster";
+import { updatePoster, showPoster } from "@/api/services/poster";
 import CategoryDropdown from "@/components/category-dropdown/category-dropdown";
 import { Formik } from "formik";
 import { object } from "prop-types";
@@ -23,10 +23,10 @@ export function ShowPoster() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
-  const [poster ,setPoster] = useState(null);
-  const [title, setTitle] = useState(null); 
-  const [posterData ,setPosterData] = useState(null);
-  const [category_id, setCategory_id] = useState(null); 
+  const [poster, setPoster] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [posterData, setPosterData] = useState(null);
+  const [category_id, setCategory_id] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
   // const [values,setValues] = useState({
@@ -35,14 +35,11 @@ export function ShowPoster() {
   //   category_id:'',
   // })
 
-
   // const initialValues={
   //   poster:poster,
   //   title:title,
   //   category_id:category_id,
   // }
-
-
 
   const inputStyle = {
     border: "1px solid gray",
@@ -60,7 +57,6 @@ export function ShowPoster() {
     borderRadius: "8px",
   };
 
-
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     // setIcon(file)
@@ -74,14 +70,15 @@ export function ShowPoster() {
   };
 
   const showPosters = async (id) => {
-    const showResult = await showPoster(id,userToken)
+    const showResult = await showPoster(id, userToken)
       .then(function (response) {
         setPosterData(response?.data);
-        setTitle(response.data.title);
-        setPoster(response.data.poster);
-        setCategory_id(response.data.category_id);
+        setTitle(response?.data?.title);
+        setPoster(response?.data?.poster);
+        setCategory_id(response?.data?.category?.id);
         // setValues({...values,title:response.data?.title,poster:response.data?.poster,category_id:response.data?.category_id})
         console.log(response?.data);
+        setLoading(false);
       })
       .catch(function (error) {
         console.log(error.message);
@@ -90,9 +87,9 @@ export function ShowPoster() {
   };
   useEffect(() => {
     showPosters(id);
-  }, []); 
+  }, []);
 
-  const editPoster= async (id, initialValues) => {
+  const editPoster = async (id, initialValues) => {
     const editResult = await updatePoster(id, initialValues, userToken)
       .then(function (response) {
         console.log(initialValues);
@@ -109,12 +106,11 @@ export function ShowPoster() {
     return editResult;
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
-
+  //   useEffect(() => {
+  //     setTimeout(() => {
+  //       setLoading(false);
+  //     }, 3000);
+  //   }, []);
 
   return (
     <>
@@ -134,11 +130,7 @@ export function ShowPoster() {
       ) : (
         <Card>
           <div className="py-5">
-            <Link
-              to={`/dashboard/poster`}
-              className="mr-3"
-              style={linkStyle}
-            >
+            <Link to={`/dashboard/poster`} className="mr-3" style={linkStyle}>
               بازگشت
             </Link>
           </div>
@@ -147,7 +139,7 @@ export function ShowPoster() {
               ویرایش پوستر جدید
             </Typography>
           </CardHeader>
-          <CardBody className="px-0 pt-0 pb-2 h-max">
+          <CardBody className="h-max px-0 pt-0 pb-2">
             <form
               method="post"
               onSubmit={editPoster}
@@ -156,7 +148,7 @@ export function ShowPoster() {
               <div className="w-7/12">
                 <label className="ml-3"> عنوان پوستر</label>
                 <input
-                  onChange={(e)=> setTitle(e.target.value)}
+                  onChange={(e) => setTitle(e.target.value)}
                   value={title}
                   defaultValue={title}
                   type="text"
@@ -165,7 +157,7 @@ export function ShowPoster() {
                   style={inputStyle}
                 />
               </div>
-              <div className="w-7/12 mt-4">
+              <div className="mt-4 w-7/12">
                 <label className="ml-3 block">فایل پوستر:</label>
                 <div className="flex items-center gap-3">
                   <input
@@ -186,23 +178,22 @@ export function ShowPoster() {
               </div>
               <div className="w-7/12">
                 <label className="ml-3">دسته بندی</label>
+                {console.log(", category", category_id)}
                 <CategoryDropdown
                   category={category_id}
                   setCategory={setCategory_id}
-                  selected_id={posterData?.category_id}
+                  selected_id={category_id}
                 />
               </div>
               <div className="col-span-2 mt-4 w-6/12">
                 <Button type="submit">ذخیره</Button>
               </div>
-              </form>
+            </form>
           </CardBody>
         </Card>
       )}
     </>
   );
 }
-
-
 
 export default ShowPoster;

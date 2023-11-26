@@ -112,14 +112,14 @@ function App() {
               path="/dashboard/province/:province_id/city/show/:city_id"
               element={<ShowCity />}
             /> */}
-            {/* <Route
-              path="/dashboard/tutorials/create"
-              element={<CreateTutorialPage />}
-            />             */}
             <Route
               path="/dashboard/tutorials/create"
+              element={<CreateTutorialPage />}
+            />            
+            {/* <Route
+              path="/dashboard/tutorials/create"
               element={<CreateTutorialsWizard />}
-            />
+            /> */}
             <Route path="/dashboard" element={<Home />} />
 
             <Route path="/dashboard/poster" element={<Poster />} />
@@ -150,6 +150,7 @@ function App() {
 
           <Route path="/dashboard/notification" element={<Notif />} />
           <Route path="/dashboard/notification/create" element={<CreateNotif />} />
+          <Route path="/" element={<Home />} />
 
           </Routes>
         </Dashboard>
